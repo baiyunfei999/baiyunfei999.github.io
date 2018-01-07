@@ -1,11 +1,172 @@
-<?xml version="1.0" encoding="utf-8"?>
-<search> 
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
+  <title>Linux系统调优 | Hexo</title>
+  <meta name="description" content="A geeker blog." />
+  <meta name="keywords" content="hexo,theme,icer,ggice" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="linux系统调优  进程调度  123456789101112131415161718os:硬件抽象，虚拟计算机system call---操作系统输出cpu：虚拟化，基于时序进行分段运行的，消耗时间片（time slice），某些进程优先级---打标签调度器：也是程序---内核中的进程调度子系统。调度器中的一种 CFS调度器调度器：Big O 算法O（1）从进程中选择一个进程所需要的时长时恒定">
+<meta name="keywords" content="Linux系统调优">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux系统调优">
+<meta property="og:url" content="http://yoursite.com/2018/01/07/LINUX调优/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="linux系统调优  进程调度  123456789101112131415161718os:硬件抽象，虚拟计算机system call---操作系统输出cpu：虚拟化，基于时序进行分段运行的，消耗时间片（time slice），某些进程优先级---打标签调度器：也是程序---内核中的进程调度子系统。调度器中的一种 CFS调度器调度器：Big O 算法O（1）从进程中选择一个进程所需要的时长时恒定">
+<meta property="og:updated_time" content="2018-01-07T11:17:02.228Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux系统调优">
+<meta name="twitter:description" content="linux系统调优  进程调度  123456789101112131415161718os:硬件抽象，虚拟计算机system call---操作系统输出cpu：虚拟化，基于时序进行分段运行的，消耗时间片（time slice），某些进程优先级---打标签调度器：也是程序---内核中的进程调度子系统。调度器中的一种 CFS调度器调度器：Big O 算法O（1）从进程中选择一个进程所需要的时长时恒定">
+  
+  
+  
+  <link rel='stylesheet' href='//cdnjs.xyz/libs/nprogress/0.2.0/nprogress.css'/>
+  <link rel="stylesheet" href="//cdnjs.xyz/libs/highlight/9.12.0/styles/github-gist.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_405585_2mmfrz9pgd7h9f6r.css">
+  <script src='//cdnjs.xyz/libs/nprogress/0.2.0/nprogress.js'></script>
+  <!-- <script>try{Typekit.load({ async: false });}catch(e){}</script> -->
+  <link rel="stylesheet" href="/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-93986029-1', 'auto');
+  ga('send', 'pageview');
+  
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  
+  <script>NProgress.start();</script>
+  
+  <div id="site-wrapper">
     
-    <entry>
-      <title><![CDATA[Linux系统调优]]></title>
-      <url>/2018/01/07/LINUX%E8%B0%83%E4%BC%98/</url>
-      <content type="html"><![CDATA[<h3 id="linux系统调优"><a href="#linux系统调优" class="headerlink" title="linux系统调优"></a>linux系统调优</h3><hr>
+    <header class="header">
+  <div class="header-wrapper">
+    <a href="/">
+      <img src="/image/logo.jpg" class="logo"/>
+      <!-- <span class="site-desc">
+        
+      </span> -->
+    </a>
+    <div class="social-wrapper">
+      
+        
+          <a href="https://twitter.com/iggice" class="social twitter" target="_blank" rel="external">
+            <span class="iconfont icon-twitter"></span>
+          </a>
+          
+          <a href="https://github.com/ggice" class="social github" target="_blank" rel="external">
+            <span class="iconfont icon-github"></span>
+          </a>
+          
+          <a href="http://ggice.tumblr.com/" class="social tumblr" target="_blank" rel="external">
+            <span class="iconfont icon-tumblr"></span>
+          </a>
+          
+          <a href="https://dribbble.com/ggice" class="social dribbble" target="_blank" rel="external">
+            <span class="iconfont icon-dribbble"></span>
+          </a>
+          
+          <a href="mailto:i@ice.gs" class="social email" target="_blank" rel="external">
+            <span class="iconfont icon-email"></span>
+          </a>
+          
+          <a href="/atom.xml" class="social rss" target="_blank" rel="external">
+            <span class="iconfont icon-rss"></span>
+          </a>
+          
+      
+      
+      <a href="#" class="social search-do" target="_blank" rel="external">
+        <span class="iconfont icon-search"></span>
+      </a>
+            
+      <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="http://yoursite.com"></form> -->
+    </div>
+    <div class="search-wrap">
+      <div class="search-content animated fade-in">
+        <p class="search-input">
+          <span class="iconfont icon-search"></span>
+          <input tabindex="1">
+        </p>
+        <ul class="search-result">
+            
+              <div class="tags">
+                   <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li></ul>
+                </div>
+            
+        </ul>
+      </div>
+    </div>
+    <nav class="header-nav">
+      
+        <a href="/" class="archives">
+          home
+        </a>
+        
+        <a href="/tags/web-development/" class="archives">
+          web development
+        </a>
+        
+        <a href="/tags/soft/" class="archives">
+          soft
+        </a>
+        
+        <a href="/tags/os/" class="archives">
+          os
+        </a>
+        
+        <a href="/archives" class="archives">
+          archives
+        </a>
+        
+        <a href="/about/" class="archives">
+          About
+        </a>
+        
+    </nav>
+  </div>
+</header>
+    <script>NProgress.set(0.4);</script>
+    
+    <main id="main" role="main">
+      <article id="post-LINUX调优"
+  class="post article white-box article-type-post animated fade-in-top"
+  itemscope itemprop="blogPost">
+  <section class="post-header article-header">
+    <h2 class="title">
+        <a href="/2018/01/07/LINUX调优/">
+          Linux系统调优
+        </a>
+      </h2>
+      <div class="subtitle">
+          <time>
+            Jan 7, 2018
+          </time>
+          
+            <span class="tags">
+                <span class="iconfont icon-tag"></span>
+                <a class="tag-link" href="/tags/Linux系统调优/">Linux系统调优</a>
+              </span>
+          
+      </div>
+  </section>
+  <section class="content">
+    <div class="article-entry" itemprop="articleBody">
+      <h3 id="linux系统调优"><a href="#linux系统调优" class="headerlink" title="linux系统调优"></a>linux系统调优</h3><hr>
 <ul>
 <li>进程调度</li>
 </ul>
@@ -38,73 +199,65 @@
  当内存耗尽时系统将消耗最大的进程kill掉。
 </code></pre> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 调整虚拟内存</span><br><span class="line">虚拟内存</span><br></pre></td></tr></table></figure>
 <p>```</p>
-]]></content>
-      
-        
-        <tags>
-            
-            <tag> Linux系统调优 </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[在github上搭建个人博客]]></title>
-      <url>/2018/01/07/%E5%9C%A8github%E4%B8%8A%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
-      <content type="html"><![CDATA[<h1 id="在github上搭建-个人博客"><a href="#在github上搭建-个人博客" class="headerlink" title="在github上搭建 个人博客"></a>在github上搭建 个人博客</h1><ul>
-<li>我的天啊  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我有一句吗卖批  不知当讲不当讲</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>There is a mmp in my hard , Do you have B number in your hard</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/user/bin/python</span><br><span class="line">print &quot;Hello, Your Mother is my Wife.&quot;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      
-        
-        <tags>
-            
-            <tag> github </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[xin]]></title>
-      <url>/2018/01/07/xin/</url>
-      <content type="html"><![CDATA[<p>这是一个测试页面</p>
-]]></content>
-      
-        
-        <tags>
-            
-            <tag> linux </tag>
-            
-            <tag> text </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Hello World]]></title>
-      <url>/2018/01/07/hello-world/</url>
-      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-      
-        
-    </entry>
-    
+
+    </div>
+  </section>
+
   
   
-</search>
+</article>
+      <script>NProgress.set(0.6);</script>
+    </main>
+    
+    <footer class="footer">
+  <div class="footer-wrap">
+    <div class="footer-link">
+      
+      <h3>LINKS</h3>
+      <p>
+        
+          <a href="http://1x0.xyz/" target="_blank">Tian1x0</a>
+        
+          <a href="http://www.royalmice.com/hankzhou/" target="_blank">Hankzhou</a>
+        
+          <a href="http://sjydh.me/" target="_blank">设计有点货</a>
+        
+          <a href="https://developers.google.com/web/fundamentals/" target="_blank">Web fundamentals</a>
+        
+      </p>
+      
+    </div>
+    <div class="footer-tags">
+      
+        <h3>TAGS</h3>        
+        <div class="tags">
+             <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li></ul>
+          </div>
+      
+    </div>
+    <div class="footer-info">
+        <div>Theme <span class="codename"><a href="https://github.com/GGICE/hexo-icer" target="_blank">icer</a></span> designed & coded by <a href="https://ice.gs/" target="_blank">GGICE</a></div>
+        <div>Copyright &copy; 2018, <a href="/">Hexo</a>  . All rights reserved .</div>
+      </div>
+  </div>
+</footer>
+
+
+    <script>NProgress.set(0.8);</script>
+    
+  </div>
+
+  <script src="//cdnjs.xyz/libs/highlight/9.12.0/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/js/main.js"></script>
+
+<!-- Commit -->
+
+
+
+  <script>
+    NProgress.done();
+  </script>
+  
+</body>
+</html>
