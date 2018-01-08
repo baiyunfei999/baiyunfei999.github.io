@@ -234,17 +234,17 @@ a {
 .content h4 {
   font-size: 16px; }
   .content h4::before {
-    content: "####"; }
+    /**content: "####";**/ }
 
 .content h5 {
   font-size: 15px; }
   .content h5::before {
-    content: "#####"; }
+    /**content: "#####";**/ }
 
 .content h6 {
   font-size: 14px; }
   .content h6::before {
-    content: "######"; }
+    /**content: "######";**/ }
 
 .content hr {
   border: 0;
