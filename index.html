@@ -169,11 +169,9 @@
       </div>
   </section>
   <section class="content">
-    更改roor管理员UID为非零时，centos6、centos7无法正常启动。重启centos6、centos7时系统运行不一样。
-一、Centos6
-1、centos6用户root地址更改为2000，ctrl+x/y进行保存。
-
-2、更改...
+    1、准备工作将/dev/sda磁盘的MBR分区备份到、root目录下mbr文件   中，备份centos6整个虚拟机；
+[root@centos6 ~]# dd if=/dev/sda of=mbr bs=1 count=512;
+[roo...
 
     <div class="readmore">
       <a href="/2018/01/08/修改MBR分区/" class="iconfont icon-more">Read More</a>
