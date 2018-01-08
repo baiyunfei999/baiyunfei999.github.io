@@ -3,6 +3,96 @@
   
     
     <entry>
+      <title><![CDATA[逻辑卷及扩展逻辑卷]]></title>
+      <url>/2018/01/08/%E9%80%BB%E8%BE%91%E5%8D%B7%E5%8F%8A%E6%89%A9%E5%B1%95%E9%80%BB%E8%BE%91%E5%8D%B7/</url>
+      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">准备好磁盘空间，添加/dev/sda、/dev/sde 、 /dev/sdf，将磁盘分区，/dev/sda7、/dev/sde1，留一个磁盘、/dev/sdf;</span><br></pre></td></tr></table></figure>
+<p>######创建逻辑卷</p>
+<pre><code>1、创建物理卷
+# pvcreate /dev/sd{a7,e1}
+#pvs
+#pvdisplay
+2、创建卷组
+#vgcreate  -s 16M vg0 /dev/sd{a7,e1}
+#vgs
+#vgdisplay
+3、创建逻辑卷
+#lvcreate -n lv0 -l  100% vg0
+#lvs
+#lvdisplay
+#ll /dev/vg0/lv0
+#ll /dev/mapper/vg0-lv0
+4、配置文件
+#vim /etc/fstab
+5、创建文件夹
+#mkdir /mnt/lv0
+6、挂载逻辑卷
+#mount /dev/vg0/lg0 /mnt/lv0
+7、查看挂载点，是否已经挂载
+#df -h
+#lvdisplay
+8、拷贝文件到逻辑卷上
+#cp /etc/fstab /mnt/lv0
+#cp /var/log/messages /mnt/lv0
+9、查看文件
+#cd /mnt/lv0
+#cat /fstab
+10、测速
+dd if=/dev/zero of=/mnt/lv0/bigfile bs=1M count=1024
+dd if=/mnt/lv0/bingfile of=/dev/null 
+创建完成；
+</code></pre><p>######扩展逻辑卷</p>
+<pre><code>1、扩展物理卷
+#pvcreate /dev/sdf
+#pvs
+#pvdisplay
+2、添加卷组
+#vgcreate vg0 /dev/sdf
+#vgdisplay
+#vgs
+#df -h
+3、扩展逻辑卷
+#lvextent -l +1000 /dev/vg0/lv0
+#lvdisplay
+#df -h
+4、同步文件系统
+#resize2fs /dev/vg0/lv0
+#df -h
+#lvdisplay
+5、查看文件系统及逻辑卷大小,将剩余的空间全部使用
+#lvextend -r -l +100%free /dev/vg0/lv0
+#df -h
+#lvdisplay
+</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/6132998-0077cbef58b68fac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="添加sde,sdf磁盘分区.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-1e4f1b97c35b0e13.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建物理磁盘，查看信息.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-7cdad316b49a5df6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建卷组，查看信息.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-162be295c56ff373.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建逻辑卷，查看信息.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-b9446ed0ef80a6c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="路径.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-3b2ecef5df59d047.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="两个软连接.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-9c2edebc0ec1ae1d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建文件系统.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-a9d8925d3ff17a6a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看文件系统.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-85d0c552a3c4bae8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="添加配置文件.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-de46760ba447bd1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建文件夹，挂载，查看.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-ca52689288706c3d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="测速.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-610bdde12c6dec86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="扩展逻辑分区1.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-6b6a477ef643da0d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看详情2.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-598c442b61b2cd21.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="添加到逻辑卷3.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-d904016a7b7ff38d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看逻辑卷磁盘空间.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-20402eeb54b7e2f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="扩展逻辑卷查看是否同步.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-f732a4bb9c511571.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="同步文件系统.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-3081b9aade12a93f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看 逻辑卷剩余空间.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-471b192407b008fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="使用逻辑卷剩余空间，扩展完成.png"></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> 逻辑卷 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[vsftpd]]></title>
       <url>/2018/01/08/vsftpd/</url>
       <content type="html"><![CDATA[<h6 id="Centos7-3安装Vsftpd服务；"><a href="#Centos7-3安装Vsftpd服务；" class="headerlink" title="Centos7.3安装Vsftpd服务；"></a>Centos7.3安装Vsftpd服务；</h6><pre><code>1、准备好yum源路径、检查光盘是否挂载及网络状态；
