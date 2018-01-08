@@ -3,6 +3,64 @@
   
     
     <entry>
+      <title><![CDATA[vsftpd]]></title>
+      <url>/2018/01/08/vsftpd/</url>
+      <content type="html"><![CDATA[<h6 id="Centos7-3安装Vsftpd服务；"><a href="#Centos7-3安装Vsftpd服务；" class="headerlink" title="Centos7.3安装Vsftpd服务；"></a>Centos7.3安装Vsftpd服务；</h6><pre><code>1、准备好yum源路径、检查光盘是否挂载及网络状态；
+2、用rpm安装vsftpd服务程序包；
+3、查找启动vsftpd服务配置文件(vsftpd.service);
+4、查看vftpd网络端口是否开启；
+5、#systemctl start vsftpd.service启动vsftpd服务；
+6、查看vftpd网络端口是否开启；
+7、#systemctl enable vsftpd启动下次开启依然启动功能；
+8、#systemctl is-enabled vsftpd检查上一条命令是否生效；
+9、查看共享文件夹/var/ftp;
+10、#iptables -vnL查看防火墙是否开启状态；
+11、#systemctl stop firewalld.service关闭防火墙;
+12、#iptables -vnL查看防火墙是否开启状态；
+13、#systemctl disable firewalld.service下次启动虚拟机防火墙依然在关闭状态；
+14、#在/var/ftp/pub/目录下建一个ftp.txt文件；
+15、关闭防火前后进入ftp站点，查看是否能进入；
+16、配置yum原路径，挂在盆地光盘；
+17、将Centos7光盘拷贝到/var/ftp/pub/7/目录下；
+18、将Centos6光盘拷贝到/var/ftp/pub/6/目录下；
+19、访问ftp站点，是否成功；
+20、安装Vsftpd、完成；
+</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/6132998-6b8b2b1cea482c07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看光盘是否挂载"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-8aadd2e27d0b665c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="用rpm安装vsftpd文件包"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-bc643c93a3990de0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查找启动vsftpd服务配置文件"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-a9b4347ba4bf2eaa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看vftpd网络端口启动前、启动后，是否开启"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-7108769dbf011b47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="启动vsftpd服务"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-dd77697428eebccf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看vsftpd共享目录位置"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-a13dc2131a995069.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看防火墙状态，是否开启"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-883fec34f1fff53c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="停止防火墙服务及查看防火墙状态"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-da99e981dd9771fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="禁用防火墙"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-c657c3954a7d9f6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="在/var/ftp/pub/目录下创建一个ftp.txt文档"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-aa9f7e4476b6dd4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="网页窗口输入ftp://192.168.239.131，查看是否能进入ftp站点 "></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-eb57acf3128bd35f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="配置yum原路径"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-262c0ef677ccdeac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="将Centos7光盘拷贝到/var/ftp/pub/7/目录下"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-1448575102d90c2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="进入ftp查看"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-4826256023a0ba2f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="安装完成"></p>
+<h6 id="Centos6-9安装Vsftpd-跟上述类似；"><a href="#Centos6-9安装Vsftpd-跟上述类似；" class="headerlink" title="Centos6.9安装Vsftpd,跟上述类似；"></a>Centos6.9安装Vsftpd,跟上述类似；</h6><pre><code>/etc/rc.d/init.d/vsftpd 服务脚本名
+#netstat -ntl查看端口;
+/etc/rc.d/init.d/vsftpd启用vsftpd服务;
+#service vsftpd start启用vsftpd服务;
+#service iptables stop马上禁用防火墙;
+#chkconfig iptables off下次依然关闭防火墙;
+将/misc/cd/里的文件拷贝/var/ftp/pub/6..7;
+在六七的当前目录下，cp /misc/cd/repo....  .  -r;
+拷贝完后用yum repolist 命令查看包文件列表属性文件;
+</code></pre>]]></content>
+      
+        
+        <tags>
+            
+            <tag> 共享文件系统，vsftpd </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[修复MBR分区]]></title>
       <url>/2018/01/08/%E4%BF%AE%E6%94%B9MBR%E5%88%86%E5%8C%BA/</url>
       <content type="html"><![CDATA[<pre><code>1、准备工作将/dev/sda磁盘的MBR分区备份到、root目录下mbr文件   中，备份centos6整个虚拟机；

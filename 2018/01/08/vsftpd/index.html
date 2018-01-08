@@ -4,22 +4,39 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Hello World | Hexo</title>
+  <title>vsftpd | Hexo</title>
   <meta name="description" content="A geeker blog." />
   <meta name="keywords" content="hexo,theme,icer,ggice" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="Centos7.3安装Vsftpd服务；1、准备好yum源路径、检查光盘是否挂载及网络状态； 2、用rpm安装vsftpd服务程序包； 3、查找启动vsftpd服务配置文件(vsftpd.service); 4、查看vftpd网络端口是否开启； 5、#systemctl start vsftpd.service启动vsftpd服务； 6、查看vftpd网络端口是否开启； 7、#systemctl">
+<meta name="keywords" content="共享文件系统，vsftpd">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2018/01/07/hello-world/index.html">
+<meta property="og:title" content="vsftpd">
+<meta property="og:url" content="http://yoursite.com/2018/01/08/vsftpd/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2018-01-07T09:00:34.961Z">
+<meta property="og:description" content="Centos7.3安装Vsftpd服务；1、准备好yum源路径、检查光盘是否挂载及网络状态； 2、用rpm安装vsftpd服务程序包； 3、查找启动vsftpd服务配置文件(vsftpd.service); 4、查看vftpd网络端口是否开启； 5、#systemctl start vsftpd.service启动vsftpd服务； 6、查看vftpd网络端口是否开启； 7、#systemctl">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-6b8b2b1cea482c07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-8aadd2e27d0b665c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-bc643c93a3990de0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-a9b4347ba4bf2eaa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-7108769dbf011b47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-dd77697428eebccf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-a13dc2131a995069.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-883fec34f1fff53c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-da99e981dd9771fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-c657c3954a7d9f6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-aa9f7e4476b6dd4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-eb57acf3128bd35f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-262c0ef677ccdeac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-1448575102d90c2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-4826256023a0ba2f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-01-08T10:23:48.088Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="vsftpd">
+<meta name="twitter:description" content="Centos7.3安装Vsftpd服务；1、准备好yum源路径、检查光盘是否挂载及网络状态； 2、用rpm安装vsftpd服务程序包； 3、查找启动vsftpd服务配置文件(vsftpd.service); 4、查看vftpd网络端口是否开启； 5、#systemctl start vsftpd.service启动vsftpd服务； 6、查看vftpd网络端口是否开启； 7、#systemctl">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/6132998-6b8b2b1cea482c07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
   
   
@@ -142,34 +159,74 @@
     <script>NProgress.set(0.4);</script>
     
     <main id="main" role="main">
-      <article id="post-hello-world"
+      <article id="post-vsftpd"
   class="post article white-box article-type-post animated fade-in-top"
   itemscope itemprop="blogPost">
   <section class="post-header article-header">
     <h2 class="title">
-        <a href="/2018/01/07/hello-world/">
-          Hello World
+        <a href="/2018/01/08/vsftpd/">
+          vsftpd
         </a>
       </h2>
       <div class="subtitle">
           <time>
-            Jan 7, 2018
+            Jan 8, 2018
           </time>
+          
+            <span class="tags">
+                <span class="iconfont icon-tag"></span>
+                <a class="tag-link" href="/tags/共享文件系统，vsftpd/">共享文件系统，vsftpd</a>
+              </span>
           
       </div>
   </section>
   <section class="content">
     <div class="article-entry" itemprop="articleBody">
-      <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
+      <h6 id="Centos7-3安装Vsftpd服务；"><a href="#Centos7-3安装Vsftpd服务；" class="headerlink" title="Centos7.3安装Vsftpd服务；"></a>Centos7.3安装Vsftpd服务；</h6><pre><code>1、准备好yum源路径、检查光盘是否挂载及网络状态；
+2、用rpm安装vsftpd服务程序包；
+3、查找启动vsftpd服务配置文件(vsftpd.service);
+4、查看vftpd网络端口是否开启；
+5、#systemctl start vsftpd.service启动vsftpd服务；
+6、查看vftpd网络端口是否开启；
+7、#systemctl enable vsftpd启动下次开启依然启动功能；
+8、#systemctl is-enabled vsftpd检查上一条命令是否生效；
+9、查看共享文件夹/var/ftp;
+10、#iptables -vnL查看防火墙是否开启状态；
+11、#systemctl stop firewalld.service关闭防火墙;
+12、#iptables -vnL查看防火墙是否开启状态；
+13、#systemctl disable firewalld.service下次启动虚拟机防火墙依然在关闭状态；
+14、#在/var/ftp/pub/目录下建一个ftp.txt文件；
+15、关闭防火前后进入ftp站点，查看是否能进入；
+16、配置yum原路径，挂在盆地光盘；
+17、将Centos7光盘拷贝到/var/ftp/pub/7/目录下；
+18、将Centos6光盘拷贝到/var/ftp/pub/6/目录下；
+19、访问ftp站点，是否成功；
+20、安装Vsftpd、完成；
+</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/6132998-6b8b2b1cea482c07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看光盘是否挂载"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-8aadd2e27d0b665c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="用rpm安装vsftpd文件包"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-bc643c93a3990de0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查找启动vsftpd服务配置文件"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-a9b4347ba4bf2eaa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看vftpd网络端口启动前、启动后，是否开启"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-7108769dbf011b47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="启动vsftpd服务"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-dd77697428eebccf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看vsftpd共享目录位置"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-a13dc2131a995069.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看防火墙状态，是否开启"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-883fec34f1fff53c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="停止防火墙服务及查看防火墙状态"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-da99e981dd9771fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="禁用防火墙"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-c657c3954a7d9f6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="在/var/ftp/pub/目录下创建一个ftp.txt文档"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-aa9f7e4476b6dd4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="网页窗口输入ftp://192.168.239.131，查看是否能进入ftp站点 "></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-eb57acf3128bd35f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="配置yum原路径"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-262c0ef677ccdeac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="将Centos7光盘拷贝到/var/ftp/pub/7/目录下"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-1448575102d90c2d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="进入ftp查看"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-4826256023a0ba2f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="安装完成"></p>
+<h6 id="Centos6-9安装Vsftpd-跟上述类似；"><a href="#Centos6-9安装Vsftpd-跟上述类似；" class="headerlink" title="Centos6.9安装Vsftpd,跟上述类似；"></a>Centos6.9安装Vsftpd,跟上述类似；</h6><pre><code>/etc/rc.d/init.d/vsftpd 服务脚本名
+#netstat -ntl查看端口;
+/etc/rc.d/init.d/vsftpd启用vsftpd服务;
+#service vsftpd start启用vsftpd服务;
+#service iptables stop马上禁用防火墙;
+#chkconfig iptables off下次依然关闭防火墙;
+将/misc/cd/里的文件拷贝/var/ftp/pub/6..7;
+在六七的当前目录下，cp /misc/cd/repo....  .  -r;
+拷贝完后用yum repolist 命令查看包文件列表属性文件;
+</code></pre>
     </div>
   </section>
 
