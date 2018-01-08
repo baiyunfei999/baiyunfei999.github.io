@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>Centos6半自动化安装.md | Hexo</title>
+  <meta name="description" content="A geeker blog." />
+  <meta name="keywords" content="hexo,theme,icer,ggice" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1234567891、安装kickstart包；2、启用kicstart生成应答文件（可以参考anaconda-ks.cfg）；3、准备http://172.16.0.1/centos/6网址,网络光盘；4、安装vsftpd服务，将kickstart生成的应答文件放置在ftp共享文件夹下；5、开启主机，网卡配置桥接模式；6、进入启动选项菜单，按ESC键，输入并调用应答文件；#linux ks=ft">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos6半自动化安装.md">
+<meta property="og:url" content="http://yoursite.com/2018/01/08/Centos6半自动化安装/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1234567891、安装kickstart包；2、启用kicstart生成应答文件（可以参考anaconda-ks.cfg）；3、准备http://172.16.0.1/centos/6网址,网络光盘；4、安装vsftpd服务，将kickstart生成的应答文件放置在ftp共享文件夹下；5、开启主机，网卡配置桥接模式；6、进入启动选项菜单，按ESC键，输入并调用应答文件；#linux ks=ft">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-a96c8470c494dcf5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-dd68689cc023a580.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-00debcc6c9a0dcbc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-48e49e6602866a74.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-80420ca418b23f5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-54904ad82780789d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-5da7941cca5c2cb9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-1a97754e93f74c64.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-ebec5b30927a5666.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-8106c9f4c3f30f66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-71dc7bc4b9d22ff8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-0cd01774824f65cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-795d8aaf50cffd53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-6c41b26dc63aa77f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-1bcb2f8e7960677b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-dad77b25e20e3491.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-4ff2fd83ccd3cd11.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-98d771faef3275d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-4f170db6874c1136.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-d75842ca9e80d15c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-48b331f2c6c49bf0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-eae3e264a35af500.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-0f607581b7acf6e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-f5cbbc833729c93d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-158043c240ac55bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-01-08T08:27:55.168Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Centos6半自动化安装.md">
+<meta name="twitter:description" content="1234567891、安装kickstart包；2、启用kicstart生成应答文件（可以参考anaconda-ks.cfg）；3、准备http://172.16.0.1/centos/6网址,网络光盘；4、安装vsftpd服务，将kickstart生成的应答文件放置在ftp共享文件夹下；5、开启主机，网卡配置桥接模式；6、进入启动选项菜单，按ESC键，输入并调用应答文件；#linux ks=ft">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/6132998-a96c8470c494dcf5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+  
+  <link rel='stylesheet' href='//cdnjs.xyz/libs/nprogress/0.2.0/nprogress.css'/>
+  <link rel="stylesheet" href="//cdnjs.xyz/libs/highlight/9.12.0/styles/github-gist.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_405585_2mmfrz9pgd7h9f6r.css">
+  <script src='//cdnjs.xyz/libs/nprogress/0.2.0/nprogress.js'></script>
+  <!-- <script>try{Typekit.load({ async: false });}catch(e){}</script> -->
+  <link rel="stylesheet" href="/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-93986029-1', 'auto');
+  ga('send', 'pageview');
+  
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  
+  <script>NProgress.start();</script>
+  
+  <div id="site-wrapper">
+    
+    <header class="header">
+  <div class="header-wrapper">
+    <a href="/">
+      <img src="/image/logo.jpg" class="logo"/>
+      <!-- <span class="site-desc">
+        
+      </span> -->
+    </a>
+    <div class="social-wrapper">
+      
+        
+          <a href="https://twitter.com/iggice" class="social twitter" target="_blank" rel="external">
+            <span class="iconfont icon-twitter"></span>
+          </a>
+          
+          <a href="https://github.com/ggice" class="social github" target="_blank" rel="external">
+            <span class="iconfont icon-github"></span>
+          </a>
+          
+          <a href="http://ggice.tumblr.com/" class="social tumblr" target="_blank" rel="external">
+            <span class="iconfont icon-tumblr"></span>
+          </a>
+          
+          <a href="https://dribbble.com/ggice" class="social dribbble" target="_blank" rel="external">
+            <span class="iconfont icon-dribbble"></span>
+          </a>
+          
+          <a href="mailto:i@ice.gs" class="social email" target="_blank" rel="external">
+            <span class="iconfont icon-email"></span>
+          </a>
+          
+          <a href="/atom.xml" class="social rss" target="_blank" rel="external">
+            <span class="iconfont icon-rss"></span>
+          </a>
+          
+      
+      
+      <a href="#" class="social search-do" target="_blank" rel="external">
+        <span class="iconfont icon-search"></span>
+      </a>
+            
+      <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="http://yoursite.com"></form> -->
+    </div>
+    <div class="search-wrap">
+      <div class="search-content animated fade-in">
+        <p class="search-input">
+          <span class="iconfont icon-search"></span>
+          <input tabindex="1">
+        </p>
+        <ul class="search-result">
+            
+              <div class="tags">
+                   <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li></ul>
+                </div>
+            
+        </ul>
+      </div>
+    </div>
+    <nav class="header-nav">
+      
+        <a href="/" class="archives">
+          home
+        </a>
+        
+        <a href="/tags/web-development/" class="archives">
+          web development
+        </a>
+        
+        <a href="/tags/soft/" class="archives">
+          soft
+        </a>
+        
+        <a href="/tags/os/" class="archives">
+          os
+        </a>
+        
+        <a href="/archives" class="archives">
+          archives
+        </a>
+        
+        <a href="/about/" class="archives">
+          About
+        </a>
+        
+    </nav>
+  </div>
+</header>
+    <script>NProgress.set(0.4);</script>
+    
+    <main id="main" role="main">
+      <article id="post-Centos6半自动化安装"
+  class="post article white-box article-type-post animated fade-in-top"
+  itemscope itemprop="blogPost">
+  <section class="post-header article-header">
+    <h2 class="title">
+        <a href="/2018/01/08/Centos6半自动化安装/">
+          Centos6半自动化安装.md
+        </a>
+      </h2>
+      <div class="subtitle">
+          <time>
+            Jan 8, 2018
+          </time>
+          
+      </div>
+  </section>
+  <section class="content">
+    <div class="article-entry" itemprop="articleBody">
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1、安装kickstart包；</span><br><span class="line">2、启用kicstart生成应答文件（可以参考anaconda-ks.cfg）；</span><br><span class="line">3、准备http://172.16.0.1/centos/6网址,网络光盘；</span><br><span class="line">4、安装vsftpd服务，将kickstart生成的应答文件放置在ftp共享文件夹下；</span><br><span class="line">5、开启主机，网卡配置桥接模式；</span><br><span class="line">6、进入启动选项菜单，按ESC键，输入并调用应答文件；</span><br><span class="line">#linux ks=ftp://172.16.250.134/pub/centos6.cfg</span><br><span class="line">7、回车运行，开始安装系统；</span><br><span class="line">8、进入系统选项界面，并回车开启安装完成的系统；</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">安装kickstart 包；</span><br><span class="line">#yum -y install kickstart</span><br><span class="line">在图形界面下才支持打开；</span><br><span class="line">#system-config-start</span><br></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-a96c8470c494dcf5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">网络安装；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-dd68689cc023a580.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">可以给grub设置密码，防止单用户修改密码；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-00debcc6c9a0dcbc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">磁盘分区；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-48e49e6602866a74.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">清除mpr,不清除的话，机器上有mbr，会停在那里不运行；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-80420ca418b23f5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">网络，自动获取ip；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-54904ad82780789d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">验证方法，一般不动，基于SHA512验证；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-5da7941cca5c2cb9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">防火墙，默认选择禁用SElinux；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-1a97754e93f74c64.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">选择界面，初始化选项；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-ebec5b30927a5666.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">选择安装包组；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-8106c9f4c3f30f66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">选择并写入脚本路径；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-71dc7bc4b9d22ff8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">编写脚本创建用户，yum源，设置密码；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-0cd01774824f65cc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">存盘退出（保存到家目录），并查看家目录确认一下；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-795d8aaf50cffd53.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">检查脚本格式；#ksvalidator  ks.cfg</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-6c41b26dc63aa77f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">将应答文件ks.cfg放到ftp上；</span><br><span class="line">将ks.cfg拷贝到/var/ftp/pub/目录下；</span><br><span class="line">检查是否安装ftp服务；</span><br><span class="line">#yum info vsftpd</span><br><span class="line">#rpm ql vsftpd</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-1bcb2f8e7960677b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">安装vsftp服务；</span><br><span class="line">#yum install vsftpd</span><br><span class="line">将文件拷贝到ftp共享目录下(/var/ftp/pub)；</span><br><span class="line">#cp ks.cfg /var/ftp/pub/</span><br><span class="line">启用vsftpd服务；</span><br><span class="line">#service vsftpd start</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-dad77b25e20e3491.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">查看防火墙是否在关闭状态；</span><br><span class="line">#iptables -nvL</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-4ff2fd83ccd3cd11.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">关闭防火墙；</span><br><span class="line">#service iptables stop</span><br><span class="line">#service iptebles status</span><br><span class="line">#service vsftp status</span><br><span class="line">查看共享文件；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-98d771faef3275d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">应答文件安装完成；</span><br><span class="line">调用linux应答文件启动主机；</span><br></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-4f170db6874c1136.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">点击光盘引导；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-d75842ca9e80d15c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">点击ESC键；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-48b331f2c6c49bf0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入调用应答文件；</span><br><span class="line">#linux ks=ftp://192.168.239.141/pub/centos6.cfg</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-eae3e264a35af500.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">主机使用桥接模式；</span><br><span class="line">使用网络光盘；http://172.16.0.1/centos/6</span><br><span class="line">仅主机模式下无法获取地址；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-0f607581b7acf6e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安装系统，已完成；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-f5cbbc833729c93d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">三秒之内按任意键，选择启动系统选项菜单；</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-158043c240ac55bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">启动成功；</span><br></pre></td></tr></table></figure></p>
+
+    </div>
+  </section>
+
+  
+  
+</article>
+      <script>NProgress.set(0.6);</script>
+    </main>
+    
+    <footer class="footer">
+  <div class="footer-wrap">
+    <div class="footer-link">
+      
+      <h3>LINKS</h3>
+      <p>
+        
+          <a href="http://1x0.xyz/" target="_blank">Tian1x0</a>
+        
+          <a href="http://www.royalmice.com/hankzhou/" target="_blank">Hankzhou</a>
+        
+          <a href="http://sjydh.me/" target="_blank">设计有点货</a>
+        
+          <a href="https://developers.google.com/web/fundamentals/" target="_blank">Web fundamentals</a>
+        
+      </p>
+      
+    </div>
+    <div class="footer-tags">
+      
+        <h3>TAGS</h3>        
+        <div class="tags">
+             <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li></ul>
+          </div>
+      
+    </div>
+    <div class="footer-info">
+        <div>Theme <span class="codename"><a href="https://github.com/GGICE/hexo-icer" target="_blank">icer</a></span> designed & coded by <a href="https://ice.gs/" target="_blank">GGICE</a></div>
+        <div>Copyright &copy; 2018, <a href="/">Hexo</a>  . All rights reserved .</div>
+      </div>
+  </div>
+</footer>
+
+
+    <script>NProgress.set(0.8);</script>
+    
+  </div>
+
+  <script src="//cdnjs.xyz/libs/highlight/9.12.0/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/js/main.js"></script>
+
+<!-- Commit -->
+
+
+
+  <script>
+    NProgress.done();
+  </script>
+  
+</body>
+</html>
