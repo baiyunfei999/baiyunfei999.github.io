@@ -218,33 +218,22 @@ a {
 .content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
   font-size: 25px; }
   .content h1::before, .content h2::before, .content h3::before, .content h4::before, .content h5::before, .content h6::before {
-    margin-right: 10px;
-    content: "#"; }
+    margin-right: 10px; }
 
 .content h2 {
   font-size: 21px; }
-  .content h2::before {
-    content: "##"; }
 
 .content h3 {
   font-size: 17px; }
-  .content h3::before {
-    content: "###"; }
 
 .content h4 {
   font-size: 16px; }
-  .content h4::before {
-    /**content: "####";**/ }
 
 .content h5 {
   font-size: 15px; }
-  .content h5::before {
-    /**content: "#####";**/ }
 
 .content h6 {
   font-size: 14px; }
-  .content h6::before {
-    /**content: "######";**/ }
 
 .content hr {
   border: 0;
