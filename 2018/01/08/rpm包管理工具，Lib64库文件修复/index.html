@@ -4,15 +4,16 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Hexo</title>
+  <title>rpm包管理工具，Lib64库文件修复 | Hexo</title>
   <meta name="description" content="A geeker blog." />
   <meta name="keywords" content="hexo,theme,icer,ggice" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="12341、软件包基础;2、rpm包管理;3、移动lib64库文件修复过程：4、卸载内核修复过程  1、软件包基础 1234软件运行与编译：ABI:应用程序二进制接口API:应用程序编程接口静态、动态链接  二进制应用程序的组成部分： 1二进制文件、库文件、配置文件、帮助文件   二进制文件库文件 12345配置文件有些服务、软件较大，复杂的程序需要通过配置文件来执行实现特性、通过修改配置文件修改">
+<meta name="keywords" content="rpm,lib64库文件，内核修复">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="rpm包管理工具，Lib64库文件修复">
 <meta property="og:url" content="http://yoursite.com/2018/01/08/rpm包管理工具，Lib64库文件修复/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="12341、软件包基础;2、rpm包管理;3、移动lib64库文件修复过程：4、卸载内核修复过程  1、软件包基础 1234软件运行与编译：ABI:应用程序二进制接口API:应用程序编程接口静态、动态链接  二进制应用程序的组成部分： 1二进制文件、库文件、配置文件、帮助文件   二进制文件库文件 12345配置文件有些服务、软件较大，复杂的程序需要通过配置文件来执行实现特性、通过修改配置文件修改">
@@ -67,9 +68,9 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-6dd96691fcee129b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-d88abadd1e7a7f52.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-6feec0affdf1f56d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-01-08T10:03:48.060Z">
+<meta property="og:updated_time" content="2018-01-08T10:08:20.696Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="rpm包管理工具，Lib64库文件修复">
 <meta name="twitter:description" content="12341、软件包基础;2、rpm包管理;3、移动lib64库文件修复过程：4、卸载内核修复过程  1、软件包基础 1234软件运行与编译：ABI:应用程序二进制接口API:应用程序编程接口静态、动态链接  二进制应用程序的组成部分： 1二进制文件、库文件、配置文件、帮助文件   二进制文件库文件 12345配置文件有些服务、软件较大，复杂的程序需要通过配置文件来执行实现特性、通过修改配置文件修改">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/6132998-1adda484d623a0f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
@@ -156,7 +157,7 @@
         <ul class="search-result">
             
               <div class="tags">
-                   <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/7修改密码，故障修复/">7修改密码，故障修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos6/">centos6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim编辑器/">vim编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a></li></ul>
+                   <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/7修改密码，故障修复/">7修改密码，故障修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos6/">centos6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lib64库文件，内核修复/">lib64库文件，内核修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpm/">rpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim编辑器/">vim编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a></li></ul>
                 </div>
             
         </ul>
@@ -200,13 +201,18 @@
   <section class="post-header article-header">
     <h2 class="title">
         <a href="/2018/01/08/rpm包管理工具，Lib64库文件修复/">
-          
+          rpm包管理工具，Lib64库文件修复
         </a>
       </h2>
       <div class="subtitle">
           <time>
             Jan 8, 2018
           </time>
+          
+            <span class="tags">
+                <span class="iconfont icon-tag"></span>
+                <a class="tag-link" href="/tags/lib64库文件，内核修复/">lib64库文件，内核修复</a> / <a class="tag-link" href="/tags/rpm/">rpm</a>
+              </span>
           
       </div>
   </section>
@@ -342,7 +348,7 @@
       
         <h3>TAGS</h3>        
         <div class="tags">
-             <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/7修改密码，故障修复/">7修改密码，故障修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos6/">centos6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim编辑器/">vim编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a></li></ul>
+             <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/7修改密码，故障修复/">7修改密码，故障修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos6/">centos6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lib64库文件，内核修复/">lib64库文件，内核修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpm/">rpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim编辑器/">vim编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a></li></ul>
           </div>
       
     </div>
