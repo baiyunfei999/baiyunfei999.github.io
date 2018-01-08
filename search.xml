@@ -5,7 +5,8 @@
     <entry>
       <title><![CDATA[Centos6手动安装步骤]]></title>
       <url>/2018/01/08/Centos6%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4/</url>
-      <content type="html"><![CDATA[<h3 id="一、安装Centos6-9"><a href="#一、安装Centos6-9" class="headerlink" title="一、安装Centos6.9"></a>一、安装Centos6.9</h3><p>1、选择磁盘空间足够大的本地磁盘，新建ISO、Centos6.9文件夹。将Centos映像光盘拷贝到ISO文件夹里，开启VMware 新建虚拟机。</p>
+      <content type="html"><![CDATA[<p>一、安装Centos6.9</p>
+<p>1、选择磁盘空间足够大的本地磁盘，新建ISO、Centos6.9文件夹。将Centos映像光盘拷贝到ISO文件夹里，开启VMware 新建虚拟机。</p>
 <p>选择经典 → 稍后安装操作系统 → 选择Linux操作系统 → Centos 64位 → 修改虚拟机名称 →更改虚拟机保存路径安装到指定的位置 → 设置磁盘大小200GB → 将虚拟磁盘存储为单个文件 → 点击完成→虚拟机创建完成;</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/6132998-58ad8aea61bb2e5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/6132998-909b0432265fe9b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
