@@ -3,6 +3,134 @@
   
     
     <entry>
+      <title><![CDATA[vim编辑器]]></title>
+      <url>/2018/01/08/vim%E7%BC%96%E8%BE%91%E5%99%A8/</url>
+      <content type="html"><![CDATA[<h4 id="vim的三种主要模式；"><a href="#vim的三种主要模式；" class="headerlink" title="vim的三种主要模式；"></a>vim的三种主要模式；</h4><p>命令模式、插入模式、扩展模式</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-6871e6d74f94b805.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><strong>1、终端输入</strong> →  <strong>命令模式：</strong></p>
+<p>vim /option/… 进入命令模式，光标默认行首。</p>
+<p>vim +n /option/…进入命令模式，光标锁定第n行、行首。</p>
+<p>vim +/^… /option/…进入命令模式，光标锁定已选定的第一个字符为行首。</p>
+<p>vim + /option/…进入命令模式，光标锁定段尾行的第一个字符为行首。</p>
+<p><strong>2、命令模式  </strong>→  <strong>插入模式：</strong></p>
+<p>i：进入插入模式，光标位置，进行编辑。</p>
+<p>a：进入插入模式，光标后一位，进行编辑。</p>
+<p>o：进入插入模式，在光标位置下，添加一个新行。</p>
+<p>I：进入插入模式，在光标所在的行首输入。</p>
+<p>A：进入插入模式，在光标所在的行尾输入。</p>
+<p>O：进入插入模式，在光标上一行，行首输入。</p>
+<p>Esc键—–退出插入模式—–进入命令模式。</p>
+<p><strong>3.1、命令模式 </strong> → <strong> 扩展模式：</strong></p>
+<p>Shfit 加：键 …..进入扩展模式   ；</p>
+<p>Esc、Enter键——退出扩展模式；</p>
+<p><strong>3.2、终端输入</strong>→<strong>扩展模式:</strong></p>
+<p>ex  /option/ :进入扩展模式</p>
+<p><strong>3.3、扩展模式：</strong></p>
+<p>：r————–在扩展模式下将读到文件内容输入到当前文件中。</p>
+<p>：w————-在扩展模式下将当前文件内容写入另一个文件中。</p>
+<p>：！————在扩展模式下输入！（command）回车，显示命令执行结果，再回车回到命令模式                        界面。</p>
+<p>：r！———–在扩展模式下输入r！（command）回车，将命令内容读入到当前文件中。</p>
+<p><strong>4、退出vim:</strong></p>
+<p>：q ————-在没有进行修改操作时，进入扩展模式输入q退出。</p>
+<p>：q! ————在操作时进行了输写修改，不想保存时进入扩展模式输入q!强行退出。</p>
+<p>：wq ———–保存退出。</p>
+<p>：wq!———–强制保存退出。</p>
+<p>：x —————保存退出。</p>
+<p>：ZZ————–在命令模式下，保存退出。</p>
+<p>：ZQ————–在命令模式下，不保存退出。</p>
+<h4 id="5、移动光标"><a href="#5、移动光标" class="headerlink" title="5、移动光标"></a>5、移动光标</h4><p>命令模式下移动光标；（只能在命令模式下移动光标）</p>
+<p>← <strong>h 、</strong>↓ <strong>j、</strong> ↑<strong>k、</strong> →<strong> l    ：</strong>光标移动  左、下、上、右   </p>
+<p>#h、#j、#k、#l、(#为数字)——执行#次命令（h、j、k、l）、移动#个字符。</p>
+<p>w———-跳至下一个单词词首·。</p>
+<p>W———-跳至下一个空格后单词词首。</p>
+<p>b————跳至前一个单词词首.</p>
+<p>B————跳至前第二个空格后词首。</p>
+<p>H————跳至页首</p>
+<p>M————跳至页中</p>
+<p>L———— 跳至页尾</p>
+<p>gg———–跳至文件首部，行首。</p>
+<p>G————跳至文件尾部，行首。</p>
+<p>：#———-跳至#行。</p>
+<p>^————–跳至行首的第一个非空白符。</p>
+<p>0（数字）–跳至行首。</p>
+<p>$————–跳至行尾。</p>
+<p>#G————跳至#指定行首。</p>
+<p>1G、gg—–跳至第一行行首。</p>
+<p>句间移动；</p>
+<p>（————-跳至上一句。</p>
+<p>）————-跳至下一句。</p>
+<p>段落间移动；</p>
+<p>{ ————-跳至上一段。</p>
+<p>} ————-跳至下一段。</p>
+<p>翻屏操作；</p>
+<p>ctrl+B——–向首部翻屏</p>
+<p>ctrl+F——–向尾部翻屏</p>
+<p>ctrl+U——–向首部翻半屏</p>
+<p>ctrl+D——–向尾部翻半屏</p>
+<p><strong>6、命令界面操作，修改、删除、复制；</strong></p>
+<p>x—————删除当前光标字符；</p>
+<p>xp————-交换当前所在的字符与光标后面的字符；如：root、orot</p>
+<p>~————–转换大小写；</p>
+<p>J————–删除当前行的换行符；</p>
+<p>r—————替换当前光标所在位置的字符；（输入的字符替换原有的字符）</p>
+<p>R————–模式替换（REPLACE）</p>
+<p>d($、0、^、w、b)—–删除</p>
+<p>y($、0、^、w、b)——复制</p>
+<p>c($、0、^、w、b)——修改</p>
+<p>p——————————粘贴</p>
+<p><strong>7、扩展模式，地址定界、查找、替换</strong></p>
+<p>地址定界：（startpos,endpos）</p>
+<h1 id="：—————————–第-行。"><a href="#：—————————–第-行。" class="headerlink" title="：—————————–第#行。"></a>：—————————–第#行。</h1><p>#，#：————————- 从左侧第#行到右侧第#行表示的行数。</p>
+<p>#,+#：————————–从左侧第#行起，到加上右侧数字的行数。</p>
+<p>.：——————————–当前行。</p>
+<p>$：——————————-最后一行。</p>
+<p>%：——————————全文，相当于1，$</p>
+<p>/pat1/,/pat2/：—————–从第一次被/pat1/模式匹配到的行开始，一直到第一次被/pat2/匹配到的行结果。</p>
+<p>查找  ：</p>
+<p>/：（PATHERN）———–从当前光标处向文件尾部查找。</p>
+<p>?：（PATHERN）———-从当前光标处向文件首部查找。</p>
+<p>n、N —————————–辅助使用</p>
+<p>查找并替换；</p>
+<p>s：——————————–在扩展模式下完成查找替换操作。</p>
+<pre><code>（s/查找模式/要替换成的内容/修饰符）
+</code></pre><p>修饰符：</p>
+<p>i：———————————忽略大小写</p>
+<p>g:———————————–全局替换</p>
+<p>多文件模式；</p>
+<p>next：—————————–切换到下一个文件。</p>
+<p>provious：———————–切换到上一个文件。</p>
+<p>last：——————————切换到最后一个文件。</p>
+<p>first：——————————切换到第一个文件。</p>
+<p>wqall：—————————-保存所有文件。</p>
+<p><strong>8、多窗口模式</strong></p>
+<p>多文件：(vim -o a.txt b.txt……)</p>
+<p>-o：——————————–水平分割</p>
+<p>-O：——————————-垂直分割</p>
+<p>在窗口间切换Ctrl+w,Arrow(上下左右箭头)</p>
+<p>单文件；</p>
+<p>Ctrl+w，s：———————水平分割</p>
+<p>Ctrl+w，v：———————垂直分割</p>
+<p>窗口属性定义；</p>
+<p>set nu ：————————-显示行号</p>
+<p>set nonu：———————–取消显示行号</p>
+<p>set ai：—————————启用自动缩进功能</p>
+<p>set noai：———————– 取消自动缩进功能</p>
+<p>set ic：—————————忽略字符的大小写</p>
+<p>set noic：————————不忽略字符的大小写</p>
+<p>set sm：————————–括号匹配</p>
+<p>set nosm:————————–取消括号匹配</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> vim编辑器 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Centos6半自动化安装.md]]></title>
       <url>/2018/01/08/Centos6%E5%8D%8A%E8%87%AA%E5%8A%A8%E5%8C%96%E5%AE%89%E8%A3%85/</url>
       <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">安装kickstart包；</span><br><span class="line">启用kicstart生成应答文件（可以参考anaconda-ks.cfg）；</span><br><span class="line">准备http://172.16.0.1/centos/6网址,网络光盘；</span><br><span class="line">安装vsftpd服务，将kickstart生成的应答文件放置在ftp共享文件夹下；</span><br><span class="line">开启主机，网卡配置桥接模式；</span><br><span class="line">进入启动选项菜单，按ESC键，输入并调用应答文件；</span><br><span class="line"># linux ks=ftp://172.16.250.134/pub/centos6.cfg</span><br><span class="line">回车运行，开始安装系统；</span><br><span class="line">进入系统选项界面，并回车开启安装完成的系统；</span><br></pre></td></tr></table></figure>
