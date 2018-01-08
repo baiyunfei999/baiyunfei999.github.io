@@ -11,6 +11,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="1234567891、安装kickstart包；2、启用kicstart生成应答文件（可以参考anaconda-ks.cfg）；3、准备http://172.16.0.1/centos/6网址,网络光盘；4、安装vsftpd服务，将kickstart生成的应答文件放置在ftp共享文件夹下；5、开启主机，网卡配置桥接模式；6、进入启动选项菜单，按ESC键，输入并调用应答文件；#linux ks=ft">
+<meta name="keywords" content="Centos6半自动化安装">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Centos6半自动化安装.md">
 <meta property="og:url" content="http://yoursite.com/2018/01/08/Centos6半自动化安装/index.html">
@@ -41,7 +42,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-0f607581b7acf6e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-f5cbbc833729c93d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-158043c240ac55bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-01-08T08:27:55.168Z">
+<meta property="og:updated_time" content="2018-01-08T08:29:53.669Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Centos6半自动化安装.md">
 <meta name="twitter:description" content="1234567891、安装kickstart包；2、启用kicstart生成应答文件（可以参考anaconda-ks.cfg）；3、准备http://172.16.0.1/centos/6网址,网络光盘；4、安装vsftpd服务，将kickstart生成的应答文件放置在ftp共享文件夹下；5、开启主机，网卡配置桥接模式；6、进入启动选项菜单，按ESC键，输入并调用应答文件；#linux ks=ft">
@@ -130,7 +131,7 @@
         <ul class="search-result">
             
               <div class="tags">
-                   <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li></ul>
+                   <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li></ul>
                 </div>
             
         </ul>
@@ -181,6 +182,11 @@
           <time>
             Jan 8, 2018
           </time>
+          
+            <span class="tags">
+                <span class="iconfont icon-tag"></span>
+                <a class="tag-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a>
+              </span>
           
       </div>
   </section>
@@ -246,7 +252,7 @@
       
         <h3>TAGS</h3>        
         <div class="tags">
-             <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li></ul>
+             <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li></ul>
           </div>
       
     </div>
