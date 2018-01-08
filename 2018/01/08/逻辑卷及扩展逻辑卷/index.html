@@ -10,13 +10,13 @@
   <meta name="HandheldFriendly" content="True" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1准备好磁盘空间，添加/dev/sda、/dev/sde 、 /dev/sdf，将磁盘分区，/dev/sda7、/dev/sde1，留一个磁盘、/dev/sdf; ######创建逻辑卷 1、创建物理卷 # pvcreate /dev/sd{a7,e1} #pvs #pvdisplay 2、创建卷组 #vgcreate  -s 16M vg0 /dev/sd{a7,e1} #vgs #vgdisp">
+  <meta name="description" content="1准备好磁盘空间，添加/dev/sda、/dev/sde 、 /dev/sdf，将磁盘分区，/dev/sda7、/dev/sde1，留一个磁盘、/dev/sdf; 创建逻辑卷1、创建物理卷 # pvcreate /dev/sd{a7,e1} #pvs #pvdisplay 2、创建卷组 #vgcreate  -s 16M vg0 /dev/sd{a7,e1} #vgs #vgdisplay 3、创">
 <meta name="keywords" content="逻辑卷">
 <meta property="og:type" content="article">
 <meta property="og:title" content="逻辑卷及扩展逻辑卷">
 <meta property="og:url" content="http://yoursite.com/2018/01/08/逻辑卷及扩展逻辑卷/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1准备好磁盘空间，添加/dev/sda、/dev/sde 、 /dev/sdf，将磁盘分区，/dev/sda7、/dev/sde1，留一个磁盘、/dev/sdf; ######创建逻辑卷 1、创建物理卷 # pvcreate /dev/sd{a7,e1} #pvs #pvdisplay 2、创建卷组 #vgcreate  -s 16M vg0 /dev/sd{a7,e1} #vgs #vgdisp">
+<meta property="og:description" content="1准备好磁盘空间，添加/dev/sda、/dev/sde 、 /dev/sdf，将磁盘分区，/dev/sda7、/dev/sde1，留一个磁盘、/dev/sdf; 创建逻辑卷1、创建物理卷 # pvcreate /dev/sd{a7,e1} #pvs #pvdisplay 2、创建卷组 #vgcreate  -s 16M vg0 /dev/sd{a7,e1} #vgs #vgdisplay 3、创">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-0077cbef58b68fac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-1e4f1b97c35b0e13.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-7cdad316b49a5df6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -36,10 +36,10 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-f732a4bb9c511571.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-3081b9aade12a93f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-471b192407b008fc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-01-08T10:37:44.781Z">
+<meta property="og:updated_time" content="2018-01-08T10:40:32.953Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逻辑卷及扩展逻辑卷">
-<meta name="twitter:description" content="1准备好磁盘空间，添加/dev/sda、/dev/sde 、 /dev/sdf，将磁盘分区，/dev/sda7、/dev/sde1，留一个磁盘、/dev/sdf; ######创建逻辑卷 1、创建物理卷 # pvcreate /dev/sd{a7,e1} #pvs #pvdisplay 2、创建卷组 #vgcreate  -s 16M vg0 /dev/sd{a7,e1} #vgs #vgdisp">
+<meta name="twitter:description" content="1准备好磁盘空间，添加/dev/sda、/dev/sde 、 /dev/sdf，将磁盘分区，/dev/sda7、/dev/sde1，留一个磁盘、/dev/sdf; 创建逻辑卷1、创建物理卷 # pvcreate /dev/sd{a7,e1} #pvs #pvdisplay 2、创建卷组 #vgcreate  -s 16M vg0 /dev/sd{a7,e1} #vgs #vgdisplay 3、创">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/6132998-0077cbef58b68fac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
   
@@ -187,8 +187,7 @@
   <section class="content">
     <div class="article-entry" itemprop="articleBody">
       <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">准备好磁盘空间，添加/dev/sda、/dev/sde 、 /dev/sdf，将磁盘分区，/dev/sda7、/dev/sde1，留一个磁盘、/dev/sdf;</span><br></pre></td></tr></table></figure>
-<p>######创建逻辑卷</p>
-<pre><code>1、创建物理卷
+<h6 id="创建逻辑卷"><a href="#创建逻辑卷" class="headerlink" title="创建逻辑卷"></a>创建逻辑卷</h6><pre><code>1、创建物理卷
 # pvcreate /dev/sd{a7,e1}
 #pvs
 #pvdisplay

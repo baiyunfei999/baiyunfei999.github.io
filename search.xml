@@ -6,8 +6,7 @@
       <title><![CDATA[逻辑卷及扩展逻辑卷]]></title>
       <url>/2018/01/08/%E9%80%BB%E8%BE%91%E5%8D%B7%E5%8F%8A%E6%89%A9%E5%B1%95%E9%80%BB%E8%BE%91%E5%8D%B7/</url>
       <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">准备好磁盘空间，添加/dev/sda、/dev/sde 、 /dev/sdf，将磁盘分区，/dev/sda7、/dev/sde1，留一个磁盘、/dev/sdf;</span><br></pre></td></tr></table></figure>
-<p>######创建逻辑卷</p>
-<pre><code>1、创建物理卷
+<h6 id="创建逻辑卷"><a href="#创建逻辑卷" class="headerlink" title="创建逻辑卷"></a>创建逻辑卷</h6><pre><code>1、创建物理卷
 # pvcreate /dev/sd{a7,e1}
 #pvs
 #pvdisplay
@@ -151,83 +150,6 @@ dd if=/mnt/lv0/bingfile of=/dev/null
     </entry>
     
     <entry>
-      <title><![CDATA[修复MBR分区]]></title>
-      <url>/2018/01/08/%E4%BF%AE%E6%94%B9MBR%E5%88%86%E5%8C%BA/</url>
-      <content type="html"><![CDATA[<pre><code>1、准备工作将/dev/sda磁盘的MBR分区备份到、root目录下mbr文件   中，备份centos6整个虚拟机；
-[root@centos6 ~]# dd if=/dev/sda of=mbr bs=1 count=512;
-[root@centos6 ~]# hexdump -C -n 512 /dev/sda
-[root@centos6 ~]# hexdump -C -n 512 mbr
-2、拷贝完成后查看mbr中内容是否齐全；
-3、清除/dev/sda、磁盘的MBR分区512字节；
-[root@centos6 ~]# dd if=/dev/zero of=/dev/sda bs=1 count=512
-[root@centos6 ~]# hexdump -C -n 512 /dev/sda
-4、查看/dev/sda磁盘512字节有无变化；
-5、重新启动虚拟机，看是否能启用：
-[root@centos6 ~]# reboot
-6、救援模式无法修复；
-7、无法修复后，启用备份文件夹中的centos6;
-8、成功启动centos6后，查看磁盘分布：
-[root@centos6 ~]# lsblk
-[root@centos6 ~]# ls /dev/sd*
-[root@centos6 ~]# blkid
-[root@centos6 ~]# cat /proc/partitions
-9、从破损的虚拟机上找到破损的磁盘路径及文件；
-# 查找时间上最近的虚拟磁盘文件；
-10、将破损的虚拟机磁盘挂载到已开启centos6上;
-# 添加硬盘、选择现有虚拟磁盘选项、浏览、挂载；
-11、重新启动centos6；
-12、找到破损磁盘名称及centos6磁盘名称；
-13、查看centos6磁盘和破损磁盘分区MBR；
-[root@centos6 ~]# lsblk
-[root@centos6 ~]# blkid
-14、用centos6磁盘来修复破损的磁盘；
-[root@centos6 ~]# dd if=/dev/sda of=/dev/sdb bs=1 count=512
-15、关闭centos6，卸载修复的磁盘；
-[root@centos6 ~]# init 0
-16、开启已修复的centos6，看是否能够正常运行；
-17、移除复制备份的centos6；
-18、修复完成；
-</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/6132998-b98f6d3db9bc80d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Centos6"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-dcad0d2fb69be177.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="将/dev/sda的MBR分区备份到mbr文件中"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-4f0c7fa194a185a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="破坏/dev/sda"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-76112f24595a7a9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看MPR分区二进制文件"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-c0d79cca6a561f68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看磁盘状态"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-754a12716017e3c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="
-![启用复制备份的Centos6](http://upload-images.jianshu.io/upload_images/6132998-b07c031fbd698a9a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-1f67ca56c781a0d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看磁盘状态及二进制mpr文件"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-868a3fd44fc382bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="添加破坏的虚拟机磁盘"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-f767b782448f32a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="浏览选择破损的虚拟机光盘"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-2a43b82170e2fe04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选择最近时间最大的虚拟机光盘"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-4ea526028a7179ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="没有显示破坏的虚拟机磁盘重新启动虚拟机"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-8bef0a4442cb195b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="重启Centos6"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-2693403153d0694f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看磁盘分区"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-d2ea7d995abc4a98.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修复破损的虚拟机磁盘"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-2ae1943f55e29f64.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="关闭centos6"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-5f5f3083627220f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修复完成后，正常启动"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-1767fe513f9ef2c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="结构图"></p>
-<p>######MBR<br>    MBR<br>    0 磁道0 扇区：512bytes<br>    446bytes: boot loader<br>    64bytes ：分区表<br>    16bytes:  标识一个分区<br>    2bytes: 55AA</p>
-<pre><code>破坏boot loader引导启动程序；
-[root@centos6 ~]# dd if=/dev/zero of=/dev/sda bs=1 count=446
-[root@centos6 ~]# dd if=mbr of=/dev/sda bs=1 count=446
-破坏分区表及修复；
-[root@centos6 ~]# dd if=/dev/zero of=/dev/sda bs=1 count=64 skip=446 seek=446
-[root@centos6 ~]# dd if=mbr of=/dev/sda bs=1 count=64 skip=446 seek=446
-破坏尾标55AA及修复；
-[root@centos6 ~]# dd if=/dev/zero of=/dev/sda bs=1 chount=2 skip=510 seek=510
-[root@centos6 ~]# dd if=mbr of=/dev/sda bs=1 count=2 skip=510 seek=510
-</code></pre>]]></content>
-      
-        
-        <tags>
-            
-            <tag> 修复MBR分区，故障处理 </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[rpm包管理工具，Lib64库文件修复]]></title>
       <url>/2018/01/08/rpm%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%EF%BC%8CLib64%E5%BA%93%E6%96%87%E4%BB%B6%E4%BF%AE%E5%A4%8D/</url>
       <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、软件包基础;</span><br><span class="line">2、rpm包管理;</span><br><span class="line">3、移动lib64库文件修复过程：</span><br><span class="line">4、卸载内核修复过程</span><br></pre></td></tr></table></figure>
@@ -336,6 +258,83 @@ dd if=/mnt/lv0/bingfile of=/dev/null
             <tag> rpm </tag>
             
             <tag> lib64库文件，内核修复 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[修复MBR分区]]></title>
+      <url>/2018/01/08/%E4%BF%AE%E6%94%B9MBR%E5%88%86%E5%8C%BA/</url>
+      <content type="html"><![CDATA[<pre><code>1、准备工作将/dev/sda磁盘的MBR分区备份到、root目录下mbr文件   中，备份centos6整个虚拟机；
+[root@centos6 ~]# dd if=/dev/sda of=mbr bs=1 count=512;
+[root@centos6 ~]# hexdump -C -n 512 /dev/sda
+[root@centos6 ~]# hexdump -C -n 512 mbr
+2、拷贝完成后查看mbr中内容是否齐全；
+3、清除/dev/sda、磁盘的MBR分区512字节；
+[root@centos6 ~]# dd if=/dev/zero of=/dev/sda bs=1 count=512
+[root@centos6 ~]# hexdump -C -n 512 /dev/sda
+4、查看/dev/sda磁盘512字节有无变化；
+5、重新启动虚拟机，看是否能启用：
+[root@centos6 ~]# reboot
+6、救援模式无法修复；
+7、无法修复后，启用备份文件夹中的centos6;
+8、成功启动centos6后，查看磁盘分布：
+[root@centos6 ~]# lsblk
+[root@centos6 ~]# ls /dev/sd*
+[root@centos6 ~]# blkid
+[root@centos6 ~]# cat /proc/partitions
+9、从破损的虚拟机上找到破损的磁盘路径及文件；
+# 查找时间上最近的虚拟磁盘文件；
+10、将破损的虚拟机磁盘挂载到已开启centos6上;
+# 添加硬盘、选择现有虚拟磁盘选项、浏览、挂载；
+11、重新启动centos6；
+12、找到破损磁盘名称及centos6磁盘名称；
+13、查看centos6磁盘和破损磁盘分区MBR；
+[root@centos6 ~]# lsblk
+[root@centos6 ~]# blkid
+14、用centos6磁盘来修复破损的磁盘；
+[root@centos6 ~]# dd if=/dev/sda of=/dev/sdb bs=1 count=512
+15、关闭centos6，卸载修复的磁盘；
+[root@centos6 ~]# init 0
+16、开启已修复的centos6，看是否能够正常运行；
+17、移除复制备份的centos6；
+18、修复完成；
+</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/6132998-b98f6d3db9bc80d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Centos6"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-dcad0d2fb69be177.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="将/dev/sda的MBR分区备份到mbr文件中"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-4f0c7fa194a185a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="破坏/dev/sda"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-76112f24595a7a9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看MPR分区二进制文件"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-c0d79cca6a561f68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看磁盘状态"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-754a12716017e3c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="
+![启用复制备份的Centos6](http://upload-images.jianshu.io/upload_images/6132998-b07c031fbd698a9a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-1f67ca56c781a0d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看磁盘状态及二进制mpr文件"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-868a3fd44fc382bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="添加破坏的虚拟机磁盘"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-f767b782448f32a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="浏览选择破损的虚拟机光盘"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-2a43b82170e2fe04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选择最近时间最大的虚拟机光盘"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-4ea526028a7179ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="没有显示破坏的虚拟机磁盘重新启动虚拟机"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-8bef0a4442cb195b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="重启Centos6"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-2693403153d0694f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看磁盘分区"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-d2ea7d995abc4a98.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修复破损的虚拟机磁盘"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-2ae1943f55e29f64.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="关闭centos6"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-5f5f3083627220f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修复完成后，正常启动"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-1767fe513f9ef2c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="结构图"></p>
+<p>######MBR<br>    MBR<br>    0 磁道0 扇区：512bytes<br>    446bytes: boot loader<br>    64bytes ：分区表<br>    16bytes:  标识一个分区<br>    2bytes: 55AA</p>
+<pre><code>破坏boot loader引导启动程序；
+[root@centos6 ~]# dd if=/dev/zero of=/dev/sda bs=1 count=446
+[root@centos6 ~]# dd if=mbr of=/dev/sda bs=1 count=446
+破坏分区表及修复；
+[root@centos6 ~]# dd if=/dev/zero of=/dev/sda bs=1 count=64 skip=446 seek=446
+[root@centos6 ~]# dd if=mbr of=/dev/sda bs=1 count=64 skip=446 seek=446
+破坏尾标55AA及修复；
+[root@centos6 ~]# dd if=/dev/zero of=/dev/sda bs=1 chount=2 skip=510 seek=510
+[root@centos6 ~]# dd if=mbr of=/dev/sda bs=1 count=2 skip=510 seek=510
+</code></pre>]]></content>
+      
+        
+        <tags>
+            
+            <tag> 修复MBR分区，故障处理 </tag>
             
         </tags>
         

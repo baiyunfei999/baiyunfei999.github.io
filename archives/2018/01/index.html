@@ -175,9 +175,8 @@
   </section>
   <section class="content">
     1准备好磁盘空间，添加/dev/sda、/dev/sde 、 /dev/sdf，将磁盘分区，/dev/sda7、/dev/sde1，留一个磁盘、/dev/sdf;
-######创建逻辑卷
-1、创建物理卷
-# pvcreate /dev/sd...
+创建逻辑卷1、创建物理卷
+# pvcreate /dev/sd{a7,e1}...
 
     <div class="readmore">
       <a href="/2018/01/08/逻辑卷及扩展逻辑卷/" class="iconfont icon-more">Read More</a>
@@ -226,40 +225,6 @@
   <section class="post-header">
     
       <h2 class="title">
-        <a href="/2018/01/08/修改MBR分区/">
-          修复MBR分区
-        </a>
-      </h2>
-      
-      <div class="subtitle">
-          <time>
-            Jan 8, 2018
-          </time>
-          
-            <span class="tags">
-                 <span class="iconfont icon-tag"></span>
-                 <a class="tag-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a>
-              </span>
-          
-      </div>
-  </section>
-  <section class="content">
-    1、准备工作将/dev/sda磁盘的MBR分区备份到、root目录下mbr文件   中，备份centos6整个虚拟机；
-[root@centos6 ~]# dd if=/dev/sda of=mbr bs=1 count=512;
-[roo...
-
-    <div class="readmore">
-      <a href="/2018/01/08/修改MBR分区/" class="iconfont icon-more">Read More</a>
-    </div>
-
-  </section>
-</article>
-  
-    <article class="post   animated fade-in-top">
-
-  <section class="post-header">
-    
-      <h2 class="title">
         <a href="/2018/01/08/rpm包管理工具，Lib64库文件修复/">
           rpm包管理工具，Lib64库文件修复
         </a>
@@ -288,6 +253,40 @@
 
     <div class="readmore">
       <a href="/2018/01/08/rpm包管理工具，Lib64库文件修复/" class="iconfont icon-more">Read More</a>
+    </div>
+
+  </section>
+</article>
+  
+    <article class="post   animated fade-in-top">
+
+  <section class="post-header">
+    
+      <h2 class="title">
+        <a href="/2018/01/08/修改MBR分区/">
+          修复MBR分区
+        </a>
+      </h2>
+      
+      <div class="subtitle">
+          <time>
+            Jan 8, 2018
+          </time>
+          
+            <span class="tags">
+                 <span class="iconfont icon-tag"></span>
+                 <a class="tag-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a>
+              </span>
+          
+      </div>
+  </section>
+  <section class="content">
+    1、准备工作将/dev/sda磁盘的MBR分区备份到、root目录下mbr文件   中，备份centos6整个虚拟机；
+[root@centos6 ~]# dd if=/dev/sda of=mbr bs=1 count=512;
+[roo...
+
+    <div class="readmore">
+      <a href="/2018/01/08/修改MBR分区/" class="iconfont icon-more">Read More</a>
     </div>
 
   </section>
