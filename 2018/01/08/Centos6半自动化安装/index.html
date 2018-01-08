@@ -10,13 +10,13 @@
   <meta name="HandheldFriendly" content="True" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1234567891、安装kickstart包；2、启用kicstart生成应答文件（可以参考anaconda-ks.cfg）；3、准备http://172.16.0.1/centos/6网址,网络光盘；4、安装vsftpd服务，将kickstart生成的应答文件放置在ftp共享文件夹下；5、开启主机，网卡配置桥接模式；6、进入启动选项菜单，按ESC键，输入并调用应答文件；#linux ks=ft">
+  <meta name="description" content="123456789安装kickstart包；启用kicstart生成应答文件（可以参考anaconda-ks.cfg）；准备http://172.16.0.1/centos/6网址,网络光盘；安装vsftpd服务，将kickstart生成的应答文件放置在ftp共享文件夹下；开启主机，网卡配置桥接模式；进入启动选项菜单，按ESC键，输入并调用应答文件；# linux ks=ftp://172.16.">
 <meta name="keywords" content="Centos6半自动化安装">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Centos6半自动化安装.md">
 <meta property="og:url" content="http://yoursite.com/2018/01/08/Centos6半自动化安装/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1234567891、安装kickstart包；2、启用kicstart生成应答文件（可以参考anaconda-ks.cfg）；3、准备http://172.16.0.1/centos/6网址,网络光盘；4、安装vsftpd服务，将kickstart生成的应答文件放置在ftp共享文件夹下；5、开启主机，网卡配置桥接模式；6、进入启动选项菜单，按ESC键，输入并调用应答文件；#linux ks=ft">
+<meta property="og:description" content="123456789安装kickstart包；启用kicstart生成应答文件（可以参考anaconda-ks.cfg）；准备http://172.16.0.1/centos/6网址,网络光盘；安装vsftpd服务，将kickstart生成的应答文件放置在ftp共享文件夹下；开启主机，网卡配置桥接模式；进入启动选项菜单，按ESC键，输入并调用应答文件；# linux ks=ftp://172.16.">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-a96c8470c494dcf5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-dd68689cc023a580.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-00debcc6c9a0dcbc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -42,10 +42,10 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-0f607581b7acf6e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-f5cbbc833729c93d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-158043c240ac55bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-01-08T08:29:53.669Z">
+<meta property="og:updated_time" content="2018-01-08T08:32:10.726Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Centos6半自动化安装.md">
-<meta name="twitter:description" content="1234567891、安装kickstart包；2、启用kicstart生成应答文件（可以参考anaconda-ks.cfg）；3、准备http://172.16.0.1/centos/6网址,网络光盘；4、安装vsftpd服务，将kickstart生成的应答文件放置在ftp共享文件夹下；5、开启主机，网卡配置桥接模式；6、进入启动选项菜单，按ESC键，输入并调用应答文件；#linux ks=ft">
+<meta name="twitter:description" content="123456789安装kickstart包；启用kicstart生成应答文件（可以参考anaconda-ks.cfg）；准备http://172.16.0.1/centos/6网址,网络光盘；安装vsftpd服务，将kickstart生成的应答文件放置在ftp共享文件夹下；开启主机，网卡配置桥接模式；进入启动选项菜单，按ESC键，输入并调用应答文件；# linux ks=ftp://172.16.">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/6132998-a96c8470c494dcf5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
   
@@ -192,7 +192,7 @@
   </section>
   <section class="content">
     <div class="article-entry" itemprop="articleBody">
-      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1、安装kickstart包；</span><br><span class="line">2、启用kicstart生成应答文件（可以参考anaconda-ks.cfg）；</span><br><span class="line">3、准备http://172.16.0.1/centos/6网址,网络光盘；</span><br><span class="line">4、安装vsftpd服务，将kickstart生成的应答文件放置在ftp共享文件夹下；</span><br><span class="line">5、开启主机，网卡配置桥接模式；</span><br><span class="line">6、进入启动选项菜单，按ESC键，输入并调用应答文件；</span><br><span class="line">#linux ks=ftp://172.16.250.134/pub/centos6.cfg</span><br><span class="line">7、回车运行，开始安装系统；</span><br><span class="line">8、进入系统选项界面，并回车开启安装完成的系统；</span><br></pre></td></tr></table></figure>
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">安装kickstart包；</span><br><span class="line">启用kicstart生成应答文件（可以参考anaconda-ks.cfg）；</span><br><span class="line">准备http://172.16.0.1/centos/6网址,网络光盘；</span><br><span class="line">安装vsftpd服务，将kickstart生成的应答文件放置在ftp共享文件夹下；</span><br><span class="line">开启主机，网卡配置桥接模式；</span><br><span class="line">进入启动选项菜单，按ESC键，输入并调用应答文件；</span><br><span class="line"># linux ks=ftp://172.16.250.134/pub/centos6.cfg</span><br><span class="line">回车运行，开始安装系统；</span><br><span class="line">进入系统选项界面，并回车开启安装完成的系统；</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">安装kickstart 包；</span><br><span class="line">#yum -y install kickstart</span><br><span class="line">在图形界面下才支持打开；</span><br><span class="line">#system-config-start</span><br></pre></td></tr></table></figure>
 <p><img src="http://upload-images.jianshu.io/upload_images/6132998-a96c8470c494dcf5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">网络安装；</span><br></pre></td></tr></table></figure></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/6132998-dd68689cc023a580.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Paste_Image.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">可以给grub设置密码，防止单用户修改密码；</span><br></pre></td></tr></table></figure></p>
