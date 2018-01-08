@@ -4,23 +4,40 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>xin | Hexo</title>
+  <title>Centos6,7修改密码 | Hexo</title>
   <meta name="description" content="A geeker blog." />
   <meta name="keywords" content="hexo,theme,icer,ggice" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这是一个测试页面">
-<meta name="keywords" content="linux,text">
+  <meta name="description" content="更改roor管理员UID为非零时，centos6、centos7无法正常启动。重启centos6、centos7时系统运行不一样。 一、Centos6 1、centos6用户root地址更改为2000，ctrl+x/y进行保存。  2、更改root用户（UID)地址为2000，进行保存。在SecureCRT上从新开启centos6端口，无法连接centos6。  3、在VMwere上切换cento">
+<meta name="keywords" content="centos6,7修改密码，故障修复">
 <meta property="og:type" content="article">
-<meta property="og:title" content="xin">
-<meta property="og:url" content="http://yoursite.com/2018/01/07/xin/index.html">
+<meta property="og:title" content="Centos6,7修改密码">
+<meta property="og:url" content="http://yoursite.com/2018/01/08/Centos6，7修改密码/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="这是一个测试页面">
-<meta property="og:updated_time" content="2018-01-07T09:24:22.173Z">
+<meta property="og:description" content="更改roor管理员UID为非零时，centos6、centos7无法正常启动。重启centos6、centos7时系统运行不一样。 一、Centos6 1、centos6用户root地址更改为2000，ctrl+x/y进行保存。  2、更改root用户（UID)地址为2000，进行保存。在SecureCRT上从新开启centos6端口，无法连接centos6。  3、在VMwere上切换cento">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-7c130da7c17a569b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-e33b20b8ee16b228.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-c59fc3be995db516.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-047c7100cf257e07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-02bafa043649bd8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-e2843699c403585f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-1996b32850346b7a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-b3f71a61489de884.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-ebdc9c58dbfcb8c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-05c1adbbc1f24212.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-5059bea0bd2a2c3d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-79eb6e3072e39c19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-1b18a084fb8502fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-f786db0f75eca9d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-5b86ad56ca0311ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-709ee43b30f30585.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-01-08T09:05:08.809Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xin">
-<meta name="twitter:description" content="这是一个测试页面">
+<meta name="twitter:title" content="Centos6,7修改密码">
+<meta name="twitter:description" content="更改roor管理员UID为非零时，centos6、centos7无法正常启动。重启centos6、centos7时系统运行不一样。 一、Centos6 1、centos6用户root地址更改为2000，ctrl+x/y进行保存。  2、更改root用户（UID)地址为2000，进行保存。在SecureCRT上从新开启centos6端口，无法连接centos6。  3、在VMwere上切换cento">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/6132998-7c130da7c17a569b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
   
   
@@ -143,30 +160,64 @@
     <script>NProgress.set(0.4);</script>
     
     <main id="main" role="main">
-      <article id="post-xin"
+      <article id="post-Centos6，7修改密码"
   class="post article white-box article-type-post animated fade-in-top"
   itemscope itemprop="blogPost">
   <section class="post-header article-header">
     <h2 class="title">
-        <a href="/2018/01/07/xin/">
-          xin
+        <a href="/2018/01/08/Centos6，7修改密码/">
+          Centos6,7修改密码
         </a>
       </h2>
       <div class="subtitle">
           <time>
-            Jan 7, 2018
+            Jan 8, 2018
           </time>
           
             <span class="tags">
                 <span class="iconfont icon-tag"></span>
-                <a class="tag-link" href="/tags/linux/">linux</a> / <a class="tag-link" href="/tags/text/">text</a>
+                <a class="tag-link" href="/tags/7修改密码，故障修复/">7修改密码，故障修复</a> / <a class="tag-link" href="/tags/centos6/">centos6</a>
               </span>
           
       </div>
   </section>
   <section class="content">
     <div class="article-entry" itemprop="articleBody">
-      <p>这是一个测试页面</p>
+      <p><strong>更改roor管理员UID为非零时，centos6、centos7无法正常启动。重启centos6、centos7时系统运行不一样。</strong></p>
+<p><strong>一、Centos6</strong></p>
+<p>1、centos6用户root地址更改为2000，ctrl+x/y进行保存。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-7c130da7c17a569b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>2、更改root用户（UID)地址为2000，进行保存。在SecureCRT上从新开启centos6端口，无法连接centos6。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-e33b20b8ee16b228.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>3、在VMwere上切换centos6新端口时，用户无法登入。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-c59fc3be995db516.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>4、用户无法登入与链接，系统处于故障状态。重启VMwere上的centos6→快速点击A键，进入编辑界面。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-047c7100cf257e07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>5、输入命令init=/bin/bash回车。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-02bafa043649bd8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>6、输入命令mount -o remount,rw /  回车。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-e2843699c403585f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>7、输入命令nano /etc/passwd，更改root地址UID为0，ctrl+x/y进行保存。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-1996b32850346b7a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-b3f71a61489de884.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>8、重新启动centos6.</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-ebdc9c58dbfcb8c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><strong>二、Centos7</strong></p>
+<p>1、centos7用户root地址更改为2000，ctrl+x/y进行保存。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-05c1adbbc1f24212.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>2、root用户无法登，系统处于故障状态。重启VMwere上的centos7→快速点击E键，进入编辑界面。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-5059bea0bd2a2c3d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>3、输入命令init=/bin/bash、按ctrl+x键进行下一步。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-79eb6e3072e39c19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>4、输入命令mount -o remount,rw /  回车。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-1b18a084fb8502fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>5、输入命令nano /etc/passwd。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-f786db0f75eca9d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>6、更改root地址UID为0，ctrl+x/y进行保存。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-5b86ad56ca0311ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>7、重新启动centos7。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-709ee43b30f30585.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>Centos6重新启动成功,修复完成。</p>
 
     </div>
   </section>
