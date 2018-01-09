@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>OSI模型的七层结构和tcp网络连接创建虚拟通道 | Hexo</title>
+  <meta name="description" content="A geeker blog." />
+  <meta name="keywords" content="hexo,theme,icer,ggice" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="OSI模型的七层结构;  1、物理层；二进制传输 - 为启动，维护以及关闭物理链路定义了电气规范、机械规范、过程规范和功能规范 2、数据链路层；访问介质 - 定义如何格式化数据以便进行传输以及如何控制对网络的访问 - 支持错误检测 3、网络层；数据传输 - 路由数据包 - 选择传递数据的最佳路径 - 支持逻辑寻址和路径选择 4、传输层；传输问题 - 确保数据传输的可靠性 - 建立、维护和终止虚拟路">
+<meta name="keywords" content="OSI模型的七层结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OSI模型的七层结构和tcp网络连接创建虚拟通道">
+<meta property="og:url" content="http://yoursite.com/2018/01/09/OSI模型的七层结构和tcp网络连接创建虚拟通道/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="OSI模型的七层结构;  1、物理层；二进制传输 - 为启动，维护以及关闭物理链路定义了电气规范、机械规范、过程规范和功能规范 2、数据链路层；访问介质 - 定义如何格式化数据以便进行传输以及如何控制对网络的访问 - 支持错误检测 3、网络层；数据传输 - 路由数据包 - 选择传递数据的最佳路径 - 支持逻辑寻址和路径选择 4、传输层；传输问题 - 确保数据传输的可靠性 - 建立、维护和终止虚拟路">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-0f1ae16ee3962437.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-2f3167942e415ee4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-10fa2bbc933a678a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6132998-804bae7f34864e90.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-01-09T06:00:43.512Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OSI模型的七层结构和tcp网络连接创建虚拟通道">
+<meta name="twitter:description" content="OSI模型的七层结构;  1、物理层；二进制传输 - 为启动，维护以及关闭物理链路定义了电气规范、机械规范、过程规范和功能规范 2、数据链路层；访问介质 - 定义如何格式化数据以便进行传输以及如何控制对网络的访问 - 支持错误检测 3、网络层；数据传输 - 路由数据包 - 选择传递数据的最佳路径 - 支持逻辑寻址和路径选择 4、传输层；传输问题 - 确保数据传输的可靠性 - 建立、维护和终止虚拟路">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/6132998-0f1ae16ee3962437.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+  
+  
+  
+  <link rel='stylesheet' href='//cdnjs.xyz/libs/nprogress/0.2.0/nprogress.css'/>
+  <link rel="stylesheet" href="//cdnjs.xyz/libs/highlight/9.12.0/styles/github-gist.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_405585_2mmfrz9pgd7h9f6r.css">
+  <script src='//cdnjs.xyz/libs/nprogress/0.2.0/nprogress.js'></script>
+  <!-- <script>try{Typekit.load({ async: false });}catch(e){}</script> -->
+  <link rel="stylesheet" href="/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-93986029-1', 'auto');
+  ga('send', 'pageview');
+  
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  
+  <script>NProgress.start();</script>
+  
+  <div id="site-wrapper">
+    
+    <header class="header">
+  <div class="header-wrapper">
+    <a href="/">
+      <img src="/image/logo.jpg" class="logo"/>
+      <!-- <span class="site-desc">
+        
+      </span> -->
+    </a>
+    <div class="social-wrapper">
+      
+        
+          <a href="https://twitter.com/iggice" class="social twitter" target="_blank" rel="external">
+            <span class="iconfont icon-twitter"></span>
+          </a>
+          
+          <a href="https://github.com/ggice" class="social github" target="_blank" rel="external">
+            <span class="iconfont icon-github"></span>
+          </a>
+          
+          <a href="http://ggice.tumblr.com/" class="social tumblr" target="_blank" rel="external">
+            <span class="iconfont icon-tumblr"></span>
+          </a>
+          
+          <a href="https://dribbble.com/ggice" class="social dribbble" target="_blank" rel="external">
+            <span class="iconfont icon-dribbble"></span>
+          </a>
+          
+          <a href="mailto:i@ice.gs" class="social email" target="_blank" rel="external">
+            <span class="iconfont icon-email"></span>
+          </a>
+          
+          <a href="/atom.xml" class="social rss" target="_blank" rel="external">
+            <span class="iconfont icon-rss"></span>
+          </a>
+          
+      
+      
+      <a href="#" class="social search-do" target="_blank" rel="external">
+        <span class="iconfont icon-search"></span>
+      </a>
+            
+      <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="http://yoursite.com"></form> -->
+    </div>
+    <div class="search-wrap">
+      <div class="search-content animated fade-in">
+        <p class="search-input">
+          <span class="iconfont icon-search"></span>
+          <input tabindex="1">
+        </p>
+        <ul class="search-result">
+            
+              <div class="tags">
+                   <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/7修改密码，故障修复/">7修改密码，故障修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible命令行中的应用/">Ansible命令行中的应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible角色/">Ansible角色</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos7编译安装/">Centos7编译安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysqldump数据库恢复/">Mysqldump数据库恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql主从复制/">Mysql主从复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSI模型的七层结构/">OSI模型的七层结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAID/">RAID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/">awk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos6/">centos6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dns转发/">dns转发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dstat/">dstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/httpd的web账号密码管理/">httpd的web账号密码管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iostat/">iostat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keepalived/">keepalived</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lib64库文件，内核修复/">lib64库文件，内核修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs服务nat模式/">lvs服务nat模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpm/">rpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sed/">sed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tar/">tar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/varnish/">varnish</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim编辑器/">vim编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmstat/">vmstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum/">yum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zabbix-server-zabbix-agent/">zabbix-server/zabbix-agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/共享文件系统，vsftpd/">共享文件系统，vsftpd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创建mysql数据库索引/">创建mysql数据库索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/循环语句/">循环语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据备份及数据恢复/">数据备份及数据恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志服务/">日志服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程管理，kill/">进程管理，kill</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逻辑卷/">逻辑卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/防火墙，SElinux/">防火墙，SElinux</a></li></ul>
+                </div>
+            
+        </ul>
+      </div>
+    </div>
+    <nav class="header-nav">
+      
+        <a href="/" class="archives">
+          home
+        </a>
+        
+        <a href="/tags/web-development/" class="archives">
+          web development
+        </a>
+        
+        <a href="/tags/soft/" class="archives">
+          soft
+        </a>
+        
+        <a href="/tags/os/" class="archives">
+          os
+        </a>
+        
+        <a href="/archives" class="archives">
+          archives
+        </a>
+        
+        <a href="/about/" class="archives">
+          About
+        </a>
+        
+    </nav>
+  </div>
+</header>
+    <script>NProgress.set(0.4);</script>
+    
+    <main id="main" role="main">
+      <article id="post-OSI模型的七层结构和tcp网络连接创建虚拟通道"
+  class="post article white-box article-type-post animated fade-in-top"
+  itemscope itemprop="blogPost">
+  <section class="post-header article-header">
+    <h2 class="title">
+        <a href="/2018/01/09/OSI模型的七层结构和tcp网络连接创建虚拟通道/">
+          OSI模型的七层结构和tcp网络连接创建虚拟通道
+        </a>
+      </h2>
+      <div class="subtitle">
+          <time>
+            Jan 9, 2018
+          </time>
+          
+            <span class="tags">
+                <span class="iconfont icon-tag"></span>
+                <a class="tag-link" href="/tags/OSI模型的七层结构/">OSI模型的七层结构</a>
+              </span>
+          
+      </div>
+  </section>
+  <section class="content">
+    <div class="article-entry" itemprop="articleBody">
+      <p>OSI模型的七层结构;</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-0f1ae16ee3962437.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>1、物理层；二进制传输</p>
+<pre><code>- 为启动，维护以及关闭物理链路定义了电气规范、机械规范、过程规范和功能规范
+</code></pre><p>2、数据链路层；访问介质</p>
+<pre><code>- 定义如何格式化数据以便进行传输以及如何控制对网络的访问
+- 支持错误检测
+</code></pre><p>3、网络层；数据传输</p>
+<pre><code>- 路由数据包
+- 选择传递数据的最佳路径
+- 支持逻辑寻址和路径选择
+</code></pre><p>4、传输层；传输问题</p>
+<pre><code>- 确保数据传输的可靠性
+- 建立、维护和终止虚拟路由
+- 通过错误检测和恢复
+- 信息流量控制来保障可靠性
+</code></pre><p>5、会话层；主机间通信</p>
+<pre><code>- 建立、管理和终止在应用程序之间的会话
+</code></pre><p>6、表示层；数据表示</p>
+<pre><code>- 确保接收系统可以读取该数据
+- 格式化数据
+- 构建数据
+- 协商用于应用层的数据传输语法
+- 提供加密
+</code></pre><p>7、应用层；网络进程访问应用层</p>
+<pre><code>- 为应用程序进程（例如，电子邮件、文件传输和终端仿真）提供网络服务
+- 提供用户身份认证
+</code></pre><p>物理拓扑分类</p>
+<pre><code>- 总线拓扑
+所有设备均可接收信号
+- 环状拓扑
+信号环绕传输
+单一故障点
+- 双环拓扑
+信号沿相反的方向传输
+比单一的复原能力更强
+- 星型拓扑
+通过中心点传输
+单一故障点
+- 扩展星型拓扑
+比星型拓扑的恢复能力更强
+- 全网状拓扑
+容错能力强
+实时成本高
+- 部分网状拓扑
+在容错能力与成本之间寻求平衡
+</code></pre><p>逻辑拓扑</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-2f3167942e415ee4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>三种通信模式；<br>1、单播<br>2、广播<br>3、组播<br>LAN    (局域网)<br>WAN  (广域网)</p>
+<p>Tcp/ip协议栈；除应用层外的，传输层、网络层、数据链路层、物理层划分到tcp/ip协议栈；</p>
+<p>Tcp三次握手；<br>Syn=1—表示发送端希望双方建立同步处理，主动要连接到对方；<br>Ack=1—表示相应数据包<br>Seq=x—表示数据包序列号<br>ACK=X+1—表示回应序列号</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-10fa2bbc933a678a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>Tcp四次挥手；<br>Syn=1—表示发送端希望双方建立同步处理，主动要连接到对方；<br>Ack=1—表示相应数据包<br>Seq=x—表示数据包序列号<br>ACK=X+1—表示回应序列号<br>FIN=1—表示传输结束</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-804bae7f34864e90.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<pre><code>- LISTEN：侦听来自远方的TCP端口的连接请求
+- SYN-SENT：在发送连接请求后等待匹配的连接请求
+- SYN-RECEIVED：在收到和发送一个连接请求后等待对方对链请求的确认
+- ESTABLISHED：代表一个打开的连接
+- FIN-WAIT-1：等待远程TCP连接中断请求，或先前的链接中断请求的确认
+- FIN-WAIT：从远程TCP等待连接中断请求
+- CLOSE-WAIT：等待从本地用户发来的连接中断请求
+- CLOSING：等待远程TCP对连接中断的确认
+- LAST-ACK：等待原来的发送远程TCP的连接中断请求的确认
+- TIME-WAIT：等待足够的时间以确保远程tcp接收到连接中断请求的确认
+</code></pre><p>CLOSED：没有任何连接状态；</p>
+
+    </div>
+  </section>
+
+  
+  
+</article>
+      <script>NProgress.set(0.6);</script>
+    </main>
+    
+    <footer class="footer">
+  <div class="footer-wrap">
+    <div class="footer-link">
+      
+      <h3>LINKS</h3>
+      <p>
+        
+          <a href="http://1x0.xyz/" target="_blank">Tian1x0</a>
+        
+          <a href="http://www.royalmice.com/hankzhou/" target="_blank">Hankzhou</a>
+        
+          <a href="http://sjydh.me/" target="_blank">设计有点货</a>
+        
+          <a href="https://developers.google.com/web/fundamentals/" target="_blank">Web fundamentals</a>
+        
+      </p>
+      
+    </div>
+    <div class="footer-tags">
+      
+        <h3>TAGS</h3>        
+        <div class="tags">
+             <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/7修改密码，故障修复/">7修改密码，故障修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible命令行中的应用/">Ansible命令行中的应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible角色/">Ansible角色</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos7编译安装/">Centos7编译安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysqldump数据库恢复/">Mysqldump数据库恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql主从复制/">Mysql主从复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSI模型的七层结构/">OSI模型的七层结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAID/">RAID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/">awk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos6/">centos6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dns转发/">dns转发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dstat/">dstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/httpd的web账号密码管理/">httpd的web账号密码管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iostat/">iostat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keepalived/">keepalived</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lib64库文件，内核修复/">lib64库文件，内核修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs服务nat模式/">lvs服务nat模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpm/">rpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sed/">sed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tar/">tar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/varnish/">varnish</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim编辑器/">vim编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmstat/">vmstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum/">yum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zabbix-server-zabbix-agent/">zabbix-server/zabbix-agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/共享文件系统，vsftpd/">共享文件系统，vsftpd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创建mysql数据库索引/">创建mysql数据库索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/循环语句/">循环语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据备份及数据恢复/">数据备份及数据恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志服务/">日志服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程管理，kill/">进程管理，kill</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逻辑卷/">逻辑卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/防火墙，SElinux/">防火墙，SElinux</a></li></ul>
+          </div>
+      
+    </div>
+    <div class="footer-info">
+        <div>Theme <span class="codename"><a href="https://github.com/GGICE/hexo-icer" target="_blank">icer</a></span> designed & coded by <a href="https://ice.gs/" target="_blank">GGICE</a></div>
+        <div>Copyright &copy; 2018, <a href="/">Hexo</a>  . All rights reserved .</div>
+      </div>
+  </div>
+</footer>
+
+
+    <script>NProgress.set(0.8);</script>
+    
+  </div>
+
+  <script src="//cdnjs.xyz/libs/highlight/9.12.0/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/js/main.js"></script>
+
+<!-- Commit -->
+
+
+
+  <script>
+    NProgress.done();
+  </script>
+  
+</body>
+</html>

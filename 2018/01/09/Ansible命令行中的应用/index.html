@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>Ansible命令行中的应用 | Hexo</title>
+  <meta name="description" content="A geeker blog." />
+  <meta name="keywords" content="hexo,theme,icer,ggice" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="######ansible远程管理工具；时间同步名字解析```1、安装ansible; Yum install ansible Package                                                     Arch                           Version                                  Repo">
+<meta name="keywords" content="Ansible命令行中的应用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ansible命令行中的应用">
+<meta property="og:url" content="http://yoursite.com/2018/01/09/Ansible命令行中的应用/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="######ansible远程管理工具；时间同步名字解析```1、安装ansible; Yum install ansible Package                                                     Arch                           Version                                  Repo">
+<meta property="og:updated_time" content="2018-01-09T05:49:27.954Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ansible命令行中的应用">
+<meta name="twitter:description" content="######ansible远程管理工具；时间同步名字解析```1、安装ansible; Yum install ansible Package                                                     Arch                           Version                                  Repo">
+  
+  
+  
+  <link rel='stylesheet' href='//cdnjs.xyz/libs/nprogress/0.2.0/nprogress.css'/>
+  <link rel="stylesheet" href="//cdnjs.xyz/libs/highlight/9.12.0/styles/github-gist.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_405585_2mmfrz9pgd7h9f6r.css">
+  <script src='//cdnjs.xyz/libs/nprogress/0.2.0/nprogress.js'></script>
+  <!-- <script>try{Typekit.load({ async: false });}catch(e){}</script> -->
+  <link rel="stylesheet" href="/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-93986029-1', 'auto');
+  ga('send', 'pageview');
+  
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  
+  <script>NProgress.start();</script>
+  
+  <div id="site-wrapper">
+    
+    <header class="header">
+  <div class="header-wrapper">
+    <a href="/">
+      <img src="/image/logo.jpg" class="logo"/>
+      <!-- <span class="site-desc">
+        
+      </span> -->
+    </a>
+    <div class="social-wrapper">
+      
+        
+          <a href="https://twitter.com/iggice" class="social twitter" target="_blank" rel="external">
+            <span class="iconfont icon-twitter"></span>
+          </a>
+          
+          <a href="https://github.com/ggice" class="social github" target="_blank" rel="external">
+            <span class="iconfont icon-github"></span>
+          </a>
+          
+          <a href="http://ggice.tumblr.com/" class="social tumblr" target="_blank" rel="external">
+            <span class="iconfont icon-tumblr"></span>
+          </a>
+          
+          <a href="https://dribbble.com/ggice" class="social dribbble" target="_blank" rel="external">
+            <span class="iconfont icon-dribbble"></span>
+          </a>
+          
+          <a href="mailto:i@ice.gs" class="social email" target="_blank" rel="external">
+            <span class="iconfont icon-email"></span>
+          </a>
+          
+          <a href="/atom.xml" class="social rss" target="_blank" rel="external">
+            <span class="iconfont icon-rss"></span>
+          </a>
+          
+      
+      
+      <a href="#" class="social search-do" target="_blank" rel="external">
+        <span class="iconfont icon-search"></span>
+      </a>
+            
+      <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="http://yoursite.com"></form> -->
+    </div>
+    <div class="search-wrap">
+      <div class="search-content animated fade-in">
+        <p class="search-input">
+          <span class="iconfont icon-search"></span>
+          <input tabindex="1">
+        </p>
+        <ul class="search-result">
+            
+              <div class="tags">
+                   <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/7修改密码，故障修复/">7修改密码，故障修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible命令行中的应用/">Ansible命令行中的应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible角色/">Ansible角色</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos7编译安装/">Centos7编译安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysqldump数据库恢复/">Mysqldump数据库恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql主从复制/">Mysql主从复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSI模型的七层结构/">OSI模型的七层结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAID/">RAID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/">awk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos6/">centos6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dns转发/">dns转发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dstat/">dstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/httpd的web账号密码管理/">httpd的web账号密码管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iostat/">iostat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keepalived/">keepalived</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lib64库文件，内核修复/">lib64库文件，内核修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs服务nat模式/">lvs服务nat模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpm/">rpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sed/">sed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tar/">tar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/varnish/">varnish</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim编辑器/">vim编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmstat/">vmstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum/">yum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zabbix-server-zabbix-agent/">zabbix-server/zabbix-agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/共享文件系统，vsftpd/">共享文件系统，vsftpd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创建mysql数据库索引/">创建mysql数据库索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/循环语句/">循环语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据备份及数据恢复/">数据备份及数据恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志服务/">日志服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程管理，kill/">进程管理，kill</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逻辑卷/">逻辑卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/防火墙，SElinux/">防火墙，SElinux</a></li></ul>
+                </div>
+            
+        </ul>
+      </div>
+    </div>
+    <nav class="header-nav">
+      
+        <a href="/" class="archives">
+          home
+        </a>
+        
+        <a href="/tags/web-development/" class="archives">
+          web development
+        </a>
+        
+        <a href="/tags/soft/" class="archives">
+          soft
+        </a>
+        
+        <a href="/tags/os/" class="archives">
+          os
+        </a>
+        
+        <a href="/archives" class="archives">
+          archives
+        </a>
+        
+        <a href="/about/" class="archives">
+          About
+        </a>
+        
+    </nav>
+  </div>
+</header>
+    <script>NProgress.set(0.4);</script>
+    
+    <main id="main" role="main">
+      <article id="post-Ansible命令行中的应用"
+  class="post article white-box article-type-post animated fade-in-top"
+  itemscope itemprop="blogPost">
+  <section class="post-header article-header">
+    <h2 class="title">
+        <a href="/2018/01/09/Ansible命令行中的应用/">
+          Ansible命令行中的应用
+        </a>
+      </h2>
+      <div class="subtitle">
+          <time>
+            Jan 9, 2018
+          </time>
+          
+            <span class="tags">
+                <span class="iconfont icon-tag"></span>
+                <a class="tag-link" href="/tags/Ansible命令行中的应用/">Ansible命令行中的应用</a>
+              </span>
+          
+      </div>
+  </section>
+  <section class="content">
+    <div class="article-entry" itemprop="articleBody">
+      <p>######ansible远程管理工具；<br>时间同步<br>名字解析<br>```<br>1、安装ansible;</p>
+<h1 id="Yum-install-ansible"><a href="#Yum-install-ansible" class="headerlink" title="Yum install ansible"></a>Yum install ansible</h1><h1 id="Package-Arch-Version-Repository-Size"><a href="#Package-Arch-Version-Repository-Size" class="headerlink" title=" Package                                                     Arch                           Version                                  Repository                   Size"></a> Package                                                     Arch                           Version                                  Repository                   Size</h1><p>Installing:<br> ansible                                                     noarch                         2.2.1.0-1.el7                            web                         4.6 M<br>Installing for dependencies:<br> PyYAML                                                      x86_64                         3.10-11.el7                              dev                         153 k<br> libtomcrypt                                                 x86_64                         1.17-23.el7                              web                         224 k<br> libtommath                                                  x86_64                         0.42.0-4.el7                             web                          35 k<br> libyaml                                                     x86_64                         0.1.4-11.el7_0                           dev                          55 k<br> python-babel                                                noarch                         0.9.6-8.el7                              dev                         1.4 M<br> python-backports                                            x86_64                         1.0-8.el7                                dev                         5.8 k<br> python-backports-ssl_match_hostname                         noarch                         3.4.0.2-4.el7                            dev                          12 k<br> python-httplib2                                             noarch                         0.7.7-3.el7                              web                          70 k<br> python-jinja2                                               noarch                         2.7.2-2.el7                              dev                         515 k<br> python-keyczar                                              noarch                         0.71c-2.el7                              web                         218 k<br> python-markupsafe                                           x86_64                         0.11-10.el7                              dev                          25 k<br> python-setuptools                                           noarch                         0.9.8-4.el7                              dev                         396 k<br> python-six                                                  noarch                         1.9.0-2.el7                              dev                          29 k<br> python2-crypto                                              x86_64                         2.6.1-13.el7                             web                         476 k<br> python2-ecdsa                                               noarch                         0.13-4.el7                               web                          83 k<br> python2-paramiko                                            noarch                         1.16.1-2.el7                             web                         258 k<br> python2-pyasn1                                              noarch                         0.1.9-7.el7                              dev                         100 k<br> sshpass                                                     x86_64                         1.06-1.el7                               web                          21 k</p>
+<h1 id="Transaction-Summary"><a href="#Transaction-Summary" class="headerlink" title="Transaction Summary"></a>Transaction Summary</h1><p>Install  1 Package (+18 Dependent packages)</p>
+<p>/etc/ansible     —————配置文件所在目录位置<br>/etc/ansible/ansible.cfg —主配置文件<br>/etc/ansible/hosts———-主机清单<br>/etc/ansible/roles———–角色目录<br>/usr/bin/ansible————-主程序<br>/usr/bin/ansible-console<br>/usr/bin/ansible-doc<br>/usr/bin/ansible-galaxy<br>/usr/bin/ansible-playbook<br>/usr/bin/ansible-pull——–从客户端拉取工具<br>/usr/bin/ansible-vault</p>
+<p>/etc/ansible/ansible.cfg —主配置文件，关于自身的配置文件；</p>
+<p>Ansible 一两种方式完成管理，命令行或剧本方式完成</p>
+<p>命令行；<br>Ansible host-pattern  options<br>Ansible -a  -m   传递模块参数<br>Ansible -C          测试执行<br>Ansible -f        默认管控5个<br>ansible  -I       指明主机清单<br>Ansible  -l          列出主机<br>Ansible -t       将日志记录与指定的位置文件中</p>
+<p>连接命令选项；</p>
+<p>Ansible -c        指定以什么方式连接目标主机<br>Ansible -u        指明目标主机使用连接时的用户；默认为none;</p>
+<p>权限升级方式；Privilege escalation options;</p>
+<p>ansible     -s      切换sudo操作；<br>Ansible    -U      su到某个用户进行操作；<br>Ansible    -b      转变至某个用户操作；</p>
+<p>秘钥认证；</p>
+<p>#ssh-keygen -t rsa -P “”<br>将生成的蜜钥发送另两台主机；</p>
+<p>#ssh-copy-id -I ~/.ssh/id_rsa.pub root@172.16.88.2</p>
+<p>#ssh-copy-id -I ~/.ssh/id_rsa.pub root@172.16.88.3</p>
+<p>[root@localhost ~]#ssh-keygen -t rsa -P “”<br>Generating public/private rsa key pair.<br>Enter file in which to save the key (/root/.ssh/id_rsa):<br>Your identification has been saved in /root/.ssh/id_rsa.<br>Your public key has been saved in /root/.ssh/id_rsa.pub.<br>The key fingerprint is:<br>2f:3d:fc:15:67:32:4d:89:59:6b:05:2c:73:bb:fe:51 root@localhost.localdomain<br>The key’s randomart image is:<br>+–[ RSA 2048]—-+<br>|             ..o.|<br>|            o <em> +|<br>|             </em> =.|<br>|              oo |<br>|        S     +.E|<br>|         +    .*.|<br>|        . =  … |<br>|         . o .. .|<br>|            .  ..|<br>+—————–+</p>
+<p>[root@localhost ~]#ssh-copy-id -i ~/.ssh/id_rsa.pub root@172.16.88.2<br>The authenticity of host ‘172.16.88.2 (172.16.88.2)’ can’t be established.<br>ECDSA key fingerprint is 75:9e:e0:a9:31:ce:cb:73:ed:8a:17:d6:9d:3d:6a:2b.<br>Are you sure you want to continue connecting (yes/no)? yes<br>/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed<br>/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed – if you are prompted now it is to install the new keys<br>root@172.16.88.2’s password:</p>
+<p>Number of key(s) added: 1</p>
+<p>Now try logging into the machine, with:   “ssh ‘root@172.16.88.2’”<br>and check to make sure that only the key(s) you wanted were added.</p>
+<p>[root@localhost ~]#ssh-copy-id -i ~/.ssh/id_rsa.pub root@172.16.88.1<br>The authenticity of host ‘172.16.88.1 (172.16.88.1)’ can’t be established.<br>ECDSA key fingerprint is ce:2d:bd:83:46:37:94:45:27:2d:65:b8:71:f3:32:93.<br>Are you sure you want to continue connecting (yes/no)? yes<br>/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed<br>/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed – if you are prompted now it is to install the new keys<br>root@172.16.88.1’s password:</p>
+<p>Number of key(s) added: 1</p>
+<p>Now try logging into the machine, with:   “ssh ‘root@172.16.88.1’”<br>and check to make sure that only the key(s) you wanted were added.</p>
+<p>设置名字解析；<br>[root@localhost ~]#scp /etc/hosts root@172.16.88.2:/etc/hosts<br>The authenticity of host ‘172.16.88.2 (172.16.88.2)’ can’t be established.<br>ECDSA key fingerprint is 75:9e:e0:a9:31:ce:cb:73:ed:8a:17:d6:9d:3d:6a:2b.<br>Are you sure you want to continue connecting (yes/no)? yes<br>Warning: Permanently added ‘172.16.88.2’ (ECDSA) to the list of known hosts.<br>root@172.16.88.2’s password:<br>hosts<br>[root@localhost ~]#cat /etc/hosts<br>127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4<br>::1         localhost localhost.localdomain localhost6 localhost6.localdomain6<br>172.16.88.1 node1.mageedu.com  node1<br>172.16.88.2 node2.mageedu.com  node2<br>172.16.88.3 node3.mageedu.com  node3<br>172.16.88.4 node4.mageedu.com  node4</p>
+<p>定义管控的主机，编辑配置文件；<br>Vim /etc/ansible/hosts<br>[Websrvs]<br>172.16.88.2<br>172.16.88.3<br>[dbsrvs]<br>172.16.88.3</p>
+<p>命令行；<br>列出控制的主机；<br>[root@localhost ansible]#ansible all -m ping –list-hosts<br>  hosts (2):<br>    172.16.88.1<br>    172.16.88.2<br>探测目标主机是否可频通；<br>[root@localhost ansible]#ansible all -m ping -C<br>172.16.88.1 | SUCCESS =&gt; {<br>    “changed”: false,<br>    “ping”: “pong”<br>}<br>172.16.88.2 | SUCCESS =&gt; {<br>    “changed”: false,<br>    “ping”: “pong”</p>
+<p>[root@localhost ansible]#ansible-doc –help<br>Usage: ansible-doc [options] [module…]</p>
+<p>Options:<br>  -h, –help            show this help message and exit<br>  -l, –list            List available modules<br>  -M MODULE_PATH, –module-path=MODULE_PATH<br>                        specify path(s) to module library (default=None)<br>  -s, –snippet         Show playbook snippet for specified module(s)<br>  -v, –verbose         verbose mode (-vvv for more, -vvvv to enable<br>                        connection debugging)<br>  –version             show program’s version number and exit</p>
+<p>Ansible-doc -a  显示所有模块文档<br>Ansible-doc -l   列出所有可用模块<br>Ansible-doc -M<br>Ansible-doc -s  显示playbooks当中使用的选项；</p>
+<pre><code>Ø group模块，查看定义组的选项；
+</code></pre><p>[root@localhost ansible]#ansible-doc -s group</p>
+<ul>
+<li>name: Add or remove groups<br>action: group<pre><code>gid                    # Optional `GID&apos; to set for the group.
+name=                  # Name of the group to manage.
+state                  # Whether the group should be present or not on the remote host.
+system                 # If `yes&apos;, indicates that the group created is a system group.
+</code></pre>[root@localhost ansible]#</li>
+</ul>
+<p>State—可以创建或删除</p>
+<p>Ansible all -m group -a “gid=1012 name=mygrp state=present system=no”</p>
+<p>[root@localhost ~]#tail -1 /etc/group<br>mygrp:x:1012:</p>
+<p>Ansible all -m group -a “gid=1012 name=mygrp state=absent system=no”</p>
+<pre><code>Ø user模块，查看创建用户选项；
+</code></pre><p>#Ansible-doc -s<br>Name=<br>Comment—注释信息<br>Expires——过期时间<br>Group——-基本组<br>Groups——附加组<br>Home——-家目录<br>Password—-密码<br>Shell———shell类型<br>State ——–创建，删除 persent,absent<br>System ———是否为系统用户<br>Uid———–用户id<br>Move home—-当创建家目录是原有的文件是否移动过来，等于no时创建新的家目录，原有的文件不会移动过来<br>Generate_ssh_key—创建用户是自动生成一对蜜钥，原来有蜜钥不会覆盖，重新创建一对蜜钥</p>
+<p>创建用户，添加附加组<br>[root@localhost ansible]#ansible all -m user -a “uid=5000 name=testuser state=present system=no groups=mygrp shell=/bin/tcsh”<br>172.16.88.2 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “comment”: “”,<br>    “createhome”: true,<br>    “group”: 5000,<br>    “groups”: “mygrp”,<br>    “home”: “/home/testuser”,<br>    “name”: “testuser”,<br>    “shell”: “/bin/tcsh”,<br>    “state”: “present”,<br>    “system”: false,<br>    “uid”: 5000<br>}<br>172.16.88.1 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “comment”: “”,<br>    “createhome”: true,<br>    “group”: 5000,<br>    “groups”: “mygrp”,<br>    “home”: “/home/testuser”,<br>    “name”: “testuser”,<br>    “shell”: “/bin/tcsh”,<br>    “state”: “present”,<br>    “system”: false,<br>    “uid”: 5000<br>}</p>
+<pre><code>Ø copy模块
+</code></pre><p>[root@localhost ~]#ansible-doc -s copy<br>Ansible —-dest= 目标路径，远程主机的绝对路径<br>Ansible——–Src—–源可以相对，也可以是绝对的，源文件以斜线结尾、/ 将目录中的内容复制过去，不带斜线，将整个目录递归复制过去。<br>Ansible——-Owner属主<br>Ansible——-group属组<br>Ansible—-mode——–权限<br>Ansible——Remode src—从远程复制到远程<br>Ansible ——content —-指定内容生成目标文件生成的内容，不用指定src源文件；</p>
+<p>拷贝内容到远程主机；<br>[root@localhost ansible]#ansible all -m copy -a  “ src=/etc/fstab dest=/tmp/fstab.ansibled mode=600 “<br>172.16.88.1 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “checksum”: “38e9d94be631342601af30347dca5d61ae09172c”,<br>    “dest”: “/tmp/fstab.ansibled”,<br>    “gid”: 0,<br>    “group”: “root”,<br>    “md5sum”: “b91107d726fc7502b6d74ffce58a6dd0”,<br>    “mode”: “0600”,<br>    “owner”: “root”,<br>    “secontext”: “unconfined_u:object_r:admin_home_t:s0”,<br>    “size”: 541,<br>    “src”: “/root/.ansible/tmp/ansible-tmp-1505840510.12-83854192085881/source”,<br>    “state”: “file”,<br>    “uid”: 0<br>}<br>172.16.88.2 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “checksum”: “38e9d94be631342601af30347dca5d61ae09172c”,<br>    “dest”: “/tmp/fstab.ansibled”,<br>    “gid”: 0,<br>    “group”: “root”,<br>    “md5sum”: “b91107d726fc7502b6d74ffce58a6dd0”,<br>    “mode”: “0600”,<br>    “owner”: “root”,<br>    “secontext”: “unconfined_u:object_r:admin_home_t:s0”,<br>    “size”: 541,<br>    “src”: “/root/.ansible/tmp/ansible-tmp-1505840510.12-83768663591640/source”,<br>    “state”: “file”,<br>    “uid”: 0<br>}</p>
+<p>Ansible all -m copy -a “src=/etc/pam.d/ dest=/tmp/“<br>Ansible all -m copy -a “src=/etc/pam.d dest=/tmp/“<br>两种复制的区别在于，复制文件和复制目录</p>
+<p>给定内容拷贝到远程主机；<br>[root@localhost ansible]#ansible all -m copy -a “content=’hi there\n’ dest=/tmp/hi.txt”<br>172.16.88.1 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “checksum”: “56170f5429b35dea081bb659b884b475ca9329a9”,<br>    “dest”: “/tmp/hi.txt”,<br>    “gid”: 0,<br>    “group”: “root”,<br>    “md5sum”: “fd33e2e8ad3cb1bdd3ea8f5633fcf5c7”,<br>    “mode”: “0644”,<br>    “owner”: “root”,<br>    “secontext”: “unconfined_u:object_r:admin_home_t:s0”,<br>    “size”: 8,<br>    “src”: “/root/.ansible/tmp/ansible-tmp-1505841223.02-222568091857457/source”,<br>    “state”: “file”,<br>    “uid”: 0<br>}<br>将属主，属组改变为现有的testuser,mygrp<br>[root@localhost ansible]#ansible all -m copy -a “content=’hi there\n’ dest=/tmp/hi.txt owner=testuser group=mygrp”<br>172.16.88.1 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “checksum”: “279d9035886d4c0427549863c4c2101e4a63e041”,<br>    “dest”: “/tmp/hi.txt”,<br>    “gid”: 1032,<br>    “group”: “mygrp”,<br>    “mode”: “0644”,<br>    “owner”: “testuser”,<br>    “path”: “/tmp/hi.txt”,<br>    “secontext”: “unconfined_u:object_r:admin_home_t:s0”,<br>    “size”: 9,<br>    “state”: “file”,<br>    “uid”: 5000<br>}<br>172.16.88.2 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “checksum”: “279d9035886d4c0427549863c4c2101e4a63e041”,<br>    “dest”: “/tmp/hi.txt”,<br>    “gid”: 1032,<br>    “group”: “mygrp”,<br>    “mode”: “0644”,<br>    “owner”: “testuser”,<br>    “path”: “/tmp/hi.txt”,<br>    “secontext”: “unconfined_u:object_r:admin_home_t:s0”,<br>    “size”: 9,<br>    “state”: “file”,<br>    “uid”: 5000<br>}<br>没有创建的用户和组时将会出现错误；</p>
+<pre><code>Ø fetch模块；
+</code></pre><p>从远程主机复制文件到本地；远程主机不能指定多个。<br>    Ø command模块；<br>Ansible-doc -s command<br>在远程主机执行命令，<br>Ansible —–chdir 切换目录执行；<br>Ansible ——executable执行程序，执行命令有shell发起，指定shell类型；<br>Ansible —-free from  自有格式执行；</p>
+<p>[root@localhost ansible]#ansible all -m command -a “ifconfig”<br>172.16.88.1 | SUCCESS | rc=0 &gt;&gt;<br>ens33: flags=4163<up,broadcast,running,multicast>  mtu 1500<br>        inet 192.168.226.150  netmask 255.255.255.0  broadcast 192.168.226.255<br>        inet6 fe80::cf19:b710:2fcd:be00  prefixlen 64  scopeid 0x20<link><br>        ether 00:0c:29:f6:4b:b1  txqueuelen 1000  (Ethernet)<br>        RX packets 3699  bytes 386609 (377.5 KiB)<br>        RX errors 0  dropped 0  overruns 0  frame 0<br>        TX packets 1201  bytes 197899 (193.2 KiB)<br>        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0<br>172.16.88.2 | SUCCESS | rc=0 &gt;&gt;<br>ens33: flags=4163<up,broadcast,running,multicast>  mtu 1500<br>        inet 192.168.226.152  netmask 255.255.255.0  broadcast 192.168.226.255<br>        inet6 fe80::6f38:23ba:a34b:3a29  prefixlen 64  scopeid 0x20<link><br>        ether 00:0c:29:58:50:18  txqueuelen 1000  (Ethernet)<br>        RX packets 2593  bytes 258093 (252.0 KiB)<br>        RX errors 0  dropped 0  overruns 0  frame 0<br>        TX packets 450  bytes 68915 (67.2 KiB)<br>        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</up,broadcast,running,multicast></up,broadcast,running,multicast></p>
+<p>切换目录并创建目录；<br>Ansible all -m command -a “chdir=/var/tmp  mkdir hi.dir”<br>[root@localhost ~]#ansible all -m command -a “chdir=/var/tmp/ mkdir hi.dir”<br>172.16.88.2 | SUCCESS | rc=0 &gt;&gt;</p>
+<p>172.16.88.1 | SUCCESS | rc=0 &gt;&gt;</p>
+<p>[root@localhost ~]#ansible all -m command -a “chdir=/var/tmp/ mkdir hi.dir”<br>172.16.88.1 | FAILED | rc=1 &gt;&gt;<br>mkdir: cannot create directory ‘hi.dir’: File exists</p>
+<p>172.16.88.2 | FAILED | rc=1 &gt;&gt;<br>mkdir: cannot create directory ‘hi.dir’: File exists</p>
+<p>不是幂等的，再次创建将会出现失败；</p>
+<p>远程主机设置密码；<br>[root@localhost ~]#ansible all -m command -a “echo mageedu | password –stdin mageedu”<br>172.16.88.1 | SUCCESS | rc=0 &gt;&gt;<br>mageedu | password –stdin mageedu</p>
+<p>172.16.88.2 | SUCCESS | rc=0 &gt;&gt;<br>mageedu | password –stdin mageedu</p>
+<p>指定shell类型；<br>[root@localhost ~]#ansible all -m command -a “echo mageedu | password –stdin mageedu excutable=/bin/bash”<br>172.16.88.1 | SUCCESS | rc=0 &gt;&gt;<br>mageedu | password –stdin mageedu excutable=/bin/bash</p>
+<p>172.16.88.2 | SUCCESS | rc=0 &gt;&gt;<br>mageedu | password –stdin mageedu excutable=/bin/bash</p>
+<p>Command 无法解析|的功能，无法使用设置密码；</p>
+<pre><code>Ø Ansible-doc -s shell
+</code></pre><p>查看shell模块选项；</p>
+<p>使用shell模块添加用户密码；<br>[root@localhost ~]#ansible all -m command -a “useradd mageedu”<br>172.16.88.2 | SUCCESS | rc=0 &gt;&gt;</p>
+<p>172.16.88.1 | SUCCESS | rc=0 &gt;&gt;</p>
+<p>[root@localhost ~]#ansible all -m shell -a “echo mageedu | passwd –stdin mageedu”<br>172.16.88.2 | SUCCESS | rc=0 &gt;&gt;<br>Changing password for user mageedu.<br>passwd: all authentication tokens updated successfully.</p>
+<p>172.16.88.1 | SUCCESS | rc=0 &gt;&gt;<br>Changing password for user mageedu.<br>passwd: all authentication tokens updated successfully.</p>
+<pre><code>Ø Ansible-doc -s file
+</code></pre><p>创建目录；<br>Ansible all -m file -a “path=/var/tmp/hello.dir state=directory”</p>
+<p>[root@localhost ~]#ansible all -m file -a “path=/var/tmp/hello.dir state=directory”<br>172.16.88.1 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “gid”: 0,<br>    “group”: “root”,<br>    “mode”: “0755”,<br>    “owner”: “root”,<br>    “path”: “/var/tmp/hello.dir”,<br>    “secontext”: “unconfined_u:object_r:user_tmp_t:s0”,<br>    “size”: 6,<br>    “state”: “directory”,<br>    “uid”: 0<br>}</p>
+<p>创建文件；<br>[root@localhost ~]#ansible all -m file -a “path=/var/tmp/hello.txt state=file”<br>172.16.88.1 | FAILED! =&gt; {<br>    “changed”: false,<br>    “failed”: true,<br>    “msg”: “file (/var/tmp/hello.txt) is absent, cannot continue”,<br>    “path”: “/var/tmp/hello.txt”,<br>    “state”: “absent”<br>}<br>172.16.88.2 | FAILED! =&gt; {<br>    “changed”: false,<br>    “failed”: true,<br>    “msg”: “file (/var/tmp/hello.txt) is absent, cannot continue”,<br>    “path”: “/var/tmp/hello.txt”,<br>    “state”: “absent”<br>}<br>创建空文件，不建议使用file模块，使用copy命令，countent 为空，即可拷贝空文件；</p>
+<p>file模块可以创建符号链接；<br>复制一个文件，创建符号链接；<br>[root@localhost ~]#ansible all -m copy -a “src=/etc/fstab dest=/var/tmp/fstab.ansible”<br>172.16.88.2 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “checksum”: “38e9d94be631342601af30347dca5d61ae09172c”,<br>    “dest”: “/var/tmp/fstab.ansible”,<br>    “gid”: 0,<br>    “group”: “root”,<br>    “md5sum”: “b91107d726fc7502b6d74ffce58a6dd0”,<br>    “mode”: “0644”,<br>    “owner”: “root”,<br>    “secontext”: “unconfined_u:object_r:admin_home_t:s0”,<br>    “size”: 541,<br>    “src”: “/root/.ansible/tmp/ansible-tmp-1505911110.34-137908123845802/source”,<br>    “state”: “file”,<br>    “uid”: 0<br>}<br>创建符号链接；<br>[root@localhost ~]#ansible all -m file -a “src=/var/tmp/fstab.ansible dest=/var/tmp/fstab.link state=link”<br>172.16.88.1 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “dest”: “/var/tmp/fstab.link”,<br>    “gid”: 0,<br>    “group”: “root”,<br>    “mode”: “0777”,<br>    “owner”: “root”,<br>    “secontext”: “unconfined_u:object_r:user_tmp_t:s0”,<br>    “size”: 22,<br>    “src”: “/var/tmp/fstab.ansible”,<br>    “state”: “link”,<br>    “uid”: 0<br>}<br>[root@localhost tmp]#ll<br>总用量 4<br>-rw-r–r–. 1 root root 541 9月  20 20:38 fstab.ansible<br>lrwxrwxrwx. 1 root root  22 9月  20 20:41 fstab.link -&gt; /var/tmp/fstab.ansible</p>
+<p>指明目标符号链接，state=link</p>
+<p>File 模块设定文件属性；<br>Group,mode,owner….</p>
+<pre><code>Ø Ansible-doc -s cron
+</code></pre><p>cron模块—定义计划任务；</p>
+<p>[root@localhost ~]#ansible all -m cron -a “minute=*/3 job=’/usr/sbin/update 172.16.0.1 &amp;&gt; /dev/null’ “<br>172.16.88.1 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “envs”: [],<br>    “jobs”: [<br>        “None”<br>    ]<br>}</p>
+<p>同步时间；<br>[root@localhost tmp]#crontab -l</p>
+<p>#Ansible: None<br><em>/3 </em> <em> </em> * /usr/sbin/update 172.16.0.1 &amp;&gt; /dev/null<br>在node1上查看信息；</p>
+<p>删除设定的任务；<br>[root@localhost ~]#ansible all -m cron -a “minute=<em>/3 job=’/usr/sbin/update 172.16.0.1 &amp;&gt; /dev/null’ state=absent”<br>172.16.88.1 | SUCCESS =&gt; {<br>    “changed”: false,<br>    “envs”: [],<br>    “jobs”: [<br>        “None”<br>    ]<br>}<br>需要指明名字；<br>[root@localhost ~]#ansible all -m cron -a “minute=</em>/3 job=’/usr/sbin/update 172.16.0.1 &amp;&gt;/dev/null’ name=None state=absent”<br>172.16.88.2 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “envs”: [],<br>    “jobs”: []<br>}<br>172.16.88.1 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “envs”: [],<br>    “jobs”: []<br>}<br>[root@localhost tmp]# crontab -l<br>[root@localhost tmp]#<br>删除设定任务成功；</p>
+<pre><code>Ø Ansible-doc -s yum
+</code></pre><p>Yum 模块<br>State= 选项—install(present , installed , latest)<br>都表示安装；<br>remove（absent , removed）–都表示卸载；<br>Disbalerepo 禁用某个仓库<br>Enablerepo 启用没偶个仓库<br>Disable_gpg_check 禁用秘钥检测</p>
+<p>两个主机各自安装一个nginx;<br>[root@localhost ~]#ansible all -m yum -a “name=nginx state=installed”<br>172.16.88.2 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “msg”: “”,<br>    “rc”: 0,<br>    “results”: [<br>[root@localhost ~]#rpm -q nginx<br>nginx-1.10.2-1.el7.x86_64</p>
+<pre><code>Ø Ansible-doc -s service
+</code></pre><p>service模块；<br>[root@localhost ~]#ansible all -m service -a “name=nginx state=started  “<br>172.16.88.2 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “name”: “nginx”,<br>    “state”: “started”,<br>[root@localhost ~]#ansible all -m service -a “name=nginx state=stopped  “<br>172.16.88.2 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “name”: “nginx”,<br>    “state”: “stopped”,<br>查看剩余模块；<br>Ansible-doc -l|less</p>
+<pre><code>Ø Ansible-doc -s script
+</code></pre><p>script模块；<br>指定脚本路径，执行脚本<br>[root@localhost ~]#ansible all -m script -a “/tmp/test.sh”<br>172.16.88.1 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “rc”: 0,<br>    “stderr”: “Shared connection to 172.16.88.1 closed.\r\n”,<br>    “stdout”: “”,<br>    “stdout_lines”: []<br>}<br>172.16.88.2 | SUCCESS =&gt; {<br>    “changed”: true,<br>    “rc”: 0,<br>    “stderr”: “Shared connection to 172.16.88.2 closed.\r\n”,<br>    “stdout”: “”,<br>    “stdout_lines”: []<br>}<br>[root@localhost tmp]#cat /tmp/ansible.txt<br>ansible script<br>执行脚本在远程主机执行。</p>
+
+    </div>
+  </section>
+
+  
+  
+</article>
+      <script>NProgress.set(0.6);</script>
+    </main>
+    
+    <footer class="footer">
+  <div class="footer-wrap">
+    <div class="footer-link">
+      
+      <h3>LINKS</h3>
+      <p>
+        
+          <a href="http://1x0.xyz/" target="_blank">Tian1x0</a>
+        
+          <a href="http://www.royalmice.com/hankzhou/" target="_blank">Hankzhou</a>
+        
+          <a href="http://sjydh.me/" target="_blank">设计有点货</a>
+        
+          <a href="https://developers.google.com/web/fundamentals/" target="_blank">Web fundamentals</a>
+        
+      </p>
+      
+    </div>
+    <div class="footer-tags">
+      
+        <h3>TAGS</h3>        
+        <div class="tags">
+             <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/7修改密码，故障修复/">7修改密码，故障修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible命令行中的应用/">Ansible命令行中的应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible角色/">Ansible角色</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos7编译安装/">Centos7编译安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysqldump数据库恢复/">Mysqldump数据库恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql主从复制/">Mysql主从复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSI模型的七层结构/">OSI模型的七层结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAID/">RAID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/">awk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos6/">centos6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dns转发/">dns转发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dstat/">dstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/httpd的web账号密码管理/">httpd的web账号密码管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iostat/">iostat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keepalived/">keepalived</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lib64库文件，内核修复/">lib64库文件，内核修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs服务nat模式/">lvs服务nat模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpm/">rpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sed/">sed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tar/">tar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/varnish/">varnish</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim编辑器/">vim编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmstat/">vmstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum/">yum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zabbix-server-zabbix-agent/">zabbix-server/zabbix-agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/共享文件系统，vsftpd/">共享文件系统，vsftpd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创建mysql数据库索引/">创建mysql数据库索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/循环语句/">循环语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据备份及数据恢复/">数据备份及数据恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志服务/">日志服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程管理，kill/">进程管理，kill</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逻辑卷/">逻辑卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/防火墙，SElinux/">防火墙，SElinux</a></li></ul>
+          </div>
+      
+    </div>
+    <div class="footer-info">
+        <div>Theme <span class="codename"><a href="https://github.com/GGICE/hexo-icer" target="_blank">icer</a></span> designed & coded by <a href="https://ice.gs/" target="_blank">GGICE</a></div>
+        <div>Copyright &copy; 2018, <a href="/">Hexo</a>  . All rights reserved .</div>
+      </div>
+  </div>
+</footer>
+
+
+    <script>NProgress.set(0.8);</script>
+    
+  </div>
+
+  <script src="//cdnjs.xyz/libs/highlight/9.12.0/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/js/main.js"></script>
+
+<!-- Commit -->
+
+
+
+  <script>
+    NProgress.done();
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>Ansible-playbook-角色 | Hexo</title>
+  <meta name="description" content="A geeker blog." />
+  <meta name="keywords" content="hexo,theme,icer,ggice" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="```Ansible-playbok的核心元素之一；角色角色（roles）:     角色集合：             roles/                mysql/                httpd/                nginx/                memcached/每个角色，以特定的层级目路结构进行组织；如； mysql/ -  files/:">
+<meta name="keywords" content="Ansible角色">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ansible-playbook-角色">
+<meta property="og:url" content="http://yoursite.com/2018/01/09/Ansible-playbook-角色/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="```Ansible-playbok的核心元素之一；角色角色（roles）:     角色集合：             roles/                mysql/                httpd/                nginx/                memcached/每个角色，以特定的层级目路结构进行组织；如； mysql/ -  files/:">
+<meta property="og:updated_time" content="2018-01-09T05:51:57.731Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ansible-playbook-角色">
+<meta name="twitter:description" content="```Ansible-playbok的核心元素之一；角色角色（roles）:     角色集合：             roles/                mysql/                httpd/                nginx/                memcached/每个角色，以特定的层级目路结构进行组织；如； mysql/ -  files/:">
+  
+  
+  
+  <link rel='stylesheet' href='//cdnjs.xyz/libs/nprogress/0.2.0/nprogress.css'/>
+  <link rel="stylesheet" href="//cdnjs.xyz/libs/highlight/9.12.0/styles/github-gist.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_405585_2mmfrz9pgd7h9f6r.css">
+  <script src='//cdnjs.xyz/libs/nprogress/0.2.0/nprogress.js'></script>
+  <!-- <script>try{Typekit.load({ async: false });}catch(e){}</script> -->
+  <link rel="stylesheet" href="/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-93986029-1', 'auto');
+  ga('send', 'pageview');
+  
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  
+  <script>NProgress.start();</script>
+  
+  <div id="site-wrapper">
+    
+    <header class="header">
+  <div class="header-wrapper">
+    <a href="/">
+      <img src="/image/logo.jpg" class="logo"/>
+      <!-- <span class="site-desc">
+        
+      </span> -->
+    </a>
+    <div class="social-wrapper">
+      
+        
+          <a href="https://twitter.com/iggice" class="social twitter" target="_blank" rel="external">
+            <span class="iconfont icon-twitter"></span>
+          </a>
+          
+          <a href="https://github.com/ggice" class="social github" target="_blank" rel="external">
+            <span class="iconfont icon-github"></span>
+          </a>
+          
+          <a href="http://ggice.tumblr.com/" class="social tumblr" target="_blank" rel="external">
+            <span class="iconfont icon-tumblr"></span>
+          </a>
+          
+          <a href="https://dribbble.com/ggice" class="social dribbble" target="_blank" rel="external">
+            <span class="iconfont icon-dribbble"></span>
+          </a>
+          
+          <a href="mailto:i@ice.gs" class="social email" target="_blank" rel="external">
+            <span class="iconfont icon-email"></span>
+          </a>
+          
+          <a href="/atom.xml" class="social rss" target="_blank" rel="external">
+            <span class="iconfont icon-rss"></span>
+          </a>
+          
+      
+      
+      <a href="#" class="social search-do" target="_blank" rel="external">
+        <span class="iconfont icon-search"></span>
+      </a>
+            
+      <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="http://yoursite.com"></form> -->
+    </div>
+    <div class="search-wrap">
+      <div class="search-content animated fade-in">
+        <p class="search-input">
+          <span class="iconfont icon-search"></span>
+          <input tabindex="1">
+        </p>
+        <ul class="search-result">
+            
+              <div class="tags">
+                   <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/7修改密码，故障修复/">7修改密码，故障修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible命令行中的应用/">Ansible命令行中的应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible角色/">Ansible角色</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos7编译安装/">Centos7编译安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysqldump数据库恢复/">Mysqldump数据库恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql主从复制/">Mysql主从复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSI模型的七层结构/">OSI模型的七层结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAID/">RAID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/">awk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos6/">centos6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dns转发/">dns转发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dstat/">dstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/httpd的web账号密码管理/">httpd的web账号密码管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iostat/">iostat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keepalived/">keepalived</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lib64库文件，内核修复/">lib64库文件，内核修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs服务nat模式/">lvs服务nat模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpm/">rpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sed/">sed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tar/">tar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/varnish/">varnish</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim编辑器/">vim编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmstat/">vmstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum/">yum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zabbix-server-zabbix-agent/">zabbix-server/zabbix-agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/共享文件系统，vsftpd/">共享文件系统，vsftpd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创建mysql数据库索引/">创建mysql数据库索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/循环语句/">循环语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据备份及数据恢复/">数据备份及数据恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志服务/">日志服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程管理，kill/">进程管理，kill</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逻辑卷/">逻辑卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/防火墙，SElinux/">防火墙，SElinux</a></li></ul>
+                </div>
+            
+        </ul>
+      </div>
+    </div>
+    <nav class="header-nav">
+      
+        <a href="/" class="archives">
+          home
+        </a>
+        
+        <a href="/tags/web-development/" class="archives">
+          web development
+        </a>
+        
+        <a href="/tags/soft/" class="archives">
+          soft
+        </a>
+        
+        <a href="/tags/os/" class="archives">
+          os
+        </a>
+        
+        <a href="/archives" class="archives">
+          archives
+        </a>
+        
+        <a href="/about/" class="archives">
+          About
+        </a>
+        
+    </nav>
+  </div>
+</header>
+    <script>NProgress.set(0.4);</script>
+    
+    <main id="main" role="main">
+      <article id="post-Ansible-playbook-角色"
+  class="post article white-box article-type-post animated fade-in-top"
+  itemscope itemprop="blogPost">
+  <section class="post-header article-header">
+    <h2 class="title">
+        <a href="/2018/01/09/Ansible-playbook-角色/">
+          Ansible-playbook-角色
+        </a>
+      </h2>
+      <div class="subtitle">
+          <time>
+            Jan 9, 2018
+          </time>
+          
+            <span class="tags">
+                <span class="iconfont icon-tag"></span>
+                <a class="tag-link" href="/tags/Ansible角色/">Ansible角色</a>
+              </span>
+          
+      </div>
+  </section>
+  <section class="content">
+    <div class="article-entry" itemprop="articleBody">
+      <p>```<br>Ansible-playbok的核心元素之一；角色<br>角色（roles）:<br>     角色集合：<br>             roles/<br>                mysql/<br>                httpd/<br>                nginx/<br>                memcached/<br>每个角色，以特定的层级目路结构进行组织；<br>如； mysql/</p>
+<pre><code>-  files/: 存放由copy或script模块等调用的文件；
+- Templates/:template模块查找所需要模板文件的目录；
+- Tasks/:至少应该包含一个名为mail.yml的文件；其他的文件需要在此文件中通过include进行包含；
+- Handlers/:   至少应该包含一个名为mail.yml的文件；其他的文件需要在此文件中通过include进行包含；
+- Vars/：至少应该包含一个名为mail.yml的文件；其他的文件需要在此文件中通过include进行包含；
+- Meta/：至少应该包含一个名为mail.yml的文件；定义当前角色的特殊定义及依赖关系；其他的文件需要在此文件中通过include进行包含；
+- Default/:设定默认变量时使用此目录中的main.yml文件；
+
+在playbook中的调用方法1；
+- Hosts: webserver
+Remote_user:root
+Roles:
+ - mysql
+ - memcached
+ - nginx
+</code></pre><p>举例；<br>创建目录；如；</p>
+<pre><code>- mkdir nginx/{tasks,files,vars,templates}
+</code></pre><p>[root@localhost ~]#mkdir nginx/{tasks,files,vars,templates} -pv<br>mkdir: created directory ‘nginx’<br>mkdir: created directory ‘nginx/tasks’<br>mkdir: created directory ‘nginx/files’<br>mkdir: created directory ‘nginx/vars’<br>mkdir: created directory ‘nginx/templates’</p>
+<p>在/etc/ansible/ansible.cfg文件中定义—模板，角色路径放置位置；</p>
+<p>#roles_path    = /etc/ansible/roles</p>
+<p>创建目录，mkdir -pv /etc/ansible/roles/nginx/{files,templates,tasks,vars,handlers,meta,default}</p>
+<p>[root@localhost playbooks]#mkdir -pv /etc/ansible/roles/nginx/{files,tasks,handlers,templates,default,meta}<br>mkdir: created directory ‘/etc/ansible/roles/nginx/files’<br>mkdir: created directory ‘/etc/ansible/roles/nginx/tasks’<br>mkdir: created directory ‘/etc/ansible/roles/nginx/handlers’<br>mkdir: created directory ‘/etc/ansible/roles/nginx/templates’<br>mkdir: created directory ‘/etc/ansible/roles/nginx/default’<br>mkdir: created directory ‘/etc/ansible/roles/nginx/meta’</p>
+<p>创建任务；</p>
+<p>#Cd /etc/ansible/roles/nginx/tasks/<br>Vim main.yml<br>-name: install nginx<br>  yum： name=nginx state=latest<br> when: ansible_os_family== “ReHat”</p>
+<p>创建playbook调用的配置文件；</p>
+<p>#cd</p>
+<p>#vim nginx.yaml<br>-hosts: webserver<br>  remote_user:root<br>  roles:</p>
+<ul>
+<li>nginx</li>
+</ul>
+<p>[root@localhost ~]#ansible-playbook –syntax-check nginx.yml</p>
+<p>playbook: nginx.yml<br>[root@localhost ~]#ansible-playbook -C  nginx.yml</p>
+<p>PLAY [webserver] <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p>
+<p>TASK [setup] <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>ok: [172.16.88.1]<br>ok: [172.16.88.2]</p>
+<p>TASK [nginx : install nginx] <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>skipping: [172.16.88.1]<br>skipping: [172.16.88.2]</p>
+<p>PLAY RECAP <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>172.16.88.1                : ok=1    changed=0    unreachable=0    failed=0<br>172.16.88.2                : ok=1    changed=0    unreachable=0    failed=0</p>
+<p>ansible上编辑nginx配置文件模板；<br>Cd  /etc/ansible/roles/nginx/templates/<br>Vim vhost1.yml<br>Service{<br>            listen 80:<br>            server_name ;<br>            location / {<br>                   root “/www/ngxdata/vhost1”;<br>           }<br>}<br>Cp /etc/ansible/roles/nginx/templates/<br>Vim vhost1.yml{,.j2}</p>
+<p>添加任务—编辑vim roles/nginx/tasks/main.yml<br>Vim main.yml<br>-name: install nginx<br>  yum： name=nginx state=latest<br> when: ansible_os_family== “ReHat”<br>-name: install conf<br> template: src=vhost1.j2 dest=/etc/nginx/conf.d/vhost1.conf</p>
+<p>Tags: conf<br>Notify: restart nginx—————配置完文件以后创建站点家目录<br>-name: install site home directory<br> file: path= state=directory<br>-name: install index page<br>Copy: src=index.html dest=/</p>
+<p>-name: start nginx<br> service: name=nginx state=started</p>
+<pre><code>Ø handlers--定义handlers -条件设定;
+</code></pre><p>Cd roles/nginx/handlers<br>Vim main.yml<br>-name: restart nginx<br> service: name=nginx state=restarted</p>
+<pre><code>Ø 定义变量vars；
+</code></pre><p>Cd roles/nginx/vars<br>Vim  main.yml<br>ngxroot: /ngxdata/vhost1—-变量需要字典来定义，不需要加-横线；</p>
+<pre><code>Ø 定义网页文件files；
+</code></pre><p>Cd roles/nginx/files/index.html</p>
+<h1> vhost1</h1>
+
+
+<p>将监听端口设定改为8080：—自己创建的网页文件路径与默认网页文件路径所指定的端口冲突，默认监听端口为80，所以需要更改监听端口，否则无法访问到页面；</p>
+<p>重新启动服务；<br>Ansible-playbook -t tage nginx.yml</p>
+<p>[root@localhost ~]#ansible-playbook   nginx.yml</p>
+<p>PLAY [webserver] <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p>
+<p>TASK [setup] <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>ok: [172.16.88.2]<br>ok: [172.16.88.1]</p>
+<p>TASK [nginx : install nginx] <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>ok: [172.16.88.2]<br>ok: [172.16.88.1]</p>
+<p>TASK [nginx : install conf vhost1.conf.j2] <strong><strong><strong><strong><strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong></strong></strong></strong></strong><br>ok: [172.16.88.1]<br>ok: [172.16.88.2]</p>
+<p>TASK [nginx : install site  home  directory] <strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong><br>changed: [172.16.88.1]<br>changed: [172.16.88.2]</p>
+<p>TASK [nginx : install  index.html page] <strong><strong><strong><strong><strong><strong><strong><strong><strong><em>**</em></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>changed: [172.16.88.2]<br>changed: [172.16.88.1]</p>
+<p>TASK [nginx : start nginx] <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>ok: [172.16.88.2]<br>ok: [172.16.88.1]</p>
+<p>PLAY RECAP <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>*</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>172.16.88.1                : ok=6    changed=2    unreachable=0    failed=0<br>172.16.88.2                : ok=6    changed=2    unreachable=0    failed=0</p>
+<p>ansible的配置文件；<br>Ansible.cfg文件；<br>【defaults】<br>默认选项；</p>
+<pre><code>- Forks =5 ----默认管控的主机数量；
+- Remote_port =22----ssh连接设定的端口，为了安全可以更默认端口；
+</code></pre><p>Roles_path=/etc/ansible/roles—-角色的存放路径；<br>Module_name=command 默认指定的模块<br>Executable= /bin/sh  执行command时默认使用的shell解释执行；<br>Connection_plugins=/usr/share/ansible/plugins/connection—-将使用的插件存放到此目录下，如果没有此文件创建生成，将使用的插件模块存放到此目录下；</p>
+<p>【privilege escalation】—用户升级</p>
+<p>#become=true — 启用become升级</p>
+<p>#become_method=sudo —-shdo 方式</p>
+<p>#become_user=root  ————提升为root用户</p>
+<p>#become_ask_pass=false—-需要提供密码与否</p>
+<p>【paramiko_connection】<br>Python 指定库连接个目标主机的选项；<br>【ssh_coniction】<br>ssh连接时的专用选项；<br>【persistent_connection】<br>持久连接；<br>【accelerate】<br>加速选项<br>【selinux】<br>【colors】<br> 显示结果，定义颜色</p>
+<pre><code>Ø 当配置完成ansible后,可以设定任务计划，每隔多少时间执行一次，如果远程主机配置文件文件被改动可以还原，并保持正常运行；
+Ø 如果客户端主机(ˇˍˇ） 想检测自己的配置文件是否跟ansible主机上的配置文件是否一致，需安装第三方组件，ansible_vsc，使用ansible-pull 命令；
+当需要使用此模型时，应该更换使用saltstack （使用python编写，兼容性好）或pupet（应用广泛）
+比ansible简单易用；
+
+实验；
+主备模式高可用keeplived+nginx(proxy)
+两台主机：httpd+php
+一台主机：mysql-server或mariadb_server
+
+实验；
+nginx反代 tomcat 使用ansible
+
+准备四台主机；
+- node1：nginx
+- Node2: tamcat
+- Node3: tamcat
+- Node4: ansible
+
+Node4;
+1、安装ansible
+2、定义主机；
+- [lb]-----负载均衡器
+Node1.mageedu.com
+- [tcsrvs]
+Node[2:3].mageedu.com
+3、生成秘钥传送到远程主机，实现无密码传递。
+Ssh-keygen -t rsa -P &apos; &apos;  ----生成蜜钥
+Ssh-copy-id -I ~/.ssh/id_rsa.pub root@node{1，2,3}--传送到远程主机；
+4、使用ansible，查看使用主机是否存在；
+Ansible all --list-host
+5、创建角色目录；
+Mkdir -pv roles/{nginx,tomcat}/{files,templates,tasks,vars,handlers,meta,default,}
+
+Cd roles/nginx/tasks
+Vim main.yml
+-name: install nginx
+ yum: name=nginx state=latest
+When: ansible_os_family == &quot;RadHat&quot;
+ -name: install conf
+  copy：src=lb.conf dest=/etc/nginx/conf.d/
+  tags: conf
+Notify: restart ngnix
+-name: start ngnix
+ service: name=nginx state=started enabled=yes
+
+#cd roles/nginx/handlers/
+Vim  main.yml
+-name：restart nginx
+ service: name=nginx state=restarted
+
+#Cd roles/nginx/files/
+#vim  lb.conf
+Upstream tcsevs {
+Server node2.magedu.com:8080;
+Server node3.magedu.com:8080;
+}
+Server {
+    listen 80；
+    server_name node4.mageedu.com;
+    location / {
+                proxy_pass http://tcsrvs;
+    }
+}
+
+
+#Cd
+#mkdir playbooks
+#cd playbooks
+#vim nt.yml
+      -hosts: lb
+        remote_user:root
+        roles:
+       -nginx
+
+       #ansible-playbook -C nt.yml
+</code></pre><p>配置tomcat 配置文件；</p>
+<p>#cd roles/tamcat/tasks<br>Vim  main.yml<br>-name: install package<br> yum: name= state=latest<br> with_items:</p>
+<pre><code>- Tomcat
+- Tomcat -admin-webapps
+- Tomcat-docs-webapp
+- Tomcat-webapps
+</code></pre><p>When: ansible_os_family == “RadHat”<br>-name: start tomcat<br> service: name=tomcat state=started enabled=yes</p>
+<p>#Cd roles/</p>
+<h1 id="mkdir-jdk-tasks-templates-vars-meta-handlers-default-files"><a href="#mkdir-jdk-tasks-templates-vars-meta-handlers-default-files" class="headerlink" title="mkdir jdk/{tasks,templates,vars,meta,handlers,default,files}"></a>mkdir jdk/{tasks,templates,vars,meta,handlers,default,files}</h1><p>#cd roles/jdk/tasks/</p>
+<p>#vim mian.yml<br>-name: install openjdk<br> yum: name=java--openjdk-devel state=latest<br>-name: install env file<br> copy: src=java.sh dest=/etc/profile.d/</p>
+<p>#cd roles/jdk/files<br>Vim java,sh<br>Export JAVA_HOME=/usr</p>
+<p>#cd roles/jdk/vars/</p>
+<p>#vim main.yml<br> varsion: 1.8.0</p>
+
+    </div>
+  </section>
+
+  
+  
+</article>
+      <script>NProgress.set(0.6);</script>
+    </main>
+    
+    <footer class="footer">
+  <div class="footer-wrap">
+    <div class="footer-link">
+      
+      <h3>LINKS</h3>
+      <p>
+        
+          <a href="http://1x0.xyz/" target="_blank">Tian1x0</a>
+        
+          <a href="http://www.royalmice.com/hankzhou/" target="_blank">Hankzhou</a>
+        
+          <a href="http://sjydh.me/" target="_blank">设计有点货</a>
+        
+          <a href="https://developers.google.com/web/fundamentals/" target="_blank">Web fundamentals</a>
+        
+      </p>
+      
+    </div>
+    <div class="footer-tags">
+      
+        <h3>TAGS</h3>        
+        <div class="tags">
+             <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/7修改密码，故障修复/">7修改密码，故障修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible命令行中的应用/">Ansible命令行中的应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible角色/">Ansible角色</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos7编译安装/">Centos7编译安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysqldump数据库恢复/">Mysqldump数据库恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql主从复制/">Mysql主从复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSI模型的七层结构/">OSI模型的七层结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAID/">RAID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/">awk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos6/">centos6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dns转发/">dns转发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dstat/">dstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/httpd的web账号密码管理/">httpd的web账号密码管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iostat/">iostat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keepalived/">keepalived</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lib64库文件，内核修复/">lib64库文件，内核修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs服务nat模式/">lvs服务nat模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpm/">rpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sed/">sed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tar/">tar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/varnish/">varnish</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim编辑器/">vim编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmstat/">vmstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum/">yum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zabbix-server-zabbix-agent/">zabbix-server/zabbix-agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/共享文件系统，vsftpd/">共享文件系统，vsftpd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创建mysql数据库索引/">创建mysql数据库索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/循环语句/">循环语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据备份及数据恢复/">数据备份及数据恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志服务/">日志服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程管理，kill/">进程管理，kill</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逻辑卷/">逻辑卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/防火墙，SElinux/">防火墙，SElinux</a></li></ul>
+          </div>
+      
+    </div>
+    <div class="footer-info">
+        <div>Theme <span class="codename"><a href="https://github.com/GGICE/hexo-icer" target="_blank">icer</a></span> designed & coded by <a href="https://ice.gs/" target="_blank">GGICE</a></div>
+        <div>Copyright &copy; 2018, <a href="/">Hexo</a>  . All rights reserved .</div>
+      </div>
+  </div>
+</footer>
+
+
+    <script>NProgress.set(0.8);</script>
+    
+  </div>
+
+  <script src="//cdnjs.xyz/libs/highlight/9.12.0/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/js/main.js"></script>
+
+<!-- Commit -->
+
+
+
+  <script>
+    NProgress.done();
+  </script>
+  
+</body>
+</html>

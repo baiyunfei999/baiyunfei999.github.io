@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>lvs负载均衡nat模式 | Hexo</title>
+  <meta name="description" content="A geeker blog." />
+  <meta name="keywords" content="hexo,theme,icer,ggice" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1234567891011121314151617181920212223242526272829303132333435363738394041424344安装centoscentos7---vscentos6---RS1、RS2centos6---client最小化安装centos,配置yum源；cd /etc/yum.repos.d/rm-rf *vi base.repo[base]base">
+<meta name="keywords" content="lvs服务nat模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lvs负载均衡nat模式">
+<meta property="og:url" content="http://yoursite.com/2018/01/09/lvs负载均衡nat模式/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1234567891011121314151617181920212223242526272829303132333435363738394041424344安装centoscentos7---vscentos6---RS1、RS2centos6---client最小化安装centos,配置yum源；cd /etc/yum.repos.d/rm-rf *vi base.repo[base]base">
+<meta property="og:updated_time" content="2018-01-09T05:23:36.803Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="lvs负载均衡nat模式">
+<meta name="twitter:description" content="1234567891011121314151617181920212223242526272829303132333435363738394041424344安装centoscentos7---vscentos6---RS1、RS2centos6---client最小化安装centos,配置yum源；cd /etc/yum.repos.d/rm-rf *vi base.repo[base]base">
+  
+  
+  
+  <link rel='stylesheet' href='//cdnjs.xyz/libs/nprogress/0.2.0/nprogress.css'/>
+  <link rel="stylesheet" href="//cdnjs.xyz/libs/highlight/9.12.0/styles/github-gist.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_405585_2mmfrz9pgd7h9f6r.css">
+  <script src='//cdnjs.xyz/libs/nprogress/0.2.0/nprogress.js'></script>
+  <!-- <script>try{Typekit.load({ async: false });}catch(e){}</script> -->
+  <link rel="stylesheet" href="/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-93986029-1', 'auto');
+  ga('send', 'pageview');
+  
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  
+  <script>NProgress.start();</script>
+  
+  <div id="site-wrapper">
+    
+    <header class="header">
+  <div class="header-wrapper">
+    <a href="/">
+      <img src="/image/logo.jpg" class="logo"/>
+      <!-- <span class="site-desc">
+        
+      </span> -->
+    </a>
+    <div class="social-wrapper">
+      
+        
+          <a href="https://twitter.com/iggice" class="social twitter" target="_blank" rel="external">
+            <span class="iconfont icon-twitter"></span>
+          </a>
+          
+          <a href="https://github.com/ggice" class="social github" target="_blank" rel="external">
+            <span class="iconfont icon-github"></span>
+          </a>
+          
+          <a href="http://ggice.tumblr.com/" class="social tumblr" target="_blank" rel="external">
+            <span class="iconfont icon-tumblr"></span>
+          </a>
+          
+          <a href="https://dribbble.com/ggice" class="social dribbble" target="_blank" rel="external">
+            <span class="iconfont icon-dribbble"></span>
+          </a>
+          
+          <a href="mailto:i@ice.gs" class="social email" target="_blank" rel="external">
+            <span class="iconfont icon-email"></span>
+          </a>
+          
+          <a href="/atom.xml" class="social rss" target="_blank" rel="external">
+            <span class="iconfont icon-rss"></span>
+          </a>
+          
+      
+      
+      <a href="#" class="social search-do" target="_blank" rel="external">
+        <span class="iconfont icon-search"></span>
+      </a>
+            
+      <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="http://yoursite.com"></form> -->
+    </div>
+    <div class="search-wrap">
+      <div class="search-content animated fade-in">
+        <p class="search-input">
+          <span class="iconfont icon-search"></span>
+          <input tabindex="1">
+        </p>
+        <ul class="search-result">
+            
+              <div class="tags">
+                   <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/7修改密码，故障修复/">7修改密码，故障修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible命令行中的应用/">Ansible命令行中的应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible角色/">Ansible角色</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos7编译安装/">Centos7编译安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysqldump数据库恢复/">Mysqldump数据库恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql主从复制/">Mysql主从复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSI模型的七层结构/">OSI模型的七层结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAID/">RAID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/">awk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos6/">centos6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dns转发/">dns转发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dstat/">dstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/httpd的web账号密码管理/">httpd的web账号密码管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iostat/">iostat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keepalived/">keepalived</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lib64库文件，内核修复/">lib64库文件，内核修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs服务nat模式/">lvs服务nat模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpm/">rpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sed/">sed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tar/">tar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/varnish/">varnish</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim编辑器/">vim编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmstat/">vmstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum/">yum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zabbix-server-zabbix-agent/">zabbix-server/zabbix-agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/共享文件系统，vsftpd/">共享文件系统，vsftpd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创建mysql数据库索引/">创建mysql数据库索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/循环语句/">循环语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据备份及数据恢复/">数据备份及数据恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志服务/">日志服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程管理，kill/">进程管理，kill</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逻辑卷/">逻辑卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/防火墙，SElinux/">防火墙，SElinux</a></li></ul>
+                </div>
+            
+        </ul>
+      </div>
+    </div>
+    <nav class="header-nav">
+      
+        <a href="/" class="archives">
+          home
+        </a>
+        
+        <a href="/tags/web-development/" class="archives">
+          web development
+        </a>
+        
+        <a href="/tags/soft/" class="archives">
+          soft
+        </a>
+        
+        <a href="/tags/os/" class="archives">
+          os
+        </a>
+        
+        <a href="/archives" class="archives">
+          archives
+        </a>
+        
+        <a href="/about/" class="archives">
+          About
+        </a>
+        
+    </nav>
+  </div>
+</header>
+    <script>NProgress.set(0.4);</script>
+    
+    <main id="main" role="main">
+      <article id="post-lvs负载均衡nat模式"
+  class="post article white-box article-type-post animated fade-in-top"
+  itemscope itemprop="blogPost">
+  <section class="post-header article-header">
+    <h2 class="title">
+        <a href="/2018/01/09/lvs负载均衡nat模式/">
+          lvs负载均衡nat模式
+        </a>
+      </h2>
+      <div class="subtitle">
+          <time>
+            Jan 9, 2018
+          </time>
+          
+            <span class="tags">
+                <span class="iconfont icon-tag"></span>
+                <a class="tag-link" href="/tags/lvs服务nat模式/">lvs服务nat模式</a>
+              </span>
+          
+      </div>
+  </section>
+  <section class="content">
+    <div class="article-entry" itemprop="articleBody">
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">安装centos</span><br><span class="line">centos7---vs</span><br><span class="line">centos6---RS1、RS2</span><br><span class="line">centos6---client</span><br><span class="line"></span><br><span class="line">最小化安装centos,配置yum源；</span><br><span class="line">cd /etc/yum.repos.d/</span><br><span class="line">rm-rf *</span><br><span class="line">vi base.repo</span><br><span class="line">[base]</span><br><span class="line">baseurl=file:///mnt</span><br><span class="line">gpgcheck=0</span><br><span class="line">#yum repolist</span><br><span class="line">#yum makecache</span><br><span class="line">#yum install vim</span><br><span class="line">#yum install autofs</span><br><span class="line">chkconfig autofs on</span><br><span class="line">service autofs start</span><br><span class="line">#vim base.repo</span><br><span class="line">[base]</span><br><span class="line">baseurl=file:///misc/cd</span><br><span class="line">gpgcheck=0</span><br><span class="line"></span><br><span class="line">设置ip地址，设置为静态ip；</span><br><span class="line">使用VMware 仅主机和自定义模式（仅主机）</span><br><span class="line">1、vs外网网卡设置为自定义模式；ip;192.168.183.151</span><br><span class="line">   vs内网网卡设置为仅主机模式；ip：192.168.226.151</span><br><span class="line">2、RS1；仅主机模式，ip;192.168.226.140</span><br><span class="line">   RS2；仅主机模式，ip;192.168.226.141</span><br><span class="line">3、client;自定义模式；ip;192.168.183.130</span><br><span class="line"></span><br><span class="line">关闭防火墙及SElinux设置；</span><br><span class="line">centos6;</span><br><span class="line">#chkconfig iptables off</span><br><span class="line">#chkconfig list iptables</span><br><span class="line">#vim /etc/selinux/conf</span><br><span class="line">#setenforce 0</span><br><span class="line">#getenforce</span><br><span class="line">centos7;</span><br><span class="line">systemctl enable firewalld</span><br><span class="line">systemctl stop firewalld</span><br><span class="line">#vim /etc/selinux/conf</span><br><span class="line">#setenforce 0</span><br><span class="line">#getenforce</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、VS（centos7）安装ipvsadm；</span><br><span class="line">      设置VS服务模式；</span><br><span class="line">      设置VS的算法；</span><br><span class="line">      开启ipv4转发功能；</span><br><span class="line">2、RS（centos6）安装httpd;</span><br><span class="line">      设置简单的网页；</span><br><span class="line">      将RS网关指向VS（192.168.226.151）；</span><br><span class="line">3、client客户端访问vs端网页；</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"> 1、VS (centos 7)上安装ipvsadm，设置/etc/sysctl.conf配置文件、设置VS服务模式及算法;</span><br><span class="line"> #yum install ipvsadm</span><br><span class="line"> #Vim /etc/sysctl.conf</span><br><span class="line"> Net.ipv4.ip_forward=1</span><br><span class="line"> #ipvsadm -A -t 192.168.183.151:80 -s rr---模式</span><br><span class="line"> #ipvsadm -a -t 192.168.183.151:80 -r 192.168.226.140 -m ---算法</span><br><span class="line"> #ipvsadm -a -t 192.168.183.151:80 -r 192.168.226.141 -m</span><br><span class="line">2、RS服务器将网关指向VS服务器，安装httpd并启用；</span><br><span class="line"> RS1;</span><br><span class="line"> # vim /etc/sysconfig/network-scripts</span><br><span class="line"> DEVICE=eth0</span><br><span class="line"> IPADDR=192.168.226.140</span><br><span class="line"> PREFIX=24</span><br><span class="line"> GATEWAY=192.168.226.151</span><br><span class="line"> RS2;</span><br><span class="line"> # vim /etc/sysconfig/network-scripts</span><br><span class="line"> DEVICE=eth0</span><br><span class="line"> IPADDR=192.168.226.141</span><br><span class="line"> PREFIX=24</span><br><span class="line"> GATWAY=192.168.226.151</span><br><span class="line"> #yum install httpd</span><br><span class="line"> #service httpd start</span><br><span class="line"> #chkconfig httpd on</span><br><span class="line"> 创建简单的网页；</span><br><span class="line"> echo RS1 SERVER &gt;/var/www/html/index.html</span><br><span class="line"> echo RS2 SERVER &gt;/var/www/html/index.html</span><br><span class="line">3、client客户端访问网页,检测是否成功；</span><br><span class="line"> #curl 192.168.183.151</span><br><span class="line"> #if i in &#123;1..10&#125;;do curl 192.168.183.151;done</span><br><span class="line"> [root@client ~]#for i in &#123;1..10&#125;;do curl 192.168.183.151;sleep 1;done</span><br><span class="line"> RS1 SERVICE</span><br><span class="line"> RS2 SERVICE</span><br><span class="line"> RS1 SERVICE</span><br><span class="line"> RS2 SERVICE</span><br><span class="line"> RS1 SERVICE</span><br><span class="line"> RS2 SERVICE</span><br><span class="line"> RS1 SERVICE</span><br><span class="line"> RS2 SERVICE</span><br><span class="line"> RS1 SERVICE</span><br><span class="line"> RS2 SERVICE</span><br><span class="line">4、在vs上查看连接状态；</span><br><span class="line"> #Ipvsadm -Ln</span><br><span class="line"> [root@VS1 ~]# ipvsadm -Ln</span><br><span class="line"> IP Virtual Server version 1.2.1 (size=4096)</span><br><span class="line"> Prot LocalAddress:Port Scheduler Flags</span><br><span class="line">  -&gt; RemoteAddress:Port           Forward Weight ActiveConn InActConn</span><br><span class="line"> TCP  192.168.183.151:80 rr</span><br><span class="line">  -&gt; 192.168.226.140:80           Masq    1      0          8</span><br><span class="line">  -&gt; 192.168.226.141:80           Masq    1      0          8</span><br><span class="line">5、测试性能；</span><br><span class="line"> [root@client ~]#ab -c 100 -n 10000 http://192.168.183.151/</span><br><span class="line"> This is ApacheBench, Version 2.3 &lt;$Revision: 655654 $&gt;</span><br><span class="line"> Copyright 1996 Adam Twiss, Zeus Technology Ltd,        http://www.zeustech.net/</span><br><span class="line"> Licensed to The Apache Software Foundation, http://www.apache.org/</span><br><span class="line"></span><br><span class="line"> Benchmarking 192.168.183.151 (be patient)</span><br><span class="line"> Completed 1000 requests</span><br><span class="line"> Completed 2000 requests</span><br><span class="line"> Completed 3000 requests</span><br><span class="line"> Completed 4000 requests</span><br><span class="line"> Completed 5000 requests</span><br><span class="line"> Completed 6000 requests</span><br><span class="line"> Completed 7000 requests</span><br><span class="line"> Completed 8000 requests</span><br><span class="line"> Completed 9000 requests</span><br><span class="line"> Completed 10000 requests</span><br><span class="line"> Finished 10000 requests</span><br><span class="line"> Server Software:        Apache/2.2.15</span><br><span class="line"> Server Hostname:        192.168.183.151</span><br><span class="line"> Server Port:            80</span><br><span class="line"> Document Path:          /</span><br><span class="line"> Document Length:        12 bytes</span><br><span class="line"> Concurrency Level:      100</span><br><span class="line"> Time taken for tests:   4.102 seconds</span><br><span class="line"> Complete requests:      10000</span><br><span class="line"> Failed requests:        0</span><br><span class="line"> Write errors:           0</span><br><span class="line"> Total transferred:      2785829 bytes</span><br><span class="line"> HTML transferred:       120036 bytes</span><br><span class="line"> Requests per second:    2437.62 [#/sec] (mean)</span><br><span class="line"> Time per request:       41.024 [ms] (mean)</span><br><span class="line"> Time per request:       0.410 [ms] (mean, across all concurrent requests)</span><br><span class="line"> Transfer rate:          663.16 [Kbytes/sec] received</span><br><span class="line"> Connection Times (ms)</span><br><span class="line">              min  mean[+/-sd] median   max</span><br><span class="line"> Connect:        1    8   9.4      6     188</span><br><span class="line"> Processing:     5   33  16.7     30     231</span><br><span class="line"> Waiting:        3   32  16.2     30     231</span><br><span class="line"> Total:         22   40  19.1     39     240</span><br><span class="line"> Percentage of the requests served within a certain time (ms)</span><br><span class="line">  50%     39</span><br><span class="line">  66%     41</span><br><span class="line">  75%     42</span><br><span class="line">  80%     42</span><br><span class="line">  90%     44</span><br><span class="line">  95%     45</span><br><span class="line">  98%     48</span><br><span class="line">  99%     56</span><br><span class="line"> 100%    240 (longest request)</span><br><span class="line">6、查看谁在访问；</span><br><span class="line"> Cat /var/log/httpd/access_log</span><br><span class="line">7、查看谁访问的数量；</span><br><span class="line"> [root@RS1 network-scripts]#cut -d&quot; &quot; -f1 /var/log/httpd/access_log  |sort -  nr|uniq -c|sort -n</span><br><span class="line">      1 192.168.226.140</span><br><span class="line">      3 192.168.226.151</span><br><span class="line">     10 ::1</span><br><span class="line">    102 192.168.183.151</span><br><span class="line">  10328 192.168.183.130</span><br><span class="line">8、查看每秒钟的访问数据平均速度；</span><br><span class="line"> [root@VS1 ~]# ipvsadm -Ln --rate</span><br><span class="line"> IP Virtual Server version 1.2.1 (size=4096)</span><br><span class="line"> Prot LocalAddress:Port                 CPS    InPPS   OutPPS    InBPS     OutBPS</span><br><span class="line">  -&gt; RemoteAddress:Port</span><br><span class="line"> TCP  192.168.183.151:80                  1        5        5      447      545</span><br><span class="line">  -&gt; 192.168.226.140:80                  0        3        2      223      272</span><br><span class="line">  -&gt; 192.168.226.141:80                  0        3        2      224      273</span><br><span class="line">9、更改vs算法，更改RS权数；</span><br><span class="line"> Ipvsadm -E -t 192.168.183.151:80 -s wrr</span><br><span class="line"> Ipvsadm -e -t 192.168.183.151:80 -r 192.168.226.141 -m -w 3</span><br><span class="line">再次访问时会有变化；</span><br><span class="line"> [root@client ~]#for i in &#123;1..100&#125;;do curl 192.168.183.151;sleep 1;done</span><br><span class="line"> RS2 SERVICE</span><br><span class="line"> RS1 SERVICE</span><br><span class="line"> RS2 SERVICE</span><br><span class="line"> RS2 SERVICE</span><br><span class="line"> RS2 SERVICE</span><br><span class="line"> RS1 SERVICE</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> 删除网卡模块；</span><br><span class="line"> /etc/udev/rules.d/70-persistent-ipoib.rules</span><br><span class="line">- 卸载模块</span><br><span class="line">- Rmmod  e1000</span><br><span class="line">- Modprobe e1000</span><br><span class="line">添加ip地址</span><br><span class="line">ip a add 192.168.226.151/24 dev eth0</span><br></pre></td></tr></table></figure>
+
+    </div>
+  </section>
+
+  
+  
+</article>
+      <script>NProgress.set(0.6);</script>
+    </main>
+    
+    <footer class="footer">
+  <div class="footer-wrap">
+    <div class="footer-link">
+      
+      <h3>LINKS</h3>
+      <p>
+        
+          <a href="http://1x0.xyz/" target="_blank">Tian1x0</a>
+        
+          <a href="http://www.royalmice.com/hankzhou/" target="_blank">Hankzhou</a>
+        
+          <a href="http://sjydh.me/" target="_blank">设计有点货</a>
+        
+          <a href="https://developers.google.com/web/fundamentals/" target="_blank">Web fundamentals</a>
+        
+      </p>
+      
+    </div>
+    <div class="footer-tags">
+      
+        <h3>TAGS</h3>        
+        <div class="tags">
+             <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/7修改密码，故障修复/">7修改密码，故障修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible命令行中的应用/">Ansible命令行中的应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible角色/">Ansible角色</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos7编译安装/">Centos7编译安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysqldump数据库恢复/">Mysqldump数据库恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql主从复制/">Mysql主从复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSI模型的七层结构/">OSI模型的七层结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAID/">RAID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/">awk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos6/">centos6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dns转发/">dns转发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dstat/">dstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/httpd的web账号密码管理/">httpd的web账号密码管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iostat/">iostat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keepalived/">keepalived</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lib64库文件，内核修复/">lib64库文件，内核修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs服务nat模式/">lvs服务nat模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpm/">rpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sed/">sed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tar/">tar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/varnish/">varnish</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim编辑器/">vim编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmstat/">vmstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum/">yum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zabbix-server-zabbix-agent/">zabbix-server/zabbix-agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/共享文件系统，vsftpd/">共享文件系统，vsftpd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创建mysql数据库索引/">创建mysql数据库索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/循环语句/">循环语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据备份及数据恢复/">数据备份及数据恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志服务/">日志服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程管理，kill/">进程管理，kill</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逻辑卷/">逻辑卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/防火墙，SElinux/">防火墙，SElinux</a></li></ul>
+          </div>
+      
+    </div>
+    <div class="footer-info">
+        <div>Theme <span class="codename"><a href="https://github.com/GGICE/hexo-icer" target="_blank">icer</a></span> designed & coded by <a href="https://ice.gs/" target="_blank">GGICE</a></div>
+        <div>Copyright &copy; 2018, <a href="/">Hexo</a>  . All rights reserved .</div>
+      </div>
+  </div>
+</footer>
+
+
+    <script>NProgress.set(0.8);</script>
+    
+  </div>
+
+  <script src="//cdnjs.xyz/libs/highlight/9.12.0/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/js/main.js"></script>
+
+<!-- Commit -->
+
+
+
+  <script>
+    NProgress.done();
+  </script>
+  
+</body>
+</html>

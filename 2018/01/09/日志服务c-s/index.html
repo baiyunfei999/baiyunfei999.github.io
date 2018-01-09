@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>日志服务c/s | Hexo</title>
+  <meta name="description" content="A geeker blog." />
+  <meta name="keywords" content="hexo,theme,icer,ggice" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="12341、准备虚拟机，centos6、centso7、centos5;2、将centos7设置成日志服务器端，将centos6设置为日志服务客户端；3、从centos5虚拟机使用ssh连接centos6生成、/var/log/secure日志文件；4、将生成的日志文件转送到centos7服务器端； 1234567891011121314151617181920212223242526272829">
+<meta name="keywords" content="日志服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="日志服务c&#x2F;s">
+<meta property="og:url" content="http://yoursite.com/2018/01/09/日志服务c-s/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="12341、准备虚拟机，centos6、centso7、centos5;2、将centos7设置成日志服务器端，将centos6设置为日志服务客户端；3、从centos5虚拟机使用ssh连接centos6生成、/var/log/secure日志文件；4、将生成的日志文件转送到centos7服务器端； 1234567891011121314151617181920212223242526272829">
+<meta property="og:updated_time" content="2018-01-09T05:17:24.430Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="日志服务c&#x2F;s">
+<meta name="twitter:description" content="12341、准备虚拟机，centos6、centso7、centos5;2、将centos7设置成日志服务器端，将centos6设置为日志服务客户端；3、从centos5虚拟机使用ssh连接centos6生成、/var/log/secure日志文件；4、将生成的日志文件转送到centos7服务器端； 1234567891011121314151617181920212223242526272829">
+  
+  
+  
+  <link rel='stylesheet' href='//cdnjs.xyz/libs/nprogress/0.2.0/nprogress.css'/>
+  <link rel="stylesheet" href="//cdnjs.xyz/libs/highlight/9.12.0/styles/github-gist.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_405585_2mmfrz9pgd7h9f6r.css">
+  <script src='//cdnjs.xyz/libs/nprogress/0.2.0/nprogress.js'></script>
+  <!-- <script>try{Typekit.load({ async: false });}catch(e){}</script> -->
+  <link rel="stylesheet" href="/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-93986029-1', 'auto');
+  ga('send', 'pageview');
+  
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  
+  <script>NProgress.start();</script>
+  
+  <div id="site-wrapper">
+    
+    <header class="header">
+  <div class="header-wrapper">
+    <a href="/">
+      <img src="/image/logo.jpg" class="logo"/>
+      <!-- <span class="site-desc">
+        
+      </span> -->
+    </a>
+    <div class="social-wrapper">
+      
+        
+          <a href="https://twitter.com/iggice" class="social twitter" target="_blank" rel="external">
+            <span class="iconfont icon-twitter"></span>
+          </a>
+          
+          <a href="https://github.com/ggice" class="social github" target="_blank" rel="external">
+            <span class="iconfont icon-github"></span>
+          </a>
+          
+          <a href="http://ggice.tumblr.com/" class="social tumblr" target="_blank" rel="external">
+            <span class="iconfont icon-tumblr"></span>
+          </a>
+          
+          <a href="https://dribbble.com/ggice" class="social dribbble" target="_blank" rel="external">
+            <span class="iconfont icon-dribbble"></span>
+          </a>
+          
+          <a href="mailto:i@ice.gs" class="social email" target="_blank" rel="external">
+            <span class="iconfont icon-email"></span>
+          </a>
+          
+          <a href="/atom.xml" class="social rss" target="_blank" rel="external">
+            <span class="iconfont icon-rss"></span>
+          </a>
+          
+      
+      
+      <a href="#" class="social search-do" target="_blank" rel="external">
+        <span class="iconfont icon-search"></span>
+      </a>
+            
+      <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="http://yoursite.com"></form> -->
+    </div>
+    <div class="search-wrap">
+      <div class="search-content animated fade-in">
+        <p class="search-input">
+          <span class="iconfont icon-search"></span>
+          <input tabindex="1">
+        </p>
+        <ul class="search-result">
+            
+              <div class="tags">
+                   <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/7修改密码，故障修复/">7修改密码，故障修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible命令行中的应用/">Ansible命令行中的应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible角色/">Ansible角色</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos7编译安装/">Centos7编译安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysqldump数据库恢复/">Mysqldump数据库恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql主从复制/">Mysql主从复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSI模型的七层结构/">OSI模型的七层结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAID/">RAID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/">awk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos6/">centos6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dns转发/">dns转发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dstat/">dstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/httpd的web账号密码管理/">httpd的web账号密码管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iostat/">iostat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keepalived/">keepalived</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lib64库文件，内核修复/">lib64库文件，内核修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs服务nat模式/">lvs服务nat模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpm/">rpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sed/">sed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tar/">tar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/varnish/">varnish</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim编辑器/">vim编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmstat/">vmstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum/">yum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zabbix-server-zabbix-agent/">zabbix-server/zabbix-agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/共享文件系统，vsftpd/">共享文件系统，vsftpd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创建mysql数据库索引/">创建mysql数据库索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/循环语句/">循环语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据备份及数据恢复/">数据备份及数据恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志服务/">日志服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程管理，kill/">进程管理，kill</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逻辑卷/">逻辑卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/防火墙，SElinux/">防火墙，SElinux</a></li></ul>
+                </div>
+            
+        </ul>
+      </div>
+    </div>
+    <nav class="header-nav">
+      
+        <a href="/" class="archives">
+          home
+        </a>
+        
+        <a href="/tags/web-development/" class="archives">
+          web development
+        </a>
+        
+        <a href="/tags/soft/" class="archives">
+          soft
+        </a>
+        
+        <a href="/tags/os/" class="archives">
+          os
+        </a>
+        
+        <a href="/archives" class="archives">
+          archives
+        </a>
+        
+        <a href="/about/" class="archives">
+          About
+        </a>
+        
+    </nav>
+  </div>
+</header>
+    <script>NProgress.set(0.4);</script>
+    
+    <main id="main" role="main">
+      <article id="post-日志服务c-s"
+  class="post article white-box article-type-post animated fade-in-top"
+  itemscope itemprop="blogPost">
+  <section class="post-header article-header">
+    <h2 class="title">
+        <a href="/2018/01/09/日志服务c-s/">
+          日志服务c/s
+        </a>
+      </h2>
+      <div class="subtitle">
+          <time>
+            Jan 9, 2018
+          </time>
+          
+            <span class="tags">
+                <span class="iconfont icon-tag"></span>
+                <a class="tag-link" href="/tags/日志服务/">日志服务</a>
+              </span>
+          
+      </div>
+  </section>
+  <section class="content">
+    <div class="article-entry" itemprop="articleBody">
+      <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、准备虚拟机，centos6、centso7、centos5;</span><br><span class="line">2、将centos7设置成日志服务器端，将centos6设置为日志服务客户端；</span><br><span class="line">3、从centos5虚拟机使用ssh连接centos6生成、/var/log/secure日志文件；</span><br><span class="line">4、将生成的日志文件转送到centos7服务器端；</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line">1、最小化安装，安装所需要的安装包；</span><br><span class="line">#yum install  openssh</span><br><span class="line">centos6、centos7日志配置文件为---/etc/rsyslog.conf</span><br><span class="line">安装包为rsyslog;</span><br><span class="line">centos5日志配置文件---/etc/syslog.conf</span><br><span class="line">安装包为sysklogd(centos5及之前版本)</span><br><span class="line">同步服务器时间；</span><br><span class="line">ntpdate 172.16.0.1</span><br><span class="line"></span><br><span class="line">2、查看配置文件；</span><br><span class="line">/etc/ssh</span><br><span class="line">[root@centos7 ~]#cat  /etc/ssh/sshd_config |grep -v &quot;^#&quot;|grep -v &quot;^$&quot;</span><br><span class="line">HostKey /etc/ssh/ssh_host_rsa_key</span><br><span class="line">HostKey /etc/ssh/ssh_host_ecdsa_key</span><br><span class="line">HostKey /etc/ssh/ssh_host_ed25519_key</span><br><span class="line">（SyslogFacility AUTHPRIV -----生成日志文件类型，发送到日志）</span><br><span class="line">AuthorizedKeysFile      .ssh/authorized_keys</span><br><span class="line">PasswordAuthentication yes</span><br><span class="line">ChallengeResponseAuthentication no</span><br><span class="line">GSSAPIAuthentication yes</span><br><span class="line">GSSAPICleanupCredentials no</span><br><span class="line">UsePAM yes</span><br><span class="line">X11Forwarding yes</span><br><span class="line">UsePrivilegeSeparation sandbox          # Default for new installations.</span><br><span class="line">AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES</span><br><span class="line">AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT</span><br><span class="line">AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE</span><br><span class="line">AcceptEnv XMODIFIERS</span><br><span class="line">Subsystem       sftp    /usr/libexec/openssh/sftp-server</span><br><span class="line"></span><br><span class="line">/etc/rsyslog.conf</span><br><span class="line">日志文件类型及日志文件</span><br><span class="line">[root@centos6 ~]#cat /etc/rsyslog.conf |grep -v &quot;^#&quot;|grep -v &quot;^$&quot;</span><br><span class="line">$ModLoad imuxsock # provides support for local system logging (e.g. via logger command)</span><br><span class="line">$ModLoad imklog   # provides kernel logging support (previously done by rklogd)</span><br><span class="line">$ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat</span><br><span class="line">$IncludeConfig /etc/rsyslog.d/*.conf</span><br><span class="line">*.info;mail.none;authpriv.none;cron.none                /var/log/messages</span><br><span class="line">（authpriv.*）                                             /var/log/secure</span><br><span class="line">mail.*                                                  -/var/log/maillog</span><br><span class="line">cron.*                                                  /var/log/cron</span><br><span class="line">*.emerg                                                 *</span><br><span class="line">uucp,news.crit                                          /var/log/spooler</span><br><span class="line">local7.*                                                /var/log/boot.log</span><br><span class="line"></span><br><span class="line">centos5使用ssh连接centos6,查看生成的日志记录；</span><br><span class="line">[root@station1 ~]#ssh 192.168.226.134</span><br><span class="line">root@192.168.226.134&apos;s password:</span><br><span class="line">Last login: Thu Aug 10 21:23:23 2017 from 192.168.226.1</span><br><span class="line">[root@centos6 ~]#</span><br><span class="line"></span><br><span class="line">[root@centos6 ssh]#tail /var/log/secure -f</span><br><span class="line">Aug 10 21:22:50 centos6 sshd[3128]: Accepted password for root from 192.168.226.135 port 34327 ssh2</span><br><span class="line">Aug 10 21:22:50 centos6 sshd[3128]: pam_unix(sshd:session): session opened for user root by (uid=0)</span><br><span class="line">Aug 10 21:23:23 centos6 sshd[3148]: Accepted password for root from 192.168.226.1 port 7141 ssh2</span><br><span class="line">Aug 10 21:23:23 centos6 sshd[3148]: pam_unix(sshd:session): session opened for user root by (uid=0)</span><br><span class="line">Aug 10 21:25:41 centos6 sshd[3128]: pam_unix(sshd:session): session closed for user root</span><br><span class="line">Aug 10 21:26:58 centos6 sshd[3202]: Accepted password for root from 192.168.226.135 port 54649 ssh2</span><br><span class="line">Aug 10 21:26:58 centos6 sshd[3202]: pam_unix(sshd:session): session opened for user root by (uid=0)</span><br><span class="line"></span><br><span class="line">3、修改配置文件；</span><br><span class="line">在配置文件里开启客户端centos6，514端口；</span><br><span class="line"></span><br><span class="line"># Provides UDP syslog reception</span><br><span class="line">$ModLoad imudp</span><br><span class="line">$UDPServerRun 514</span><br><span class="line"></span><br><span class="line"># Provides TCP syslog reception</span><br><span class="line">#$ModLoad imtcp</span><br><span class="line">#$InputTCPServerRun 514</span><br><span class="line"></span><br><span class="line">传送到日志服务器；开启UDP模块时，@IP。开启TCP模块时，@@IP.</span><br><span class="line">authpriv.*                                               @192.168.226.133</span><br><span class="line"></span><br><span class="line">4、centos5使用ssh连接centos6；</span><br><span class="line">centos5虚拟机</span><br><span class="line">[root@station1 ~]#ssh 192.168.226.134</span><br><span class="line">root@192.168.226.134&apos;s password:</span><br><span class="line">Last login: Thu Aug 10 23:12:00 2017 from 192.168.226.134</span><br><span class="line">[root@centos6 ~]#</span><br><span class="line">centos6虚拟机</span><br><span class="line">[root@centos6 ssh]#tail /var/log/secure -f</span><br><span class="line">Aug  9 13:28:13 centos6 unix_chkpwd[3111]: password check failed for user (root)</span><br><span class="line">Aug  9 13:28:13 centos6 sshd[3105]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=192.168.226.135  user=root</span><br><span class="line">Aug  9 13:28:16 centos6 sshd[3105]: Failed password for root from 192.168.226.135 port 36336 ssh2</span><br><span class="line">Aug 10 21:22:50 centos6 sshd[3128]: Accepted password for root from 192.168.226.135 port 34327 ssh2</span><br><span class="line">Aug 10 21:22:50 centos6 sshd[3128]: pam_unix(sshd:session): session opened for user root by (uid=0)</span><br><span class="line">Aug 10 21:23:23 centos6 sshd[3148]: Accepted password for root from 192.168.226.1 port 7141 ssh2</span><br><span class="line">Aug 10 21:23:23 centos6 sshd[3148]: pam_unix(sshd:session): session opened for user root by (uid=0)</span><br><span class="line">Aug 10 21:25:41 centos6 sshd[3128]: pam_unix(sshd:session): session closed for user root</span><br><span class="line">Aug 10 21:26:58 centos6 sshd[3202]: Accepted password for root from 192.168.226.135 port 54649 ssh2</span><br><span class="line">Aug 10 21:26:58 centos6 sshd[3202]: pam_unix(sshd:session): session opened for user root by (uid=0)</span><br><span class="line"></span><br><span class="line">centos7虚拟机</span><br><span class="line">[root@centos7 ~]#tail /var/log/secure -f</span><br><span class="line">Aug 10 19:26:00 centos7 useradd[3851]: new user: name=nfsnobody, UID=65534, GID=65534, home=/var/lib/nfs, shell=/sbin/nologin</span><br><span class="line">Aug 10 23:06:34 centos6 sshd[3469]: Accepted password for root from 192.168.226.134 port 49146 ssh2</span><br><span class="line">Aug 10 23:06:34 centos6 sshd[3469]: pam_unix(sshd:session): session opened for user root by (uid=0)</span><br><span class="line">Aug 10 23:11:29 centos6 sshd[3469]: Received disconnect from 192.168.226.134: 11: disconnected by user</span><br><span class="line">Aug 10 23:11:29 centos6 sshd[3469]: pam_unix(sshd:session): session closed for user root</span><br><span class="line">Aug 10 23:12:00 centos6 sshd[3525]: Accepted password for root from 192.168.226.134 port 49148 ssh2</span><br><span class="line">Aug 10 23:12:00 centos6 sshd[3525]: pam_unix(sshd:session): session opened for user root by (uid=0)</span><br><span class="line">Aug 10 23:12:30 centos6 sshd[3525]: Received disconnect from 192.168.226.134: 11: disconnected by user</span><br><span class="line">Aug 10 23:12:30 centos6 sshd[3525]: pam_unix(sshd:session): session closed for user root</span><br><span class="line">Aug 10 23:13:18 centos6 sshd[3202]: pam_unix(sshd:session): session closed for user root</span><br><span class="line">Aug 10 23:14:09 centos6 sshd[3547]: Accepted password for root from 192.168.226.135 port 46989 ssh2</span><br><span class="line">Aug 10 23:14:09 centos6 sshd[3547]: pam_unix(sshd:session): session opened for user root by (uid=0)</span><br><span class="line"></span><br><span class="line">centos6上的SECURE日志文件将传送到centos7上的/var/log/secure;</span><br><span class="line">日志文件不会留在centos6上，传送到centos7日志服务器上。</span><br></pre></td></tr></table></figure>
+<p>######日志相关内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"> facility ：设施，从功能或程序上对日志进行 归 类</span><br><span class="line">auth, authpriv, cron, daemon,ftp,kern, lpr, mail,</span><br><span class="line">news, security(auth), user, uucp, local0-local7, syslog</span><br><span class="line"></span><br><span class="line">Priority  优先级别，从低到高排序</span><br><span class="line">debug, info, notice, warn(warning), err(error),</span><br><span class="line">crit(critical), alert, emerg(panic）</span><br><span class="line">配置文件：/etc/rsyslog.conf ，/etc/rsyslog.d/*.con</span><br><span class="line">配置文件格式：由三部分组成</span><br><span class="line">MODULES ：相关模块配置</span><br><span class="line">GLOBAL DIRECTIVES ：全局配置</span><br><span class="line">RULES</span><br><span class="line"></span><br><span class="line">RULES 配置格式： facility.priority; facility.priority… target</span><br><span class="line">facility： ：</span><br><span class="line">*:  所有的facility</span><br><span class="line">facility1,facility2,facility3,... ：指定的facility 列表</span><br><span class="line"> priority： ：</span><br><span class="line">*:  所有级别</span><br><span class="line">none ：没有级别，即不记录</span><br><span class="line">PRIORITY ：指定级别（含）以上的所有级别</span><br><span class="line">=PRIORITY ：仅记录指定级别的日志信息</span><br><span class="line"> target： ：</span><br><span class="line">文件路径：通常在/var/log/ ，文件路径前的- 表示异步写入</span><br><span class="line">用户：将日志事件通知给指定的用户，*  表示登录的所有用户</span><br><span class="line">日志服务器：@host ，把日志送往至指定的远程服务器记录</span><br><span class="line">： 管道： | COMMAND</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">其它的日志文件</span><br><span class="line">/var/log/secure ：系统安装日志，文本格式，应周期性分析</span><br><span class="line"> /var/log/btmp ：当前系统上，用户的失败尝试登录相关的日</span><br><span class="line">志信息，二进制格式，lastb 命令进行查看</span><br><span class="line"> /var/log/wtmp ：当前系统上，用户正常登录系统的相关日志</span><br><span class="line">信息， 二进制格式， ，last 命令可以查看</span><br><span class="line"> /var/log/lastlog: 每一个用户最近一次的登录 信息， 二进制格</span><br><span class="line">式， ，lastlog 命令 可以查看</span><br><span class="line"> /var/log/dmesg ：系统引导过程中的日志信息，文本格式</span><br><span class="line">文本查看工具查看</span><br><span class="line">专用命令dmesg 查看</span><br><span class="line"> /var/log/messages  ：系统中大部分的信息</span><br><span class="line"> /var/log/anaconda : anaconda的日志；</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">rsyslog 将日志记录于MySQL中;</span><br><span class="line">(1)  准备MySQL Server</span><br><span class="line">(2)  在mysql server 上授权rsyslog 能连接至当前服务器</span><br><span class="line">mysql&gt; GRANT ALL ON Syslog.* TO &apos;USER&apos;@&apos;HOST&apos;</span><br><span class="line">IDENTIFIED BY &apos;PASSWORD&apos;;</span><br><span class="line">(3)  在rsyslog 服务器上安装mysql 模块相关的程序包</span><br><span class="line">yum install rsyslog-mysql</span><br><span class="line">(4)  为rsyslog 创建数据库及表；</span><br><span class="line">mysql -uUSERNAME -hHOST -pPASSWORD &lt;</span><br><span class="line">/usr/share/doc/rsyslog-7.4.7/mysql-createDB.sql</span><br><span class="line">(5)  配置rsyslog 将日志保存到mysql中 中</span><br><span class="line">#### MODULES ####</span><br><span class="line">$ModLoad ommysql</span><br><span class="line">#### RULES ####</span><br><span class="line">facility.priority :ommysql:DBHOST,DBNAME,DBUSER, PASSWORD</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">通过loganalyzer 展示数据库中的日志;</span><br><span class="line"> (1)  在rsyslog 服务器上准备amp 或nmp 组合</span><br><span class="line">yum install httpd php php-mysql php-gd</span><br><span class="line"> (2)  安装LogAnalyzer</span><br><span class="line">tar xf loganalyzer-3.6.5.tar.gz</span><br><span class="line">cp -a loganalyzer-3.6.5/src</span><br><span class="line">/var/www/html/loganalyzer</span><br><span class="line">cd /var/www/html/loganalyzer</span><br><span class="line">touch config.php</span><br><span class="line">chmod 666 config.php</span><br></pre></td></tr></table></figure>
+
+    </div>
+  </section>
+
+  
+  
+</article>
+      <script>NProgress.set(0.6);</script>
+    </main>
+    
+    <footer class="footer">
+  <div class="footer-wrap">
+    <div class="footer-link">
+      
+      <h3>LINKS</h3>
+      <p>
+        
+          <a href="http://1x0.xyz/" target="_blank">Tian1x0</a>
+        
+          <a href="http://www.royalmice.com/hankzhou/" target="_blank">Hankzhou</a>
+        
+          <a href="http://sjydh.me/" target="_blank">设计有点货</a>
+        
+          <a href="https://developers.google.com/web/fundamentals/" target="_blank">Web fundamentals</a>
+        
+      </p>
+      
+    </div>
+    <div class="footer-tags">
+      
+        <h3>TAGS</h3>        
+        <div class="tags">
+             <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/7修改密码，故障修复/">7修改密码，故障修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible命令行中的应用/">Ansible命令行中的应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible角色/">Ansible角色</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos7编译安装/">Centos7编译安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysqldump数据库恢复/">Mysqldump数据库恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql主从复制/">Mysql主从复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSI模型的七层结构/">OSI模型的七层结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAID/">RAID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/">awk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos6/">centos6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dns转发/">dns转发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dstat/">dstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/httpd的web账号密码管理/">httpd的web账号密码管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iostat/">iostat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keepalived/">keepalived</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lib64库文件，内核修复/">lib64库文件，内核修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs服务nat模式/">lvs服务nat模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpm/">rpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sed/">sed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tar/">tar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/varnish/">varnish</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim编辑器/">vim编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmstat/">vmstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum/">yum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zabbix-server-zabbix-agent/">zabbix-server/zabbix-agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/共享文件系统，vsftpd/">共享文件系统，vsftpd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创建mysql数据库索引/">创建mysql数据库索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/循环语句/">循环语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据备份及数据恢复/">数据备份及数据恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志服务/">日志服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程管理，kill/">进程管理，kill</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逻辑卷/">逻辑卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/防火墙，SElinux/">防火墙，SElinux</a></li></ul>
+          </div>
+      
+    </div>
+    <div class="footer-info">
+        <div>Theme <span class="codename"><a href="https://github.com/GGICE/hexo-icer" target="_blank">icer</a></span> designed & coded by <a href="https://ice.gs/" target="_blank">GGICE</a></div>
+        <div>Copyright &copy; 2018, <a href="/">Hexo</a>  . All rights reserved .</div>
+      </div>
+  </div>
+</footer>
+
+
+    <script>NProgress.set(0.8);</script>
+    
+  </div>
+
+  <script src="//cdnjs.xyz/libs/highlight/9.12.0/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/js/main.js"></script>
+
+<!-- Commit -->
+
+
+
+  <script>
+    NProgress.done();
+  </script>
+  
+</body>
+</html>

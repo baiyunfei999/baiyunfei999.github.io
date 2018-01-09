@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>Mysqldump数据库恢复 | Hexo</title>
+  <meta name="description" content="A geeker blog." />
+  <meta name="keywords" content="hexo,theme,icer,ggice" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="######知识点；12345678910111213141516171819202122mysqldump；innoDB;热备 、温备Myism; 温备#mysql TAB键补全可以看到mysql;Mysqldump options [db name]库  [tbl name]表mysqldump [OPTIONS] database [tables]				OR     mysqldump [">
+<meta name="keywords" content="Mysqldump数据库恢复">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysqldump数据库恢复">
+<meta property="og:url" content="http://yoursite.com/2018/01/09/Mysqldump数据库恢复/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="######知识点；12345678910111213141516171819202122mysqldump；innoDB;热备 、温备Myism; 温备#mysql TAB键补全可以看到mysql;Mysqldump options [db name]库  [tbl name]表mysqldump [OPTIONS] database [tables]				OR     mysqldump [">
+<meta property="og:updated_time" content="2018-01-09T05:43:35.054Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mysqldump数据库恢复">
+<meta name="twitter:description" content="######知识点；12345678910111213141516171819202122mysqldump；innoDB;热备 、温备Myism; 温备#mysql TAB键补全可以看到mysql;Mysqldump options [db name]库  [tbl name]表mysqldump [OPTIONS] database [tables]				OR     mysqldump [">
+  
+  
+  
+  <link rel='stylesheet' href='//cdnjs.xyz/libs/nprogress/0.2.0/nprogress.css'/>
+  <link rel="stylesheet" href="//cdnjs.xyz/libs/highlight/9.12.0/styles/github-gist.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_405585_2mmfrz9pgd7h9f6r.css">
+  <script src='//cdnjs.xyz/libs/nprogress/0.2.0/nprogress.js'></script>
+  <!-- <script>try{Typekit.load({ async: false });}catch(e){}</script> -->
+  <link rel="stylesheet" href="/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-93986029-1', 'auto');
+  ga('send', 'pageview');
+  
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  
+  <script>NProgress.start();</script>
+  
+  <div id="site-wrapper">
+    
+    <header class="header">
+  <div class="header-wrapper">
+    <a href="/">
+      <img src="/image/logo.jpg" class="logo"/>
+      <!-- <span class="site-desc">
+        
+      </span> -->
+    </a>
+    <div class="social-wrapper">
+      
+        
+          <a href="https://twitter.com/iggice" class="social twitter" target="_blank" rel="external">
+            <span class="iconfont icon-twitter"></span>
+          </a>
+          
+          <a href="https://github.com/ggice" class="social github" target="_blank" rel="external">
+            <span class="iconfont icon-github"></span>
+          </a>
+          
+          <a href="http://ggice.tumblr.com/" class="social tumblr" target="_blank" rel="external">
+            <span class="iconfont icon-tumblr"></span>
+          </a>
+          
+          <a href="https://dribbble.com/ggice" class="social dribbble" target="_blank" rel="external">
+            <span class="iconfont icon-dribbble"></span>
+          </a>
+          
+          <a href="mailto:i@ice.gs" class="social email" target="_blank" rel="external">
+            <span class="iconfont icon-email"></span>
+          </a>
+          
+          <a href="/atom.xml" class="social rss" target="_blank" rel="external">
+            <span class="iconfont icon-rss"></span>
+          </a>
+          
+      
+      
+      <a href="#" class="social search-do" target="_blank" rel="external">
+        <span class="iconfont icon-search"></span>
+      </a>
+            
+      <!-- <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="http://yoursite.com"></form> -->
+    </div>
+    <div class="search-wrap">
+      <div class="search-content animated fade-in">
+        <p class="search-input">
+          <span class="iconfont icon-search"></span>
+          <input tabindex="1">
+        </p>
+        <ul class="search-result">
+            
+              <div class="tags">
+                   <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/7修改密码，故障修复/">7修改密码，故障修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible命令行中的应用/">Ansible命令行中的应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible角色/">Ansible角色</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos7编译安装/">Centos7编译安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysqldump数据库恢复/">Mysqldump数据库恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql主从复制/">Mysql主从复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSI模型的七层结构/">OSI模型的七层结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAID/">RAID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/">awk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos6/">centos6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dns转发/">dns转发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dstat/">dstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/httpd的web账号密码管理/">httpd的web账号密码管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iostat/">iostat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keepalived/">keepalived</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lib64库文件，内核修复/">lib64库文件，内核修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs服务nat模式/">lvs服务nat模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpm/">rpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sed/">sed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tar/">tar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/varnish/">varnish</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim编辑器/">vim编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmstat/">vmstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum/">yum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zabbix-server-zabbix-agent/">zabbix-server/zabbix-agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/共享文件系统，vsftpd/">共享文件系统，vsftpd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创建mysql数据库索引/">创建mysql数据库索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/循环语句/">循环语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据备份及数据恢复/">数据备份及数据恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志服务/">日志服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程管理，kill/">进程管理，kill</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逻辑卷/">逻辑卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/防火墙，SElinux/">防火墙，SElinux</a></li></ul>
+                </div>
+            
+        </ul>
+      </div>
+    </div>
+    <nav class="header-nav">
+      
+        <a href="/" class="archives">
+          home
+        </a>
+        
+        <a href="/tags/web-development/" class="archives">
+          web development
+        </a>
+        
+        <a href="/tags/soft/" class="archives">
+          soft
+        </a>
+        
+        <a href="/tags/os/" class="archives">
+          os
+        </a>
+        
+        <a href="/archives" class="archives">
+          archives
+        </a>
+        
+        <a href="/about/" class="archives">
+          About
+        </a>
+        
+    </nav>
+  </div>
+</header>
+    <script>NProgress.set(0.4);</script>
+    
+    <main id="main" role="main">
+      <article id="post-Mysqldump数据库恢复"
+  class="post article white-box article-type-post animated fade-in-top"
+  itemscope itemprop="blogPost">
+  <section class="post-header article-header">
+    <h2 class="title">
+        <a href="/2018/01/09/Mysqldump数据库恢复/">
+          Mysqldump数据库恢复
+        </a>
+      </h2>
+      <div class="subtitle">
+          <time>
+            Jan 9, 2018
+          </time>
+          
+            <span class="tags">
+                <span class="iconfont icon-tag"></span>
+                <a class="tag-link" href="/tags/Mysqldump数据库恢复/">Mysqldump数据库恢复</a>
+              </span>
+          
+      </div>
+  </section>
+  <section class="content">
+    <div class="article-entry" itemprop="articleBody">
+      <p>######知识点；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">mysqldump；</span><br><span class="line">innoDB;热备 、温备</span><br><span class="line">Myism; 温备</span><br><span class="line"></span><br><span class="line">#mysql TAB键补全可以看到mysql;</span><br><span class="line"></span><br><span class="line">Mysqldump options [db name]库  [tbl name]表</span><br><span class="line"></span><br><span class="line">mysqldump [OPTIONS] database [tables]</span><br><span class="line">				OR     mysqldump [OPTIONS] --databases [OPTIONS] DB1 [DB2 DB3...]</span><br><span class="line">				OR     mysqldump [OPTIONS] --all-databases [OPTIONS]</span><br><span class="line">三种备份方式；</span><br><span class="line">1、指定库或库的表，不用选项 ，单库同时可以指定表</span><br><span class="line">2、--databases 指定数据库名，指定多库</span><br><span class="line">3、--all-databases 指定全部数据库，全部备份</span><br><span class="line"></span><br><span class="line">将所有的数据文本化，如果将二进制数据文本化将丢失数据，所以不太理想；</span><br><span class="line">1、mysqldump能指定数据库备份；</span><br><span class="line">2、--databases 不能自己指定数据库恢复（在mysql中手动新创建数据库将备份的数据文件导入）</span><br><span class="line">备份多个库；</span><br><span class="line">#Mysqldump --databases mydb testdb mysql &gt;/tmp/mydb-testdb-mysql-fullbackup-$(date +%F-%H-%M-%S)</span><br><span class="line">Less /tmp/mydb-testdb-mysql ---TAB</span><br></pre></td></tr></table></figure></p>
+<p>######简单mysql数据库恢复操作；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#mysqldump mydb ---备份mydb数据库</span><br><span class="line">#mysqldump mydb |less---查看数据库内容</span><br><span class="line"></span><br><span class="line">#mysqldump mydb &gt; /tmp/mydb-fullbackup-$(date +%F-%H-%M-%S)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#ls  tmp</span><br><span class="line"></span><br><span class="line">#mysql</span><br><span class="line">create DATABASE TESTDB;</span><br><span class="line">exit</span><br><span class="line">#mysql&lt; /TMP/mydb-fullbackup_200</span><br><span class="line">#mysql testdb&lt;/tem/mydb-fullbackuo-2017-</span><br><span class="line">#mysql</span><br><span class="line">Use testdb;</span><br><span class="line">Show tables;</span><br><span class="line">SELECT * FROM  students ;</span><br><span class="line">Exit</span><br><span class="line">（熟悉命令）</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">myisam存储引擎；支持温备，备份时要锁定表；</span><br><span class="line">-x, --lock-all-tables;锁定所有库的所有表；</span><br><span class="line">-l, --lock-tables:锁定指定库所有表；</span><br><span class="line">InnaDB存储引擎；支持温备或热备；</span><br><span class="line">--single-transaction;创建一个事物，基于此快照执行备份；</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">第二节点；</span><br><span class="line">创建数据库；</span><br><span class="line">Mysql;</span><br><span class="line">#CRANT ALL ON *.* TO &apos;admin&apos;@&apos;172.16.0.%&apos; IDENTIFIED BY &apos;admin&apos;;</span><br><span class="line">#FLUSH PRIVILEGES;</span><br><span class="line"> #GRANT ALL ON *.* TO &apos;admin&apos;@&apos;%magedu.com&apos; IDENTIFIED BY &apos;admin&apos;;</span><br><span class="line"></span><br><span class="line">#FLUSH PRIVILEGES;</span><br><span class="line"></span><br><span class="line">#EXIT</span><br><span class="line"></span><br><span class="line">节点一；</span><br><span class="line">Mysql -uadmin -172.16.0.68 -padmin &lt; /tmp/mydb-testdb-mysql-fullbackup-2017-…..</span><br><span class="line"></span><br><span class="line">节点二；</span><br><span class="line">#mysql</span><br><span class="line">SHOW DATABASES;</span><br><span class="line"></span><br><span class="line">节点一；</span><br><span class="line">#mysql;</span><br><span class="line">Use mydb;</span><br><span class="line">SHOW TABLE STATUS\G ----查看存储引擎命令；</span><br><span class="line">SHOW TABLE STATUS WHERE Engine=&apos;Innodb&apos;\G---过滤出Innodb存储引擎；</span><br><span class="line"></span><br><span class="line">SHOW TABLE STATUS WHERE Engine!=&apos;Innodb&apos;\G;----列出除Innodb引擎外的；</span><br><span class="line"></span><br><span class="line">没有除Innodb的引擎，就可以进行热备；</span><br><span class="line">Mysqldump --single-transaction --databases mydb----适用于单一的事物；----备份完成后自动关闭锁提交事务；</span><br><span class="line">热备，不影响线上业务；</span><br><span class="line"></span><br><span class="line">也可以使用温备；</span><br><span class="line">-x 锁定所有库的表；</span><br><span class="line">-l  锁定指定库的所有表；</span><br><span class="line">在线的热备必须加选项.</span><br><span class="line"></span><br><span class="line">其它选项；</span><br><span class="line"> -R，--routines; 备份指定库的存储过程和储存函数；</span><br><span class="line">--triggers ；        备份指定库的触发器；</span><br><span class="line">-E,--events ；        备份指定库的事件调度器；</span><br><span class="line"></span><br><span class="line">--master-data 此选项将备份的位置记录并将回放时自动从记录的位置往后回放；</span><br><span class="line">--flush-logs; 恢复完成后在mysql二进制日志中自动滚动，生成新的二进制日志；</span><br></pre></td></tr></table></figure>
+<h6 id="完整备份方式；"><a href="#完整备份方式；" class="headerlink" title="完整备份方式；"></a>完整备份方式；</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">节点一；</span><br><span class="line">  1、连接mysql;</span><br><span class="line">#mysql</span><br><span class="line">FLUSH TABLE WITH READ LOCK;  ----锁定所有库</span><br><span class="line">FLUSH LOGS;                                    ----滚动一下二进制日志数据库</span><br><span class="line">SHOW MASTER LOGS;                   -----查看二进制日志有几个；</span><br><span class="line"></span><br><span class="line">SHOW MASTER STATUS;              ------现在处于那个文件的那个位置</span><br><span class="line">Exit;</span><br><span class="line"></span><br><span class="line">在命令行；</span><br><span class="line">#mysqldump -x -R -E --triggers --all-databases --master-data=1||2 |less       ----可以查看执行后的内容；</span><br><span class="line"></span><br><span class="line">1为创建数据库</span><br><span class="line">2为注释掉；</span><br><span class="line"></span><br><span class="line">#mysqldump -x -R -E --triggers --all-databases --master-data=2 --flush-logs &gt; /tmp/alldatabases-fullbackup-$(date +%F-%H-%M-%S)</span><br><span class="line"></span><br><span class="line">#less   /tmp/alldatabases-fullbackup-$(date +%F-%H-%M-%S                                -----查看备份的文件内容</span><br><span class="line"></span><br><span class="line">连入数据库；</span><br><span class="line">#mysql</span><br><span class="line">Use mydb</span><br><span class="line">CREATE TABLE teachers (tid INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,name VARCHAR(200));</span><br><span class="line"></span><br><span class="line">INSERT INTO teachers (name) VALUES (&apos;ouyang feng &apos;),(&apos;song jiang&apos;);</span><br><span class="line"></span><br><span class="line">HSOW MASTER STATUS</span><br><span class="line"></span><br><span class="line">EXIT</span><br><span class="line"></span><br><span class="line">#SYStemctl stop mariadb</span><br><span class="line">#Cd /var/lib/mysql</span><br><span class="line">#ll</span><br><span class="line">#mysqlbinlog master-log.000005----读一下二进制文件；</span><br><span class="line">在此前备份时以滚动过一次，所以000005二进制日志为新的二进制文件，备份时只需将000005二进制文件备份即可；</span><br><span class="line"></span><br><span class="line">#mysqlbinlog master-log.000005&gt; /tem/alldatabase-binlog</span><br><span class="line"></span><br><span class="line">模拟服务器崩溃；</span><br><span class="line">#Rm -rf /var/bin/mysql/*</span><br><span class="line">#cd /var/bin/mysql</span><br><span class="line">#ll</span><br><span class="line">#systemctl start mariadb</span><br><span class="line"></span><br><span class="line">连入mysql;</span><br><span class="line">#mysql</span><br><span class="line">SHOW DATABASES;</span><br><span class="line"></span><br><span class="line">当将备份文件写入时，不需要写入操作的二进制日志，将二进制日志关闭；</span><br><span class="line">Set @@session.sql_log_bin=OFF</span><br><span class="line">\. /tmp/alldatabases-fullbackup-$(date +%F-%H-%M-%S                                 ----将备份的文件导入；</span><br><span class="line"></span><br><span class="line">再将另一个二进制日志000005，导入到mysql中；</span><br><span class="line">Set @@session.sql_log_bin=OFF</span><br><span class="line">\. /tmp/alldatabases-fullbackup-000005</span><br><span class="line"></span><br><span class="line">Use mydb</span><br><span class="line">SHOW TABLES;</span><br><span class="line"></span><br><span class="line">SELECT * FROM teachers;</span><br><span class="line">Exit;</span><br><span class="line"></span><br><span class="line">命令行；</span><br><span class="line">Vim /etc/my.cf.d/server.cnf</span><br><span class="line">将二进制文件启用；</span><br><span class="line"></span><br><span class="line">二进制日志文件，可以再配置文件中修改启停，也可以在mysql连接中使用；</span><br><span class="line">Set @@session.sql_log_bin=ON||OFF</span><br><span class="line"></span><br><span class="line">恢复完成；</span><br></pre></td></tr></table></figure>
+
+    </div>
+  </section>
+
+  
+  
+</article>
+      <script>NProgress.set(0.6);</script>
+    </main>
+    
+    <footer class="footer">
+  <div class="footer-wrap">
+    <div class="footer-link">
+      
+      <h3>LINKS</h3>
+      <p>
+        
+          <a href="http://1x0.xyz/" target="_blank">Tian1x0</a>
+        
+          <a href="http://www.royalmice.com/hankzhou/" target="_blank">Hankzhou</a>
+        
+          <a href="http://sjydh.me/" target="_blank">设计有点货</a>
+        
+          <a href="https://developers.google.com/web/fundamentals/" target="_blank">Web fundamentals</a>
+        
+      </p>
+      
+    </div>
+    <div class="footer-tags">
+      
+        <h3>TAGS</h3>        
+        <div class="tags">
+             <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/7修改密码，故障修复/">7修改密码，故障修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible命令行中的应用/">Ansible命令行中的应用</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ansible角色/">Ansible角色</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CA/">CA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6半自动化安装/">Centos6半自动化安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos6手动安装步骤/">Centos6手动安装步骤</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos7编译安装/">Centos7编译安装</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNS/">DNS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux系统调优/">Linux系统调优</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysqldump数据库恢复/">Mysqldump数据库恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mysql主从复制/">Mysql主从复制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OSI模型的七层结构/">OSI模型的七层结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RAID/">RAID</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/awk/">awk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos6/">centos6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dns转发/">dns转发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dstat/">dstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/httpd的web账号密码管理/">httpd的web账号密码管理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iostat/">iostat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keepalived/">keepalived</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lib64库文件，内核修复/">lib64库文件，内核修复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lvs服务nat模式/">lvs服务nat模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rpm/">rpm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sed/">sed</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag1/">tag1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tag2/">tag2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tar/">tar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/text/">text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/varnish/">varnish</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim编辑器/">vim编辑器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vmstat/">vmstat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/yum/">yum</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zabbix-server-zabbix-agent/">zabbix-server/zabbix-agent</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/修复MBR分区，故障处理/">修复MBR分区，故障处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/共享文件系统，vsftpd/">共享文件系统，vsftpd</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/创建mysql数据库索引/">创建mysql数据库索引</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/循环语句/">循环语句</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据备份及数据恢复/">数据备份及数据恢复</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志服务/">日志服务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/进程管理，kill/">进程管理，kill</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逻辑卷/">逻辑卷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/防火墙，SElinux/">防火墙，SElinux</a></li></ul>
+          </div>
+      
+    </div>
+    <div class="footer-info">
+        <div>Theme <span class="codename"><a href="https://github.com/GGICE/hexo-icer" target="_blank">icer</a></span> designed & coded by <a href="https://ice.gs/" target="_blank">GGICE</a></div>
+        <div>Copyright &copy; 2018, <a href="/">Hexo</a>  . All rights reserved .</div>
+      </div>
+  </div>
+</footer>
+
+
+    <script>NProgress.set(0.8);</script>
+    
+  </div>
+
+  <script src="//cdnjs.xyz/libs/highlight/9.12.0/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="/js/main.js"></script>
+
+<!-- Commit -->
+
+
+
+  <script>
+    NProgress.done();
+  </script>
+  
+</body>
+</html>
