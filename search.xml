@@ -3,6 +3,236 @@
   
     
     <entry>
+      <title><![CDATA[sed命令]]></title>
+      <url>/2018/01/09/sed%E5%91%BD%E4%BB%A4/</url>
+      <content type="html"><![CDATA[<p>sed  stream<br>查看 ，修改文件内容<br>grep 查看文件内容</p>
+<pre><code>模式空间、保存空间（暂存空间）
+</code></pre><p>sed【option】</p>
+<pre><code>#cp /etc/passwd passwd
+#sed -n passwd
+</code></pre><p>常用选项</p>
+<pre><code>-n ; 不输出模式空间内容到屏幕，即不自动打印
+
+-e ; 多点编辑
+
+-f ；/PATH/SCRIPT_FILE;从指定文件中读取编辑
+
+-r ;支持使用扩展正则表达式
+
+-i.bak ;备份文件内容并原处编辑
+</code></pre><p>script; ‘地址命令 ‘</p>
+<pre><code>地址加命令
+不给地址，全文进行处理
+
+#sed &apos;p&apos; passwd
+
+打印两行，一个自动打印，加上打印
+
+#sed -n &apos;p&apos; passwd  
+
+打印一次
+
+#cat /etc/passwd |sed -n &apos;p&apos;
+
+单地址
+
+
+
+#sed -n &apos;1p&apos;passwd
+
+#ifconfig enc33 |sed -n &apos;2p&apos;
+
+模式
+
+#sed -n &apos;/^r/p&apos;passwd
+
+#grep &apos;^r&apos; passwd
+
+#sed -n &apos;3,6 p&apos; passwd
+
+3到6
+
+#sed -n &apos;3,+6p&apos; passwd
+
+3+6行
+
+#/pat1/,/pat2/
+
+#sed -n &apos;/^h/,/^s/p&apos; passwd
+h开头 s结尾
+循环寻找
+
+#,/pat/ 行号，
+
+#sed -n &apos;3,/^s/p‘ passwd
+
+sed 步进
+
+一次增加多少
+
+
+#echo {1..100}
+
+#sep 100|sed -n &apos;1~2p&apos;
+
+奇数
+
+#seq 100|sed -n &apos;2~2p&apos;
+
+偶数
+
+
+#cat -n passwd |sed -n &apos;1~2!p&apos;
+
+取反
+
+
+#cat -n passwd|sed &apos;2d&apos;
+
+#seq 100&gt;f1
+
+#sed &apos;2d&apos; f1
+
+#sed -i &apos;100d&apos; f1
+#sed -i &apos;1~2d&apos; f1
+
+#sed -i.bak &apos;1~2d&apos; f1
+删除前备份
+注意加后缀.bak
+</code></pre><p>编辑命令</p>
+<pre><code>d 删除模式空间匹配的行
+
+p 显示模式空间的内容
+
+a  在指定行后面追加文本、支持使用、\n实现多行追加
+
+i  在行前面插入文本
+
+c  替换行为单行或多行文本
+
+w  保存模式匹配的行至指定的文件中
+
+r  读取指定文件的文本至模式空间中匹配到的行后
+
+=  为模式空间中的行打印行号
+
+!  模式空间中匹配行取反处理
+
+s/// 查找替换，支持使用其它分隔符，s@@@,s###
+</code></pre><p>替换标记；<br>    g 行全局替换<br>    p 显示替换成功的行<br>    w /PATH/TO/SOMEFILE 将替换成功的行保存在文件中</p>
+<pre><code># sed &apos;90anew line1\nnewline2\nnewline3&apos; f1
+90行后加内容 换行
+
+# sed &apos;90a\ new line\nnewline2\nnewline3&apos; f1
+\ 加边界
+
+# sed &apos;90i\ new line\nnewline2\nnewline3&apos; f1
+在90的前面加
+
+# sed &apos;90c\ new line\nnewline2\nnewline3&apos; f1
+替代90行前面
+
+# sed &apos;90w /root/f2&apos; f1
+90行保存到f2 里
+
+#  sed &apos;10r /etc/issue&apos; f1
+将新的文件渎进f1
+
+# sed &apos;10,30r /etc/issue&apos; f1
+匹配到的每个行后 加新文件
+
+#sed &apos;=&apos; passwd
+加行号
+#sed -n &apos;/^r/&apos;=passwd
+只显示行号sed
+
+#sed -n &apos;/.*root.*/=&apos; passwd
+包含root的行号
+
+#grep root passwd 
+
+#grep -n root passwd
+
+
+搜索替代
+
+#vim f11
+root.......
+#sed &apos;s/root/ROOT/&apos; f11
+替换root
+#sed &apos;2-2s/root/ROOT/&apos;f11
+替换 偶数行的搜索替换
+#sed &apos;2-2s/root/ROOT/g&apos; f11
+整行全部替换
+#sed &apos;2-2s/root/ROOT/gp&apos; f11
+只显示匹配到的行
+#sed &apos;2-2s/root/ROOT/w f22&apos; f11
+搜索完另存为f22
+</code></pre><p>高级编辑命令</p>
+<pre><code>h 把模式空间的内容覆盖至保持空间
+H 把模式空间中的内容追加至保持空间
+g 从保持空间取出数据覆盖至模式空间
+G 从保持空间取出内容追加至模式空间
+x 把模式空间的内容与保持空间的内容互换
+n  读取匹配到的行的下一行覆盖至模式空间
+N 读取匹配到的行的下一行追加至模式空间
+d 删除模式空间中的行
+D 删除当前模式空间开端至\n的内容 （不在传至标准输出），放弃之后的命令，但是对剩余模式空间从新执行sed
+
+#sed &apos;s/^/#/&apos; install.log
+#echo &quot;/etc/sysconfig/network&quot;
+#echo &quot;/etc/sysconfig/networrk-scripts/&quot;
+</code></pre><p>取出基名 目录名</p>
+<pre><code>echo &quot;/etc/sysconfing/netwoerk-scripts/&quot; |sed -r &apos;s@（^/.*/）（[^/]+/?）@\2@&apos;
+echo &quot;/etc/sysconfing/netwoerk-scripts/&quot; |sed -r &apos;s@（^/.*/）（[^/]+/?）@\1@&apos;
+</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/6132998-9680fdfa4c3edc54.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="QQ截图20170624195228.png"></p>
+<p>取出IP地址</p>
+<pre><code>#ifconfig eth0|sed -n 2p
+#ifconfig eth0|sed -n 2p|sed &apos;s/^.*r://&apos;|sed &apos;/ .*/d&apos;
+#ifconfig eth0|sed -n 2p|sed &apos;s/^.*r://&apos;|sed&apos;s/ .*//&apos;
+#ifconfig eth0|sed -n 2p |sed -e &apos;s/^.*r://&apos; -e &apos;s/.*//&apos;
+</code></pre><p>模式空间 — 保持空间</p>
+<pre><code>#seq 100 |sed -n &apos;n;p&apos;
+#sed -n &apos;n;p&apos;
+
+在模式空间单行进行处理，在执行命令时sed -n 
+&apos;n;p&apos;时 模式空间 已进入1数字， -n 所以不打印
+不输出屏幕，‘n;p’n为匹配到的下一行覆盖模式
+空间的1数字并打印输出到屏幕后，模式空间转为
+为空，执行下一条匹配的行3,3进入模式空间后3的
+下一行进入模式空间进行覆盖并输出屏幕，并结束
+一段操作，模式空间转为空，执行下一条，直到循
+环结束；
+</code></pre><p>hold space 保持空间</p>
+<pre><code>#sed &apos;1!G;h;$!d &apos; FILE
+#seq 100 |sed &apos;1!G;h；$!d &apos;
+倒序输出、
+非第一行时追加至模式空间，模式空间覆盖至保存空间，非结尾时删除模式空间的行
+
+#seq 100 |sed‘N；D’
+N匹配的行追加
+D在上一条命令执行时进行删除操作
+第100没有追加所以不执行D命令
+
+#seq 100|sed &apos;N;d&apos;
+清空
+#cat passwd |sed &apos;N;D&apos;
+#seq 100 |sed &apos;$!N;$!D&apos;
+剩两行，非结尾时追加，非结尾时执行D命令
+100追加时是结尾所以不执行D命令就不删除99行
+</code></pre><p>```</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> sed </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[tar工具]]></title>
       <url>/2018/01/09/tar%E5%B7%A5%E5%85%B7/</url>
       <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">tar：-c -f ---------(创建打包文件)</span><br><span class="line">         -v -f ----------(查看过程)</span><br><span class="line">         -t -f -----------(预览打包的文件列表)</span><br><span class="line">         -x -f ---------- (解压和解包)</span><br><span class="line">         -r -r -----------(追加)不能追加压缩文件</span><br><span class="line">压缩；</span><br><span class="line"># tar zcvf etc.tav.gz   /etc/</span><br><span class="line"># tar jcvf etc.tar.bz2  /etc/                 </span><br><span class="line"># tar Jcvf etc.tar.xz    /etc/</span><br><span class="line">压缩 ; -T, -X</span><br><span class="line"># tar Jcvf   file.tar.xz -T(file.txz)   list.txt --------将list.txt里文件目录分别压缩到file.txz里。</span><br><span class="line"># tar Jcvf   file.tar.xz -X  /etc/....                          排除/etc/目录下的指定列表，进行压缩。</span><br><span class="line">分割（大的tar文件）</span><br><span class="line"># split       -b       size     -d       file-name      prefix-name</span><br><span class="line">-b---分割的块的数量  </span><br><span class="line">size---分割的块的大小  </span><br><span class="line">-d---分割后的文件尾部排序数字  </span><br><span class="line">file-name---指定的分割文件  </span><br><span class="line">prefix-name---定义分割后的文件、前缀名称</span><br><span class="line"># split -b 1M etc.tar.bz2  etcsplit        后缀为aa、ab、ac......</span><br><span class="line"># split -d 1M etc.tar.bz2  etcsplit        后缀为00、01、02......</span><br><span class="line">合并(将分割的文件合并到一处)</span><br><span class="line"># cat etcsplit0* &gt; etc2.tar.bz2------ 要与源文件后缀一样</span><br><span class="line">解压</span><br><span class="line"># tar xvf etc.tar.xz      -C     /root/</span><br><span class="line"># tar xvf etc.tar.bz 2  -C     /root/</span><br><span class="line"># tar xvf etc.tar.gz     -C     /root/</span><br><span class="line">解压时，tar可以用tar  xvf解压三种以xz、bz2、gz后缀的压缩文件；</span><br><span class="line">- 大C为解压到指定目录时使用，解压到当前目录时不用加-大C。</span><br></pre></td></tr></table></figure>
