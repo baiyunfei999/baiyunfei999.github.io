@@ -1775,45 +1775,6 @@ dd if=/mnt/lv0/bingfile of=/dev/null
     </entry>
     
     <entry>
-      <title><![CDATA[在github上搭建个人博客]]></title>
-      <url>/2018/01/07/%E5%9C%A8github%E4%B8%8A%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
-      <content type="html"><![CDATA[<h1 id="在github上搭建-个人博客"><a href="#在github上搭建-个人博客" class="headerlink" title="在github上搭建 个人博客"></a>在github上搭建 个人博客</h1><ul>
-<li>我的天啊  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我有一句吗卖批  不知当讲不当讲</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p>There is a mmp in my hard , Do you have B number in your hard</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/user/bin/python</span><br><span class="line">print &quot;Hello, Your Mother is my Wife.&quot;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      
-        
-        <tags>
-            
-            <tag> github </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[xin]]></title>
-      <url>/2018/01/07/xin/</url>
-      <content type="html"><![CDATA[<p>这是一个测试页面</p>
-]]></content>
-      
-        
-        <tags>
-            
-            <tag> linux </tag>
-            
-            <tag> text </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[Hello World]]></title>
       <url>/2018/01/07/hello-world/</url>
       <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
