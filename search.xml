@@ -3,6 +3,37 @@
   
     
     <entry>
+      <title><![CDATA[lamp、博客搭建]]></title>
+      <url>/2018/02/09/lamp%E3%80%81%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</url>
+      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">centos7版本；</span><br><span class="line">1、配置两台虚拟机，仅主机模式；</span><br><span class="line">node1：192.168.170.11</span><br><span class="line">node2：192.168.170.12</span><br><span class="line">2、关闭防火墙及selinux；</span><br><span class="line">3、安装服务；</span><br><span class="line">node1：yum install mariadb-server</span><br><span class="line">node2: yum install httpd php mariadb php-mysql</span><br><span class="line">4、网络下载PHPMyAdmin,注意版本兼容，4.4版本；</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">启动服务；</span><br><span class="line">getenforce---查看SElinux状态；</span><br><span class="line">setenforce 0 ---将selinux改为permissive</span><br><span class="line">systemctl stop firewalld</span><br><span class="line">node1：</span><br><span class="line">systemctl start mariadb</span><br><span class="line">node2:</span><br><span class="line">systemctl start  httpd</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">创建root用户密码及权限；</span><br><span class="line">node1:</span><br><span class="line">mysql_secure_installation</span><br><span class="line">enter current password for root (inter for none): ---输入口令，空口令；</span><br><span class="line">set root password? 【y/n】y---设置口令；</span><br><span class="line">new password;</span><br><span class="line">re-enter new password;</span><br><span class="line">remove anonymous user?【y/n】y---删除匿名账户；</span><br><span class="line">disallow root login remotely?【y/n】n---不禁用远程登入；</span><br><span class="line">remove test database and access to  it ?【y/n】n---是否测试数据库；</span><br><span class="line">relaod privilage table now?【y/n】y 刷新用户特权；</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">登入mysql并创建用户密码；</span><br><span class="line">mysql -uroot -p111111</span><br><span class="line">show databases;</span><br><span class="line">select host,user,password,garant_priv,super_priv from mysql.user;---查看用户及密码，主机相关信息；</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">node2；</span><br><span class="line">mysql -uroot -h192.168.170.11 -p111111</span><br><span class="line">grant all on *.* to bai@&quot;192.168.%.%&quot; identified by &quot;111111&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">从网上下载phpmyadmin;</span><br><span class="line">上传并解压到/root下，将解压文件移动到、/var/www/html/目录下改名为pma</span><br><span class="line">mv phpmyadmin /var/www/html/pma</span><br><span class="line">更改配置文件；</span><br><span class="line">cp config.sample.inc.php config.inc.php</span><br><span class="line">vim config.inc.php</span><br><span class="line"></span><br><span class="line">$cfg[&apos;blowfish_secret&apos;] = &apos;A35FqCYIW6ktF8Jz1XGIBNhiNaBJjmi&apos;;</span><br><span class="line">/* YOU MUST FILL IN THIS FOR COOKIE AUTH! */---生成随机密码添加</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * Servers configuration</span><br><span class="line"> */</span><br><span class="line">$i = 0;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line"> * First server</span><br><span class="line"> */</span><br><span class="line">$i++;</span><br><span class="line">/* Authentication type */</span><br><span class="line">$cfg[&apos;Servers&apos;][$i][&apos;auth_type&apos;] = &apos;cookie&apos;;</span><br><span class="line">/* Server parameters */</span><br><span class="line">$cfg[&apos;Servers&apos;][$i][&apos;host&apos;] = &apos;192.168.170.11&apos;;---添加所连接的ip地址；</span><br><span class="line">$cfg[&apos;Servers&apos;][$i][&apos;connect_type&apos;] = &apos;tcp&apos;;</span><br><span class="line">$cfg[&apos;Servers&apos;][$i][&apos;compress&apos;] = false;</span><br><span class="line">$cfg[&apos;Servers&apos;][$i][&apos;AllowNoPassword&apos;] = false;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">生成随机密码；openssl rand -base64 21</span><br><span class="line">需要下载一个mbstring扩展包；</span><br><span class="line">yum install php-mbstring</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">查询用户权限管理；</span><br><span class="line">mysql -uroot -h192.168.170.11 -p111111</span><br><span class="line">select host，user，password,grant_priv,super_priv from mysql.user;</span><br><span class="line">[root@localhost ~]# mysql -uroot -h192.168.170.11 -p111111</span><br><span class="line">Welcome to the MariaDB monitor.  Commands end with ; or \g.</span><br><span class="line">Your MariaDB connection id is 128</span><br><span class="line">Server version: 5.5.56-MariaDB MariaDB Server</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.</span><br><span class="line"></span><br><span class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; select host,user,password,grant_priv,super_priv from mysql.user</span><br><span class="line">    -&gt; ;</span><br><span class="line">+-------------+-------------+-------------------------------------------+------------+------------+</span><br><span class="line">| host        | user        | password                                  | grant_priv | super_priv |</span><br><span class="line">+-------------+-------------+-------------------------------------------+------------+------------+</span><br><span class="line">| localhost   | root        | *FD571203974BA9AFE270FE62151AE967ECA5E0AA | Y          | Y          |</span><br><span class="line">| 127.0.0.1   | root        | *FD571203974BA9AFE270FE62151AE967ECA5E0AA | Y          | Y          |</span><br><span class="line">| ::1         | root        | *FD571203974BA9AFE270FE62151AE967ECA5E0AA | Y          | Y          |</span><br><span class="line">| 192.168.%.% | bai         | *FD571203974BA9AFE270FE62151AE967ECA5E0AA | N          | Y          |</span><br><span class="line">| %           | root        | *FD571203974BA9AFE270FE62151AE967ECA5E0AA | N          | Y          |</span><br><span class="line">| 127.0.0.1   | wordpreuser | *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9 | N          | N          |</span><br><span class="line">+-------------+-------------+-------------------------------------------+------------+------------+</span><br><span class="line">6 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">*从此项可以看出，root授权没有打开，需更改；*</span><br><span class="line">update mysql.user set grant_priv=&quot;y&quot;,super_priv=&quot;y&quot; where user=&quot;root&quot;;</span><br><span class="line">flush privileges;---滚动刷新；</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; update mysql.user set grant_priv=&quot;y&quot;,super_priv=&quot;y&quot; where user=&quot;root&quot;;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">Rows matched: 4  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; flush privileges;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; select host,user,password,grant_priv,super_priv from mysql.user;</span><br><span class="line">+-------------+-------------+-------------------------------------------+------------+------------+</span><br><span class="line">| host        | user        | password                                  | grant_priv | super_priv |</span><br><span class="line">+-------------+-------------+-------------------------------------------+------------+------------+</span><br><span class="line">| localhost   | root        | *FD571203974BA9AFE270FE62151AE967ECA5E0AA | Y          | Y          |</span><br><span class="line">| 127.0.0.1   | root        | *FD571203974BA9AFE270FE62151AE967ECA5E0AA | Y          | Y          |</span><br><span class="line">| ::1         | root        | *FD571203974BA9AFE270FE62151AE967ECA5E0AA | Y          | Y          |</span><br><span class="line">| 192.168.%.% | bai         | *FD571203974BA9AFE270FE62151AE967ECA5E0AA | N          | Y          |</span><br><span class="line">| %           | root        | *FD571203974BA9AFE270FE62151AE967ECA5E0AA | Y          | Y          |</span><br><span class="line">| 127.0.0.1   | wordpreuser | *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9 | N          | N          |</span><br><span class="line">+-------------+-------------+-------------------------------------------+------------+------------+</span><br><span class="line">6 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">网页打开phpmyadmin;创建数据库blogdb;</span><br><span class="line">创建用户wordpreuser</span><br><span class="line">并进行blogdb数据库授权；</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">当没有检查root授权情况，会出现以下错误；</span><br><span class="line">创建用户wordpreuser;选数据库blogdb,选择权限、全选；</span><br><span class="line"></span><br><span class="line">SQL 查询：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">GRANT ALL PRIVILEGES ON `blogdb`.* TO &apos;wordpreuser&apos;@&apos;127.0.0.1&apos; WITH GRANT OPTION</span><br><span class="line">MySQL 返回： 文档</span><br><span class="line"></span><br><span class="line">#1044 - Access denied for user &apos;root&apos;@&apos;%&apos; to database &apos;blogdb&apos;</span><br><span class="line">这时需要查看root授权情况；</span><br><span class="line">select host,user,password，grant_priv,super_priv from mysql.user；</span><br><span class="line">更改授权；</span><br><span class="line">update mysql.user grant_priv=&quot;y&quot;,super_priv=&quot;y&quot; where user=&quot;root&quot;；</span><br><span class="line">滚动刷新数据库；</span><br><span class="line">flush privileges;</span><br><span class="line">登入phpmyadmin可以成功实现更改；</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">创建表格；</span><br><span class="line">show databases;</span><br><span class="line">use blogdb；---使用数据库；</span><br><span class="line">create table baitable （id int,name char(20)）;</span><br><span class="line">desc baitable;---查看表格；</span><br><span class="line">drop table baitable;---删除表格；</span><br><span class="line">desc baitable;---查看表格；</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">从官网下载wordpress;解压到/var/www/html/blog/下；</span><br><span class="line">phpmyadmin创建mysql用户名，设置权限；</span><br><span class="line">mysql用户名，host192.168.170.%;</span><br><span class="line">登入网页；</span><br><span class="line">192.168.170.12/blog</span><br><span class="line">填写数据库名；</span><br><span class="line">mysql用户名；</span><br><span class="line">填写ip地址；192.168.170.11</span><br><span class="line">创建博客；填写相关信息；</span><br><span class="line">创建博客用户名，密码；</span><br><span class="line">登入，管理博客平台；</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">登入管理平台可以写博客了；</span><br><span class="line">http://192.168.170.12/blog/wp-admin/</span><br></pre></td></tr></table></figure>
+<p><img src=".png" alt=""></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> lamp </tag>
+            
+            <tag> mysql服务及客户端，phpmyadmin </tag>
+            
+            <tag> wordpress </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[httpd创建虚拟机及添加web页面登入用户和密码]]></title>
       <url>/2018/01/09/httpd%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%8F%8A%E6%B7%BB%E5%8A%A0web%E9%A1%B5%E9%9D%A2%E7%99%BB%E5%85%A5%E7%94%A8%E6%88%B7%E5%92%8C%E5%AF%86%E7%A0%81/</url>
       <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Centos6：httpd2.2版本；不支持同时编译MPM多道处理模块；</span><br><span class="line">Centos7：httpd2.4版本；支持MPM多道处理模块；</span><br><span class="line">MPM：preforc,worker,event</span><br><span class="line"></span><br><span class="line">httpd2.2：创建虚拟机，添加用户</span><br><span class="line">1、安装httpd2.2；</span><br><span class="line">2、关闭防火墙及Selinux;</span><br><span class="line">3、更改配置文件；</span><br><span class="line">4、eth0网卡添加ip地址；ip addr add 192.168.170.130/24 dev eth0</span><br></pre></td></tr></table></figure>
@@ -1271,83 +1302,6 @@ dd if=/mnt/lv0/bingfile of=/dev/null
     </entry>
     
     <entry>
-      <title><![CDATA[修复MBR分区]]></title>
-      <url>/2018/01/08/%E4%BF%AE%E6%94%B9MBR%E5%88%86%E5%8C%BA/</url>
-      <content type="html"><![CDATA[<pre><code>1、准备工作将/dev/sda磁盘的MBR分区备份到、root目录下mbr文件   中，备份centos6整个虚拟机；
-[root@centos6 ~]# dd if=/dev/sda of=mbr bs=1 count=512;
-[root@centos6 ~]# hexdump -C -n 512 /dev/sda
-[root@centos6 ~]# hexdump -C -n 512 mbr
-2、拷贝完成后查看mbr中内容是否齐全；
-3、清除/dev/sda、磁盘的MBR分区512字节；
-[root@centos6 ~]# dd if=/dev/zero of=/dev/sda bs=1 count=512
-[root@centos6 ~]# hexdump -C -n 512 /dev/sda
-4、查看/dev/sda磁盘512字节有无变化；
-5、重新启动虚拟机，看是否能启用：
-[root@centos6 ~]# reboot
-6、救援模式无法修复；
-7、无法修复后，启用备份文件夹中的centos6;
-8、成功启动centos6后，查看磁盘分布：
-[root@centos6 ~]# lsblk
-[root@centos6 ~]# ls /dev/sd*
-[root@centos6 ~]# blkid
-[root@centos6 ~]# cat /proc/partitions
-9、从破损的虚拟机上找到破损的磁盘路径及文件；
-# 查找时间上最近的虚拟磁盘文件；
-10、将破损的虚拟机磁盘挂载到已开启centos6上;
-# 添加硬盘、选择现有虚拟磁盘选项、浏览、挂载；
-11、重新启动centos6；
-12、找到破损磁盘名称及centos6磁盘名称；
-13、查看centos6磁盘和破损磁盘分区MBR；
-[root@centos6 ~]# lsblk
-[root@centos6 ~]# blkid
-14、用centos6磁盘来修复破损的磁盘；
-[root@centos6 ~]# dd if=/dev/sda of=/dev/sdb bs=1 count=512
-15、关闭centos6，卸载修复的磁盘；
-[root@centos6 ~]# init 0
-16、开启已修复的centos6，看是否能够正常运行；
-17、移除复制备份的centos6；
-18、修复完成；
-</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/6132998-b98f6d3db9bc80d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Centos6"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-dcad0d2fb69be177.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="将/dev/sda的MBR分区备份到mbr文件中"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-4f0c7fa194a185a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="破坏/dev/sda"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-76112f24595a7a9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看MPR分区二进制文件"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-c0d79cca6a561f68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看磁盘状态"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-754a12716017e3c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="
-![启用复制备份的Centos6](http://upload-images.jianshu.io/upload_images/6132998-b07c031fbd698a9a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-1f67ca56c781a0d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看磁盘状态及二进制mpr文件"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-868a3fd44fc382bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="添加破坏的虚拟机磁盘"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-f767b782448f32a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="浏览选择破损的虚拟机光盘"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-2a43b82170e2fe04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选择最近时间最大的虚拟机光盘"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-4ea526028a7179ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="没有显示破坏的虚拟机磁盘重新启动虚拟机"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-8bef0a4442cb195b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="重启Centos6"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-2693403153d0694f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看磁盘分区"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-d2ea7d995abc4a98.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修复破损的虚拟机磁盘"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-2ae1943f55e29f64.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="关闭centos6"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-5f5f3083627220f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修复完成后，正常启动"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6132998-1767fe513f9ef2c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="结构图"></p>
-<p>######MBR<br>    MBR<br>    0 磁道0 扇区：512bytes<br>    446bytes: boot loader<br>    64bytes ：分区表<br>    16bytes:  标识一个分区<br>    2bytes: 55AA</p>
-<pre><code>破坏boot loader引导启动程序；
-[root@centos6 ~]# dd if=/dev/zero of=/dev/sda bs=1 count=446
-[root@centos6 ~]# dd if=mbr of=/dev/sda bs=1 count=446
-破坏分区表及修复；
-[root@centos6 ~]# dd if=/dev/zero of=/dev/sda bs=1 count=64 skip=446 seek=446
-[root@centos6 ~]# dd if=mbr of=/dev/sda bs=1 count=64 skip=446 seek=446
-破坏尾标55AA及修复；
-[root@centos6 ~]# dd if=/dev/zero of=/dev/sda bs=1 chount=2 skip=510 seek=510
-[root@centos6 ~]# dd if=mbr of=/dev/sda bs=1 count=2 skip=510 seek=510
-</code></pre>]]></content>
-      
-        
-        <tags>
-            
-            <tag> 修复MBR分区，故障处理 </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[rpm包管理工具，Lib64库文件修复]]></title>
       <url>/2018/01/08/rpm%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%EF%BC%8CLib64%E5%BA%93%E6%96%87%E4%BB%B6%E4%BF%AE%E5%A4%8D/</url>
       <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、软件包基础;</span><br><span class="line">2、rpm包管理;</span><br><span class="line">3、移动lib64库文件修复过程：</span><br><span class="line">4、卸载内核修复过程</span><br></pre></td></tr></table></figure>
@@ -1456,6 +1410,83 @@ dd if=/mnt/lv0/bingfile of=/dev/null
             <tag> rpm </tag>
             
             <tag> lib64库文件，内核修复 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[修复MBR分区]]></title>
+      <url>/2018/01/08/%E4%BF%AE%E6%94%B9MBR%E5%88%86%E5%8C%BA/</url>
+      <content type="html"><![CDATA[<pre><code>1、准备工作将/dev/sda磁盘的MBR分区备份到、root目录下mbr文件   中，备份centos6整个虚拟机；
+[root@centos6 ~]# dd if=/dev/sda of=mbr bs=1 count=512;
+[root@centos6 ~]# hexdump -C -n 512 /dev/sda
+[root@centos6 ~]# hexdump -C -n 512 mbr
+2、拷贝完成后查看mbr中内容是否齐全；
+3、清除/dev/sda、磁盘的MBR分区512字节；
+[root@centos6 ~]# dd if=/dev/zero of=/dev/sda bs=1 count=512
+[root@centos6 ~]# hexdump -C -n 512 /dev/sda
+4、查看/dev/sda磁盘512字节有无变化；
+5、重新启动虚拟机，看是否能启用：
+[root@centos6 ~]# reboot
+6、救援模式无法修复；
+7、无法修复后，启用备份文件夹中的centos6;
+8、成功启动centos6后，查看磁盘分布：
+[root@centos6 ~]# lsblk
+[root@centos6 ~]# ls /dev/sd*
+[root@centos6 ~]# blkid
+[root@centos6 ~]# cat /proc/partitions
+9、从破损的虚拟机上找到破损的磁盘路径及文件；
+# 查找时间上最近的虚拟磁盘文件；
+10、将破损的虚拟机磁盘挂载到已开启centos6上;
+# 添加硬盘、选择现有虚拟磁盘选项、浏览、挂载；
+11、重新启动centos6；
+12、找到破损磁盘名称及centos6磁盘名称；
+13、查看centos6磁盘和破损磁盘分区MBR；
+[root@centos6 ~]# lsblk
+[root@centos6 ~]# blkid
+14、用centos6磁盘来修复破损的磁盘；
+[root@centos6 ~]# dd if=/dev/sda of=/dev/sdb bs=1 count=512
+15、关闭centos6，卸载修复的磁盘；
+[root@centos6 ~]# init 0
+16、开启已修复的centos6，看是否能够正常运行；
+17、移除复制备份的centos6；
+18、修复完成；
+</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/6132998-b98f6d3db9bc80d5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Centos6"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-dcad0d2fb69be177.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="将/dev/sda的MBR分区备份到mbr文件中"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-4f0c7fa194a185a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="破坏/dev/sda"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-76112f24595a7a9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看MPR分区二进制文件"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-c0d79cca6a561f68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看磁盘状态"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-754a12716017e3c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="
+![启用复制备份的Centos6](http://upload-images.jianshu.io/upload_images/6132998-b07c031fbd698a9a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-1f67ca56c781a0d7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看磁盘状态及二进制mpr文件"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-868a3fd44fc382bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="添加破坏的虚拟机磁盘"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-f767b782448f32a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="浏览选择破损的虚拟机光盘"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-2a43b82170e2fe04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选择最近时间最大的虚拟机光盘"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-4ea526028a7179ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="没有显示破坏的虚拟机磁盘重新启动虚拟机"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-8bef0a4442cb195b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="重启Centos6"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-2693403153d0694f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看磁盘分区"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-d2ea7d995abc4a98.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修复破损的虚拟机磁盘"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-2ae1943f55e29f64.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="关闭centos6"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-5f5f3083627220f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修复完成后，正常启动"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6132998-1767fe513f9ef2c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="结构图"></p>
+<p>######MBR<br>    MBR<br>    0 磁道0 扇区：512bytes<br>    446bytes: boot loader<br>    64bytes ：分区表<br>    16bytes:  标识一个分区<br>    2bytes: 55AA</p>
+<pre><code>破坏boot loader引导启动程序；
+[root@centos6 ~]# dd if=/dev/zero of=/dev/sda bs=1 count=446
+[root@centos6 ~]# dd if=mbr of=/dev/sda bs=1 count=446
+破坏分区表及修复；
+[root@centos6 ~]# dd if=/dev/zero of=/dev/sda bs=1 count=64 skip=446 seek=446
+[root@centos6 ~]# dd if=mbr of=/dev/sda bs=1 count=64 skip=446 seek=446
+破坏尾标55AA及修复；
+[root@centos6 ~]# dd if=/dev/zero of=/dev/sda bs=1 chount=2 skip=510 seek=510
+[root@centos6 ~]# dd if=mbr of=/dev/sda bs=1 count=2 skip=510 seek=510
+</code></pre>]]></content>
+      
+        
+        <tags>
+            
+            <tag> 修复MBR分区，故障处理 </tag>
             
         </tags>
         
