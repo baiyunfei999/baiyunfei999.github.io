@@ -17,12 +17,10 @@
 <meta property="og:url" content="http://yoursite.com/2018/02/09/lamp、博客搭建/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="123456789centos7版本；1、配置两台虚拟机，仅主机模式；node1：192.168.170.11node2：192.168.170.122、关闭防火墙及selinux；3、安装服务；node1：yum install mariadb-servernode2: yum install httpd php mariadb php-mysql4、网络下载PHPMyAdmin,注意版本兼容，">
-<meta property="og:image" content="http://yoursite.com/2018/02/09/lamp、博客搭建/.png">
-<meta property="og:updated_time" content="2018-02-09T11:29:33.854Z">
+<meta property="og:updated_time" content="2018-02-09T11:37:27.307Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="lamp、博客搭建">
 <meta name="twitter:description" content="123456789centos7版本；1、配置两台虚拟机，仅主机模式；node1：192.168.170.11node2：192.168.170.122、关闭防火墙及selinux；3、安装服务；node1：yum install mariadb-servernode2: yum install httpd php mariadb php-mysql4、网络下载PHPMyAdmin,注意版本兼容，">
-<meta name="twitter:image" content="http://yoursite.com/2018/02/09/lamp、博客搭建/.png">
   
   
   
@@ -180,7 +178,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">创建表格；</span><br><span class="line">show databases;</span><br><span class="line">use blogdb；---使用数据库；</span><br><span class="line">create table baitable （id int,name char(20)）;</span><br><span class="line">desc baitable;---查看表格；</span><br><span class="line">drop table baitable;---删除表格；</span><br><span class="line">desc baitable;---查看表格；</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">从官网下载wordpress;解压到/var/www/html/blog/下；</span><br><span class="line">phpmyadmin创建mysql用户名，设置权限；</span><br><span class="line">mysql用户名，host192.168.170.%;</span><br><span class="line">登入网页；</span><br><span class="line">192.168.170.12/blog</span><br><span class="line">填写数据库名；</span><br><span class="line">mysql用户名；</span><br><span class="line">填写ip地址；192.168.170.11</span><br><span class="line">创建博客；填写相关信息；</span><br><span class="line">创建博客用户名，密码；</span><br><span class="line">登入，管理博客平台；</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">登入管理平台可以写博客了；</span><br><span class="line">http://192.168.170.12/blog/wp-admin/</span><br></pre></td></tr></table></figure>
-<p><img src=".png" alt=""></p>
+<p>/c/Users/baiyu/Desktop/TIM截图20180209193646.png</p>
 
     </div>
   </section>
